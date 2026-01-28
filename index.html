@@ -34,7 +34,46 @@ button{background:#1976d2;color:white;border:none;border-radius:6px}
 
 <body>
 <div id="root"></div>
+  <!-- Firebase SDK (AMAN UNTUK GITHUB PAGES) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 16px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+    }
+    button {
+      background: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+    
+<div class="card">
+  <h2>Login Siswa</h2>
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <button onclick="register()">Daftar</button>
+  <p id="status"></p>
+</div>
 <script type="text/babel">
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
