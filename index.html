@@ -120,7 +120,7 @@ setTasks(t.docs.map(d=>({...d.data(),id:d.id})));
 const login=()=>auth.signInWithEmailAndPassword(email,password);
 const register=()=>auth.createUserWithEmailAndPassword(email,password);
 const logout=()=>auth.signOut();
- const loginGoogle = async () => {
+const loginGoogle = async () => {
   const provider = new firebase.auth.GoogleAuthProvider();
 
   try {
