@@ -34,85 +34,19 @@ button{background:#1976d2;color:white;border:none;border-radius:6px}
 
 <body>
 <div id="root"></div>
-  <!-- Firebase SDK (AMAN UNTUK GITHUB PAGES) -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      margin: 0;
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      padding: 16px;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 4px 10px rgba(0,0,0,.1);
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-    }
-    button {
-      background: #2196f3;
-      color: white;
-      border: none;
-      border-radius: 6px;
-    }
-    
-<div class="card">
-  <h2>Login Siswa</h2>
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <button onclick="register()">Daftar</button>
-  <p id="status"></p>
-</div>
 <script type="text/babel">
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCJBHrpUrlkn4zIv_yeZzMEyECs084Lq3c",
-  authDomain: "smart-study-schedule-ac494.firebaseapp.com",
-  projectId: "smart-study-schedule-ac494",
-  storageBucket: "smart-study-schedule-ac494.firebasestorage.app",
-  messagingSenderId: "199494524267",
-  appId: "1:199494524267:web:e7c9b39fc6a25e2da3802e"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+/* 🔥 GANTI DENGAN FIREBASE CONFIG KAMU */
+const firebaseConfig={
+ apiKey:"AIzaSyCJBHrpUrlkn4zIv_yeZzMEyECs084Lq3c",
+ authDomain:"smart-study-schedule-ac494.firebaseapp.com",
+ projectId:"smart-study-schedule-ac494",
+ appId:"1:199494524267:web:35d555c2527dc73ea3802e"
 };
 
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.firestore();
-  
-  function register() {
-    const email = email.value;
-    const password = password.value;
-    auth.createUserWithEmailAndPassword(email, password)
-      .then(() => status.innerText = "Berhasil daftar")
-      .catch(err => status.innerText = err.message);
-  }
-
-  function login() {
-    const email = email.value;
-    const password = password.value;
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => status.innerText = "Login berhasil")
-      .catch(err => status.innerText = err.message);
-  }
 
 const {useState,useEffect}=React;
 
