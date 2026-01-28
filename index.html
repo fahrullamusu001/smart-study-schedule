@@ -10,7 +10,7 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-<!-- Firebase -->
+<!-- Firebase COMPAT -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -21,15 +21,13 @@ body{margin:0;font-family:Arial;background:#f1f3f6}
 header{background:#1976d2;color:white;padding:14px;text-align:center;font-weight:bold}
 .content{flex:1;padding:12px}
 .card{background:#fff;padding:12px;border-radius:10px;margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,.15)}
-input,select,button{width:100%;padding:8px;margin:4px 0}
+input,select,button{width:100%;padding:8px;margin:6px 0}
 button{background:#1976d2;color:white;border:none;border-radius:6px}
-.small{padding:4px;font-size:12px}
 .danger{background:#d32f2f}
 .done{text-decoration:line-through;color:green}
 .nav{display:flex;border-top:1px solid #ccc}
-.nav button{flex:1;border:none;padding:10px}
+.nav button{flex:1;padding:10px}
 .nav .active{background:#1976d2;color:white}
-.google{background:#db4437;margin-top:8px}
 </style>
 </head>
 
@@ -37,11 +35,13 @@ button{background:#1976d2;color:white;border:none;border-radius:6px}
 <div id="root"></div>
 
 <script type="text/babel">
+
+/* 🔥 GANTI CONFIG JIKA PERLU */
 const firebaseConfig={
  apiKey:"AIzaSyCJBHrpUrlkn4zIv_yeZzMEyECs084Lq3c",
  authDomain:"smart-study-schedule-ac494.firebaseapp.com",
  projectId:"smart-study-schedule-ac494",
- storageBucket:"smart-study-schedule-ac494.firebasestorage.app",
+ storageBucket:"smart-study-schedule-ac494.appspot.com",
  messagingSenderId:"199494524267",
  appId:"1:199494524267:web:35d555c2527dc73ea3802e"
 };
@@ -53,7 +53,9 @@ const db=firebase.firestore();
 const {useState,useEffect}=React;
 
 function App(){
+
 const days=["Senin","Selasa","Rabu","Kamis","Jumat"];
+
 const [user,setUser]=useState(null);
 const [tab,setTab]=useState("jadwal");
 const [email,setEmail]=useState("");
@@ -67,68 +69,71 @@ const [formJadwal,setFormJadwal]=useState({day:"Senin",subject:"",start:"",end:"
 const [formTask,setFormTask]=useState({title:"",date:"",time:""});
 
 useEffect(()=>{
-auth.onAuthStateChanged(u=>{
-setUser(u);
-if(u) loadData(u.uid);
-});
+  auth.onAuthStateChanged(u=>{
+    setUser(u);
+    if(u) loadData(u.uid);
+  });
 },[]);
 
-// ====== AUTH ======
+/* LOAD DATA */
+const loadData=async(uid)=>{
+  const s=await db.collection("users").doc(uid).collection("schedule").get();
+  setSchedule(s.docs.map(d=>({...d.data(),id:d.id})));
+
+  const t=await db.collection("users").doc(uid).collection("tasks").get();
+  setTasks(t.docs.map(d=>({...d.data(),id:d.id})));
+};
+
+/* AUTH */
 const login=()=>auth.signInWithEmailAndPassword(email,password);
 const register=()=>auth.createUserWithEmailAndPassword(email,password);
 const logout=()=>auth.signOut();
 
 const loginGoogle=async()=>{
-try{
-const provider=new firebase.auth.GoogleAuthProvider();
-const result=await auth.signInWithPopup(provider);
-const u=result.user;
-
-await db.collection("users").doc(u.uid).set({
-nama:u.displayName,
-email:u.email,
-login:"google",
-lastLogin:new Date()
-},{merge:true});
-
-}catch(err){
-alert(err.message);
-}
+  const provider=new firebase.auth.GoogleAuthProvider();
+  try{
+    const result=await auth.signInWithPopup(provider);
+    const u=result.user;
+    await db.collection("users").doc(u.uid).set({
+      nama:u.displayName,
+      email:u.email,
+      login:"google",
+      lastLogin:new Date()
+    },{merge:true});
+  }catch(e){
+    alert(e.message);
+  }
 };
 
-// ====== FIRESTORE ======
-const loadData=async(uid)=>{
-const s=await db.collection("users").doc(uid).collection("schedule").get();
-setSchedule(s.docs.map(d=>({...d.data(),id:d.id})));
-
-const t=await db.collection("users").doc(uid).collection("tasks").get();
-setTasks(t.docs.map(d=>({...d.data(),id:d.id})));
-};
-
+/* CRUD JADWAL */
 const addJadwal=async()=>{
-await db.collection("users").doc(user.uid).collection("schedule").add(formJadwal);
-setFormJadwal({day:"Senin",subject:"",start:"",end:""});
-loadData(user.uid);
+  await db.collection("users").doc(user.uid)
+  .collection("schedule").add(formJadwal);
+  setFormJadwal({day:"Senin",subject:"",start:"",end:""});
+  loadData(user.uid);
 };
 
 const delJadwal=async(id)=>{
-await db.collection("users").doc(user.uid).collection("schedule").doc(id).delete();
-loadData(user.uid);
+  await db.collection("users").doc(user.uid)
+  .collection("schedule").doc(id).delete();
+  loadData(user.uid);
 };
 
+/* CRUD TUGAS */
 const addTask=async()=>{
-await db.collection("users").doc(user.uid).collection("tasks").add({...formTask,done:false});
-setFormTask({title:"",date:"",time:""});
-loadData(user.uid);
+  await db.collection("users").doc(user.uid)
+  .collection("tasks").add({...formTask,done:false});
+  setFormTask({title:"",date:"",time:""});
+  loadData(user.uid);
 };
 
 const toggleTask=async(t)=>{
-await db.collection("users").doc(user.uid).collection("tasks").doc(t.id)
-.update({done:!t.done});
-loadData(user.uid);
+  await db.collection("users").doc(user.uid)
+  .collection("tasks").doc(t.id).update({done:!t.done});
+  loadData(user.uid);
 };
 
-// ====== LOGIN PAGE ======
+/* LOGIN PAGE */
 if(!user){
 return(
 <div className="app">
@@ -143,7 +148,7 @@ return(
 <button onClick={()=>setMode(mode==="login"?"register":"login")}>
 {mode==="login"?"Buat Akun":"Sudah Punya Akun"}
 </button>
-<button className="google" onClick={loginGoogle}>
+<button onClick={loginGoogle} style={{background:"#db4437"}}>
 Login dengan Google
 </button>
 </div>
@@ -152,19 +157,25 @@ Login dengan Google
 );
 }
 
-// ====== DASHBOARD ======
+/* APP */
 return(
 <div className="app">
-<header>Smart Study Schedule <button onClick={logout}>Logout</button></header>
+<header>
+Smart Study Schedule
+<button onClick={logout} style={{marginLeft:"10px"}}>Logout</button>
+</header>
 
 <div className="content">
+
 {tab==="jadwal" && (
 <div className="card">
 <h3>Tambah Jadwal</h3>
-<select value={formJadwal.day} onChange={e=>setFormJadwal({...formJadwal,day:e.target.value})}>
+<select value={formJadwal.day}
+onChange={e=>setFormJadwal({...formJadwal,day:e.target.value})}>
 {days.map(d=><option key={d}>{d}</option>)}
 </select>
-<input placeholder="Mata pelajaran" value={formJadwal.subject}
+<input placeholder="Mata pelajaran"
+value={formJadwal.subject}
 onChange={e=>setFormJadwal({...formJadwal,subject:e.target.value})}/>
 <input type="time" value={formJadwal.start}
 onChange={e=>setFormJadwal({...formJadwal,start:e.target.value})}/>
@@ -176,7 +187,7 @@ onChange={e=>setFormJadwal({...formJadwal,end:e.target.value})}/>
 {schedule.map(s=>(
 <li key={s.id}>
 {s.day} - {s.subject} ({s.start}-{s.end})
-<button className="small danger" onClick={()=>delJadwal(s.id)}>❌</button>
+<button className="danger" onClick={()=>delJadwal(s.id)}>❌</button>
 </li>
 ))}
 </ul>
@@ -185,7 +196,7 @@ onChange={e=>setFormJadwal({...formJadwal,end:e.target.value})}/>
 
 {tab==="tugas" && (
 <div className="card">
-<h3>Tugas</h3>
+<h3>Tugas / Ujian</h3>
 <input placeholder="Nama tugas" value={formTask.title}
 onChange={e=>setFormTask({...formTask,title:e.target.value})}/>
 <input type="date" value={formTask.date}
@@ -196,7 +207,8 @@ onChange={e=>setFormTask({...formTask,time:e.target.value})}/>
 
 <ul>
 {tasks.map(t=>(
-<li key={t.id} className={t.done?"done":""}
+<li key={t.id}
+className={t.done?"done":""}
 onClick={()=>toggleTask(t)}>
 {t.title} ({t.date} {t.time})
 </li>
@@ -204,17 +216,22 @@ onClick={()=>toggleTask(t)}>
 </ul>
 </div>
 )}
+
 </div>
 
 <div className="nav">
-<button className={tab==="jadwal"?"active":""} onClick={()=>setTab("jadwal")}>📅 Jadwal</button>
-<button className={tab==="tugas"?"active":""} onClick={()=>setTab("tugas")}>📝 Tugas</button>
+<button className={tab==="jadwal"?"active":""}
+onClick={()=>setTab("jadwal")}>📅 Jadwal</button>
+<button className={tab==="tugas"?"active":""}
+onClick={()=>setTab("tugas")}>📝 Tugas</button>
 </div>
+
 </div>
 );
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+
 </script>
 </body>
 </html>
