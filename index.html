@@ -120,6 +120,23 @@ setTasks(t.docs.map(d=>({...d.data(),id:d.id})));
 const login=()=>auth.signInWithEmailAndPassword(email,password);
 const register=()=>auth.createUserWithEmailAndPassword(email,password);
 const logout=()=>auth.signOut();
+ const loginGoogle = async () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  try {
+    const result = await auth.signInWithPopup(provider);
+    const user = result.user;
+
+    await db.collection("users").doc(user.uid).set({
+      nama: user.displayName,
+      email: user.email,
+      login: "google",
+      lastLogin: new Date()
+    }, { merge: true });
+
+  } catch (err) {
+    alert(err.message);
+  }
 
 // CRUD
 const addJadwal=async()=>{
@@ -145,19 +162,7 @@ await db.collection("users").doc(user.uid)
 .collection("tasks").doc(t.id).update({done:!t.done});
 loadData(user.uid);
 };
-const loginGoogle = async () => {
-  // 1. Siapkan Google Provider
-  const provider = new firebase.auth.GoogleAuthProvider();
-
-  try {
-    // 2. Buka popup login Google
-    const result = await auth.signInWithPopup(provider);
-
-    // 3. Ambil data user dari Google
-    const user = result.user;
-
-    // 4. Simpan data user ke Firestore
-    await db.collection("users
+ 
 if(!user){
 return(
 <div className="app">
@@ -184,23 +189,7 @@ return(
 </div>
 );
 }
-const loginGoogle = async () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-
-  try {
-    const result = await auth.signInWithPopup(provider);
-    const user = result.user;
-
-    await db.collection("users").doc(user.uid).set({
-      nama: user.displayName,
-      email: user.email,
-      login: "google",
-      lastLogin: new Date()
-    }, { merge: true });
-
-  } catch (err) {
-    alert(err.message);
-  }
+     
 };
 return(
 <div className="app">
