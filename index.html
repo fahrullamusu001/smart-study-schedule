@@ -159,13 +159,37 @@ return(
 </button>
 <button onClick={()=>setMode(mode==="login"?"register":"login")}>
 {mode==="login"?"Buat Akun":"Sudah Punya Akun"}
+<button
+  onClick={loginGoogle}
+  style={{
+    backgroundColor: "#db4437",
+    color: "white",
+    marginTop: "10px"
+  }}
 </button>
 </div>
 </div>
 </div>
 );
 }
+const loginGoogle = async () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
 
+  try {
+    const result = await auth.signInWithPopup(provider);
+    const user = result.user;
+
+    await db.collection("users").doc(user.uid).set({
+      nama: user.displayName,
+      email: user.email,
+      login: "google",
+      lastLogin: new Date()
+    }, { merge: true });
+
+  } catch (err) {
+    alert(err.message);
+  }
+};
 return(
 <div className="app">
 <header>Smart Study Schedule <button onClick={logout}>Logout</button></header>
