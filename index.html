@@ -145,7 +145,19 @@ await db.collection("users").doc(user.uid)
 .collection("tasks").doc(t.id).update({done:!t.done});
 loadData(user.uid);
 };
+const loginGoogle = async () => {
+  // 1. Siapkan Google Provider
+  const provider = new firebase.auth.GoogleAuthProvider();
 
+  try {
+    // 2. Buka popup login Google
+    const result = await auth.signInWithPopup(provider);
+
+    // 3. Ambil data user dari Google
+    const user = result.user;
+
+    // 4. Simpan data user ke Firestore
+    await db.collection("users
 if(!user){
 return(
 <div className="app">
