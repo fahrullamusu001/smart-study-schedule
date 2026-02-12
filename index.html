@@ -12,13 +12,13 @@
 <style>
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:#f1f3f6;
+  font-family:Arial;
 }
+.light{background:#f1f3f6;color:#000;}
+.dark{background:#121212;color:#fff;}
 .app{
   max-width:480px;
   margin:auto;
-  background:#fff;
   min-height:100vh;
   display:flex;
   flex-direction:column;
@@ -28,13 +28,9 @@ header{
   color:white;
   padding:16px;
   text-align:center;
-  font-size:18px;
   font-weight:bold;
 }
-.content{
-  flex:1;
-  padding:12px;
-}
+.content{flex:1;padding:12px;}
 .card{
   background:white;
   border-radius:10px;
@@ -42,6 +38,7 @@ header{
   margin-bottom:12px;
   box-shadow:0 2px 6px rgba(0,0,0,.1);
 }
+.dark .card{background:#1e1e1e;}
 input,select,button{
   width:100%;
   padding:8px;
@@ -52,10 +49,9 @@ button{
   color:white;
   border:none;
   border-radius:6px;
-  font-size:14px;
 }
-button.danger{background:#d32f2f}
 button.small{width:auto;padding:4px 8px;font-size:12px}
+button.danger{background:#d32f2f}
 .done{text-decoration:line-through;color:green}
 .nav{
   display:flex;
@@ -63,13 +59,14 @@ button.small{width:auto;padding:4px 8px;font-size:12px}
 }
 .nav button{
   flex:1;
-  border:none;
-  background:#fafafa;
   padding:10px;
+  border:none;
+  background:#eee;
 }
-.nav button.active{
-  background:#1976d2;
-  color:white;
+.nav .active{background:#1976d2;color:white;}
+.stats{
+  font-size:14px;
+  margin-bottom:10px;
 }
 </style>
 </head>
@@ -81,67 +78,45 @@ button.small{width:auto;padding:4px 8px;font-size:12px}
 const {useState,useEffect}=React;
 
 function App(){
+
 const days=["Senin","Selasa","Rabu","Kamis","Jumat"];
+
 const [tab,setTab]=useState("jadwal");
+const [theme,setTheme]=useState(
+localStorage.getItem("theme")||"light"
+);
 
 const [schedule,setSchedule]=useState(
 JSON.parse(localStorage.getItem("schedule"))||
 {Senin:[],Selasa:[],Rabu:[],Kamis:[],Jumat:[]}
 );
+
 const [tasks,setTasks]=useState(
 JSON.parse(localStorage.getItem("tasks"))||[]
 );
 
+const [filter,setFilter]=useState("all");
+
 const [formJadwal,setFormJadwal]=useState({day:"Senin",name:"",start:"",end:""});
 const [formTask,setFormTask]=useState({title:"",date:"",time:""});
+const [editIndex,setEditIndex]=useState(null);
 
 useEffect(()=>{
 localStorage.setItem("schedule",JSON.stringify(schedule));
 localStorage.setItem("tasks",JSON.stringify(tasks));
-},[schedule,tasks]);
+localStorage.setItem("theme",theme);
+},[schedule,tasks,theme]);
 
-useEffect(()=>{
-if("Notification"in window && Notification.permission==="default"){
-Notification.requestPermission();
-}
-},[]);
-
-// Notifikasi
-useEffect(()=>{
-const interval=setInterval(()=>{
-const now=new Date();
-const today=now.toISOString().split("T")[0];
-const timeNow=now.toTimeString().slice(0,5);
-
-// Tugas
-tasks.forEach(t=>{
-if(!t.done && t.date===today && t.time===timeNow){
-new Notification("⏰ Waktunya Belajar",{body:t.title});
-}
-});
-
-// Jadwal
-days.forEach(d=>{
-schedule[d].forEach(s=>{
-const [h,m]=s.start.split(":");
-const notif=new Date();
-notif.setHours(h);
-notif.setMinutes(m-1);
-if(
-notif.getHours()===now.getHours() &&
-notif.getMinutes()===now.getMinutes()
-){
-new Notification("📚 Pelajaran Akan Dimulai",{body:s.name});
-}
-});
-});
-},30000);
-return()=>clearInterval(interval);
-},[schedule,tasks]);
-
-// Jadwal
+// JADWAL
 const addJadwal=()=>{
 if(!formJadwal.name||!formJadwal.start||!formJadwal.end)return;
+
+if(editIndex!==null){
+const c=[...schedule[formJadwal.day]];
+c[editIndex]=formJadwal;
+setSchedule({...schedule,[formJadwal.day]:c});
+setEditIndex(null);
+}else{
 setSchedule({
 ...schedule,
 [formJadwal.day]:[
@@ -149,50 +124,96 @@ setSchedule({
 {...formJadwal}
 ]
 });
+}
+
 setFormJadwal({day:"Senin",name:"",start:"",end:""});
 };
+
+const editJadwal=(day,i)=>{
+setFormJadwal(schedule[day][i]);
+setEditIndex(i);
+};
+
 const delJadwal=(day,i)=>{
 const c=[...schedule[day]];
 c.splice(i,1);
 setSchedule({...schedule,[day]:c});
 };
 
-// Tugas
+// TUGAS
 const addTask=()=>{
 if(!formTask.title||!formTask.date||!formTask.time)return;
+
+if(editIndex!==null){
+const c=[...tasks];
+c[editIndex]={...formTask,done:c[editIndex].done};
+setTasks(c);
+setEditIndex(null);
+}else{
 setTasks([...tasks,{...formTask,done:false}]);
+}
 setFormTask({title:"",date:"",time:""});
 };
+
 const toggleDone=i=>{
 const c=[...tasks];
 c[i].done=!c[i].done;
 setTasks(c);
 };
+
+const editTask=i=>{
+setFormTask(tasks[i]);
+setEditIndex(i);
+};
+
 const delTask=i=>{
 const c=[...tasks];
 c.splice(i,1);
 setTasks(c);
 };
 
+// FILTER
+const filteredTasks=tasks.filter(t=>{
+if(filter==="done") return t.done;
+if(filter==="undone") return !t.done;
+return true;
+});
+
+// STATS
+const total=tasks.length;
+const doneCount=tasks.filter(t=>t.done).length;
+
 return(
-<div className="app">
-<header>📘 Smart Study Schedule</header>
+<div className={`app ${theme}`}>
+<header>
+📘 Smart Study Schedule
+<button onClick={()=>setTheme(theme==="light"?"dark":"light")}>
+{theme==="light"?"🌙":"☀️"}
+</button>
+</header>
 
 <div className="content">
+
 {tab==="jadwal" && (
 <>
 <div className="card">
-<h3>Tambah Jadwal</h3>
-<select value={formJadwal.day} onChange={e=>setFormJadwal({...formJadwal,day:e.target.value})}>
+<h3>Tambah / Edit Jadwal</h3>
+<select value={formJadwal.day}
+onChange={e=>setFormJadwal({...formJadwal,day:e.target.value})}>
 {days.map(d=><option key={d}>{d}</option>)}
 </select>
-<input placeholder="Mata pelajaran" value={formJadwal.name}
+<input placeholder="Mata pelajaran"
+value={formJadwal.name}
 onChange={e=>setFormJadwal({...formJadwal,name:e.target.value})}/>
-<input type="time" value={formJadwal.start}
+<input type="time"
+value={formJadwal.start}
 onChange={e=>setFormJadwal({...formJadwal,start:e.target.value})}/>
-<input type="time" value={formJadwal.end}
+<input type="time"
+value={formJadwal.end}
 onChange={e=>setFormJadwal({...formJadwal,end:e.target.value})}/>
-<button onClick={addJadwal}>Tambah</button>
+<button onClick={addJadwal}>
+{editIndex!==null?"Update":"Tambah"}
+</button>
 </div>
 
 {days.map(d=>(
@@ -202,6 +223,7 @@ onChange={e=>setFormJadwal({...formJadwal,end:e.target.value})}/>
 {schedule[d].map((s,i)=>(
 <li key={i}>
 {s.name} ({s.start}-{s.end})
+<button className="small" onClick={()=>editJadwal(d,i)}>✏️</button>
 <button className="small danger" onClick={()=>delJadwal(d,i)}>❌</button>
 </li>
 ))}
@@ -214,22 +236,38 @@ onChange={e=>setFormJadwal({...formJadwal,end:e.target.value})}/>
 {tab==="tugas" && (
 <>
 <div className="card">
-<h3>Tambah Tugas / Ujian</h3>
-<input placeholder="Nama tugas" value={formTask.title}
+<h3>Tambah / Edit Tugas</h3>
+<input placeholder="Nama tugas"
+value={formTask.title}
 onChange={e=>setFormTask({...formTask,title:e.target.value})}/>
-<input type="date" value={formTask.date}
+<input type="date"
+value={formTask.date}
 onChange={e=>setFormTask({...formTask,date:e.target.value})}/>
-<input type="time" value={formTask.time}
+<input type="time"
+value={formTask.time}
 onChange={e=>setFormTask({...formTask,time:e.target.value})}/>
-<button onClick={addTask}>Tambah</button>
+<button onClick={addTask}>
+{editIndex!==null?"Update":"Tambah"}
+</button>
+</div>
+
+<div className="card stats">
+Total: {total} | Selesai: {doneCount}
 </div>
 
 <div className="card">
+<select value={filter} onChange={e=>setFilter(e.target.value)}>
+<option value="all">Semua</option>
+<option value="done">Selesai</option>
+<option value="undone">Belum</option>
+</select>
+
 <ul>
-{tasks.map((t,i)=>(
+{filteredTasks.map((t,i)=>(
 <li key={i} className={t.done?"done":""}>
 {t.title} ({t.date} {t.time})
 <button className="small" onClick={()=>toggleDone(i)}>✅</button>
+<button className="small" onClick={()=>editTask(i)}>✏️</button>
 <button className="small danger" onClick={()=>delTask(i)}>❌</button>
 </li>
 ))}
@@ -237,11 +275,14 @@ onChange={e=>setFormTask({...formTask,time:e.target.value})}/>
 </div>
 </>
 )}
+
 </div>
 
 <div className="nav">
-<button className={tab==="jadwal"?"active":""} onClick={()=>setTab("jadwal")}>📅 Jadwal</button>
-<button className={tab==="tugas"?"active":""} onClick={()=>setTab("tugas")}>📝 Tugas</button>
+<button className={tab==="jadwal"?"active":""}
+onClick={()=>setTab("jadwal")}>📅 Jadwal</button>
+<button className={tab==="tugas"?"active":""}
+onClick={()=>setTab("tugas")}>📝 Tugas</button>
 </div>
 </div>
 );
