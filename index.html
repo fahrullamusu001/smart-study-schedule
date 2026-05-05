@@ -1,66 +1,183 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Perpustakaan Sekolah</title>
+  <title>Perpustakaan v2</title>
   <style>
     body {
       font-family: Arial;
-      background: #ffe4ec;
+      background: #fff0f6;
       text-align: center;
     }
     .box {
       background: white;
       padding: 20px;
       margin: 20px auto;
-      width: 300px;
+      width: 320px;
       border-radius: 10px;
       box-shadow: 0 0 10px pink;
     }
     button {
-      background: #ff8fab;
+      background: #ff6b9a;
+      color: white;
       border: none;
       padding: 10px;
       margin-top: 10px;
-      color: white;
       border-radius: 5px;
+      cursor: pointer;
+    }
+    input {
+      padding: 8px;
+      width: 90%;
     }
   </style>
 </head>
 
 <body>
 
-<h2>📚 Aplikasi Perpustakaan</h2>
+<h2>📚 Perpustakaan Sekolah v2</h2>
 
+<!-- LOGIN -->
 <div class="box" id="loginBox">
-  <h3>Login Petugas</h3>
-  <input type="text" id="username" placeholder="Username"><br><br>
-  <input type="password" id="password" placeholder="Password"><br>
+  <h3>Login</h3>
+  <input id="user" placeholder="Username"><br><br>
+  <input id="pass" type="password" placeholder="Password"><br>
   <button onclick="login()">Login</button>
-  <p id="loginMsg"></p>
+  <p id="msg"></p>
 </div>
 
+<!-- MENU -->
 <div class="box" id="menuBox" style="display:none;">
-  <h3>Menu Utama</h3>
+  <h3>Menu</h3>
   <button onclick="showPinjam()">Peminjaman</button>
   <button onclick="showKembali()">Pengembalian</button>
+  <button onclick="lihatData()">Riwayat</button>
 </div>
 
+<!-- PINJAM -->
 <div class="box" id="pinjamBox" style="display:none;">
-  <h3>Peminjaman Buku</h3>
-  <input type="text" id="nama" placeholder="Nama Siswa"><br><br>
-  <input type="text" id="buku" placeholder="Judul Buku"><br>
+  <h3>Peminjaman</h3>
+  <input id="nama" placeholder="Nama"><br><br>
+  <input id="buku" placeholder="Judul Buku"><br>
   <button onclick="pinjam()">Pinjam</button>
-  <p id="hasilPinjam"></p>
+  <p id="outPinjam"></p>
 </div>
 
+<!-- KEMBALI -->
 <div class="box" id="kembaliBox" style="display:none;">
-  <h3>Pengembalian Buku</h3>
-  <input type="text" id="namaKembali" placeholder="Nama Siswa"><br><br>
-  <input type="number" id="telat" placeholder="Hari Terlambat"><br>
+  <h3>Pengembalian</h3>
+  <input id="namaK" placeholder="Nama"><br><br>
+  <input id="telat" type="number" placeholder="Hari telat"><br>
   <button onclick="kembali()">Kembalikan</button>
-  <p id="hasilKembali"></p>
+  <p id="outKembali"></p>
+</div>
+
+<!-- DATA -->
+<div class="box" id="dataBox" style="display:none;">
+  <h3>Riwayat</h3>
+  <div id="dataList"></div>
 </div>
 
 <script>
+// DATABASE USER
+let users = [
+  {username: "admin", password: "123"},
+  {username: "petugas", password: "456"}
+];
+
+// LOGIN
 function login() {
-  let user = document.getElementById
+  let u = user.value;
+  let p = pass.value;
+
+  let found = users.find(x => x.username === u && x.password === p);
+
+  if(found){
+    loginBox.style.display = "none";
+    menuBox.style.display = "block";
+  } else {
+    msg.innerText = "Login gagal!";
+  }
+}
+
+// NAVIGASI
+function showPinjam(){
+  pinjamBox.style.display="block";
+  kembaliBox.style.display="none";
+  dataBox.style.display="none";
+}
+
+function showKembali(){
+  kembaliBox.style.display="block";
+  pinjamBox.style.display="none";
+  dataBox.style.display="none";
+}
+
+function lihatData(){
+  dataBox.style.display="block";
+  pinjamBox.style.display="none";
+  kembaliBox.style.display="none";
+  tampilData();
+}
+
+// DATABASE LOCAL
+function getData(){
+  return JSON.parse(localStorage.getItem("data")) || [];
+}
+
+function saveData(data){
+  localStorage.setItem("data", JSON.stringify(data));
+}
+
+// PINJAM
+function pinjam(){
+  let data = getData();
+
+  let item = {
+    nama: nama.value,
+    buku: buku.value,
+    status: "dipinjam",
+    tanggal: new Date().toLocaleDateString()
+  };
+
+  data.push(item);
+  saveData(data);
+
+  outPinjam.innerText = "Berhasil pinjam!";
+}
+
+// KEMBALI
+function kembali(){
+  let data = getData();
+  let telatHari = parseInt(telat.value);
+  let denda = telatHari * 1000;
+
+  data.push({
+    nama: namaK.value,
+    status: "kembali",
+    denda: denda
+  });
+
+  saveData(data);
+
+  if(telatHari > 0){
+    outKembali.innerText = "Denda: Rp " + denda;
+  } else {
+    outKembali.innerText = "Berhasil tanpa denda";
+  }
+}
+
+// TAMPIL DATA
+function tampilData(){
+  let data = getData();
+  let html = "";
+
+  data.forEach(d => {
+    html += `<p>${d.nama} - ${d.buku || ""} - ${d.status} ${d.denda ? "- Denda: "+d.denda : ""}</p>`;
+  });
+
+  dataList.innerHTML = html;
+}
+</script>
+
+</body>
+</html>
