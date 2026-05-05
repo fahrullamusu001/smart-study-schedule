@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Aplikasi Perpustakaan</title>
-
-<style>
-body {
-  font-family: Arial;
-  background: #ffe4ec;
-  text-align: center;
-}
-h1 {
-  color: #ff4d88;
-}
-.container {
-  background: white;
-  padding: 20px;
-  width: 320px;
-  margin: auto;
-  border-radius: 15px;
-}
-input {
-  width: 90%;
-  padding: 8px;
-  margin: 5px;
-}
-button {
-  background: #ff4d88;
-  color: white;
-  padding: 8px;
-  border: none;
-  border-radius: 8px;
-  margin: 3px;
-  cursor: pointer;
-}
-table {
-  margin: 20px auto;
-  border-collapse: collapse;
-}
-th, td {
-  border: 1px solid #ff4d88;
-  padding: 8px;
-}
-</style>
-
+  <meta charset="UTF-8">
+  <title>Aplikasi Peminjaman Buku</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #ffe4ec;
+      text-align: center;
+    }
+    h1 {
+      color: #ff4d88;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      width: 300px;
+      margin: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 90%;
+      padding: 8px;
+      margin: 5px;
+    }
+    button {
+      background: #ff4d88;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ff4d88;
+      padding: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<h1>📚 Aplikasi Peminjaman Buku</h1>
+<h1>📚 Peminjaman Buku</h1>
 
 <div class="container">
   <input type="text" id="nama" placeholder="Nama Siswa">
@@ -58,26 +56,17 @@ th, td {
 </div>
 
 <table>
-<thead>
-<tr>
-<th>Nama</th>
-<th>Kelas</th>
-<th>Buku</th>
-<th>Tgl Pinjam</th>
-<th>Batas</th>
-<th>Status</th>
-<th>Denda</th>
-<th>Aksi</th>
-</tr>
-</thead>
-<tbody id="data"></tbody>
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>Kelas</th>
+      <th>Buku</th>
+    </tr>
+  </thead>
+  <tbody id="data"></tbody>
 </table>
 
 <script>
-function formatTanggal(tgl) {
-  return tgl.toLocaleDateString("id-ID");
-}
-
 function pinjam() {
   let nama = document.getElementById("nama").value;
   let kelas = document.getElementById("kelas").value;
@@ -88,51 +77,16 @@ function pinjam() {
     return;
   }
 
-  let tglPinjam = new Date();
-  let batas = new Date();
-  batas.setDate(tglPinjam.getDate() + 7); // batas 7 hari
-
   let tabel = document.getElementById("data");
   let row = tabel.insertRow();
 
   row.insertCell(0).innerHTML = nama;
   row.insertCell(1).innerHTML = kelas;
   row.insertCell(2).innerHTML = buku;
-  row.insertCell(3).innerHTML = formatTanggal(tglPinjam);
-  row.insertCell(4).innerHTML = formatTanggal(batas);
-  row.insertCell(5).innerHTML = "Dipinjam";
-  row.insertCell(6).innerHTML = "0";
-
-  row.insertCell(7).innerHTML = `
-    <button onclick="kembalikan(this)">Kembalikan</button>
-    <button onclick="hapus(this)">Hapus</button>
-  `;
 
   document.getElementById("nama").value = "";
   document.getElementById("kelas").value = "";
   document.getElementById("buku").value = "";
-}
-
-function kembalikan(btn) {
-  let row = btn.parentElement.parentElement;
-
-  let batas = new Date(row.cells[4].innerHTML);
-  let hariIni = new Date();
-
-  let denda = 0;
-
-  if(hariIni > batas) {
-    let telat = Math.ceil((hariIni - batas) / (1000*60*60*24));
-    denda = telat * 1000; // 1000 per hari
-  }
-
-  row.cells[5].innerHTML = "Dikembalikan";
-  row.cells[6].innerHTML = "Rp " + denda;
-}
-
-function hapus(btn) {
-  let row = btn.parentElement.parentElement;
-  row.remove();
 }
 </script>
 
