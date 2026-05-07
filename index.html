@@ -1,25 +1,153 @@
-// Database simulasi
-let dataPinjam = {
-    namaSiswa: "Budi",
-    buku: "Informatika Kelas 11",
-    tglPinjam: new Date("2026-05-01"), // Tanggal pinjam
-    batasKembali: new Date("2026-05-08") // Batas 7 hari
-};
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistem Perpustakaan Sekolah</title>
+    <style>
+        :root { --primary: #2c3e50; --secondary: #3498db; --success: #27ae60; --danger: #e74c3c; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h2 { color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { padding: 20px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa; }
+        input, select, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+        button { background: var(--secondary); color: white; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; }
+        button:hover { background: var(--primary); }
+        .status-box { margin-top: 20px; padding: 15px; border-radius: 5px; display: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: var(--primary); color: white; }
+    </style>
+</head>
+<body>
 
-function prosesPengembalian(tglSekarang) {
-    let hariIni = new Date(tglSekarang);
+<div class="container">
+    <h2>E-Perpustakaan: Manajemen Pinjam & Kembali</h2>
     
-    // 1. Cek keterlambatan
-    if (hariIni > dataPinjam.batasKembali) {
-        let selisihMiliDetik = hariIni - dataPinjam.batasKembali;
-        let selisihHari = selisihMiliDetik / (1000 * 60 * 60 * 24);
-        let totalDenda = selisihHari * 2000;
-        
-        return `Terlambat ${selisihHari} hari. Denda: Rp ${totalDenda}.`;
-    } else {
-        return "Terima kasih! Pengembalian tepat waktu.";
-    }
-}
+    <div class="grid">
+        <!-- Tahap 1: Peminjaman -->
+        <div class="card">
+            <h3>Peminjaman Baru</h3>
+            <input type="text" id="nama" placeholder="Nama Siswa (Sesuai Kartu)">
+            <input type="text" id="kelas" placeholder="Kelas">
+            <input type="text" id="judul" placeholder="Judul Buku">
+            <label><input type="checkbox" id="kondisiBaik"> Kondisi buku sudah diperiksa & baik</label>
+            <button onclick="pinjamBuku()">Proses Pinjam</button>
+        </div>
 
-// Contoh eksekusi jika dikembalikan tanggal 10 Mei 2026
-console.log(prosesPengembalian("2026-05-10"));
+        <!-- Tahap 2: Pengembalian -->
+        <div class="card">
+            <h3>Pengembalian</h3>
+            <p>Pilih nama siswa yang ingin mengembalikan buku:</p>
+            <select id="selectSiswa"></select>
+            <label>Tanggal Kembali:</label>
+            <input type="date" id="tglKembali">
+            <button onclick="kembalikanBuku()" style="background: var(--success);">Proses Kembali</button>
+        </div>
+    </div>
+
+    <div id="notifikasi" class="status-box"></div>
+
+    <h3>Daftar Peminjaman Aktif</h3>
+    <table id="tabelPinjam">
+        <thead>
+            <tr>
+                <th>Siswa</th>
+                <th>Buku</th>
+                <th>Tgl Pinjam</th>
+                <th>Batas Kembali</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="isiTabel"></tbody>
+    </table>
+</div>
+
+<script>
+    let database = [];
+
+    function pinjamBuku() {
+        const nama = document.getElementById('nama').value;
+        const kelas = document.getElementById('kelas').value;
+        const judul = document.getElementById('judul').value;
+        const kondisi = document.getElementById('kondisiBaik').checked;
+
+        if (!nama || !kelas || !judul) return alert("Mohon lengkapi data!");
+        if (!kondisi) return alert("Siswa harus memeriksa kondisi buku terlebih dahulu!");
+
+        const tglPinjam = new Date();
+        const batasKembali = new Date();
+        batasKembali.setDate(tglPinjam.getDate() + 7); // Durasi 7 hari
+
+        const dataBaru = {
+            id: Date.now(),
+            nama, kelas, judul,
+            tglPinjam: tglPinjam.toISOString().split('T')[0],
+            batasKembali: batasKembali.toISOString().split('T')[0]
+        };
+
+        database.push(dataBaru);
+        updateUI();
+        clearForm();
+    }
+
+    function updateUI() {
+        const isiTabel = document.getElementById('isiTabel');
+        const selectSiswa = document.getElementById('selectSiswa');
+        isiTabel.innerHTML = "";
+        selectSiswa.innerHTML = "<option value=''>-- Pilih Siswa --</option>";
+
+        database.forEach(item => {
+            isiTabel.innerHTML += `
+                <tr>
+                    <td>${item.nama}</td>
+                    <td>${item.judul}</td>
+                    <td>${item.tglPinjam}</td>
+                    <td>${item.batasKembali}</td>
+                    <td><span style="color:orange">Dipinjam</span></td>
+                </tr>`;
+            
+            selectSiswa.innerHTML += `<option value="${item.id}">${item.nama} - ${item.judul}</option>`;
+        });
+    }
+
+    function kembalikanBuku() {
+        const id = document.getElementById('selectSiswa').value;
+        const tglKembaliInput = document.getElementById('tglKembali').value;
+        
+        if (!id || !tglKembaliInput) return alert("Pilih data pengembalian!");
+
+        const index = database.findIndex(i => i.id == id);
+        const data = database[index];
+        
+        const d1 = new Date(data.batasKembali);
+        const d2 = new Date(tglKembaliInput);
+        const notif = document.getElementById('notifikasi');
+        
+        notif.style.display = "block";
+        
+        if (d2 > d1) {
+            const selisihHari = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
+            const denda = selisihHari * 2000;
+            notif.innerHTML = `<strong>Sanksi:</strong> Terlambat ${selisihHari} hari. Denda sebesar Rp ${denda.toLocaleString()}.`;
+            notif.style.background = "#f8d7da";
+            notif.style.color = "#721c24";
+        } else {
+            notif.innerHTML = "<strong>Sukses:</strong> Buku dikembalikan tepat waktu. Kondisi baik.";
+            notif.style.background = "#d4edda";
+            notif.style.color = "#155724";
+        }
+
+        database.splice(index, 1);
+        updateUI();
+    }
+
+    function clearForm() {
+        document.getElementById('nama').value = "";
+        document.getElementById('judul').value = "";
+        document.getElementById('kondisiBaik').checked = false;
+    }
+</script>
+
+</body>
+</html>
