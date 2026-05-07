@@ -1,218 +1,590 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Perpus Pinky - Tugas Informatika</title>
-    <style>
-        /* CSS UNTUK TAMPILAN MOBILE & WARNA PINK */
-        :root {
-            --primary-pink: #ff85a2;
-            --soft-pink: #fbb1bd;
-            --bg-pink: #f9f0f2;
-            --dark-pink: #d03d5a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-pink);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
+<title>E-Perpus Pinky</title>
 
-        .mobile-container {
-            width: 100%;
-            max-width: 450px; /* Ukuran maksimal HP */
-            background: white;
-            min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
+<style>
 
-        header {
-            background-color: var(--primary-pink);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-        }
+:root{
+    --pink1:#ff85a2;
+    --pink2:#fbb1bd;
+    --pink3:#fff0f5;
+    --pink4:#d63384;
+}
 
-        .content {
-            padding: 20px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
 
-        .card {
-            background: #fff;
-            border: 2px solid var(--soft-pink);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+body{
+    background:var(--pink3);
+    display:flex;
+    justify-content:center;
+    min-height:100vh;
+    transition:0.3s;
+}
 
-        h3 { color: var(--dark-pink); margin-top: 0; }
+.mobile-container{
+    width:100%;
+    max-width:450px;
+    min-height:100vh;
+    background:white;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
 
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid var(--soft-pink);
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
+header{
+    background:linear-gradient(135deg,var(--pink1),var(--pink4));
+    color:white;
+    text-align:center;
+    padding:25px;
+    border-bottom-left-radius:25px;
+    border-bottom-right-radius:25px;
+}
 
-        button {
-            width: 100%;
-            background-color: var(--primary-pink);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+header h1{
+    margin-bottom:5px;
+}
 
-        button:hover { background-color: var(--dark-pink); }
+#jam{
+    margin-top:10px;
+    font-size:14px;
+}
 
-        .status-box {
-            background: #fdf2f4;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            color: #555;
-            margin-top: 10px;
-        }
+.dark-btn{
+    margin-top:15px;
+    background:white;
+    color:var(--pink4);
+    border:none;
+    padding:10px 15px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
 
-        .hidden { display: none; }
+.content{
+    padding:20px;
+}
 
-        footer {
-            text-align: center;
-            font-size: 0.8em;
-            color: var(--soft-pink);
-            padding: 20px;
-        }
-    </style>
+.card{
+    background:white;
+    border:2px solid var(--pink2);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:20px;
+
+    animation:muncul 0.5s;
+}
+
+@keyframes muncul{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h3{
+    color:var(--pink4);
+    margin-bottom:10px;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:2px solid var(--pink2);
+    border-radius:10px;
+    outline:none;
+}
+
+button{
+    width:100%;
+    margin-top:15px;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:var(--pink1);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:var(--pink4);
+}
+
+.hidden{
+    display:none;
+}
+
+.status-box{
+    background:#fff5f8;
+    padding:12px;
+    border-radius:12px;
+    margin-top:10px;
+    line-height:1.8;
+}
+
+#coverBuku{
+    display:block;
+    margin:15px auto;
+    border-radius:10px;
+    width:120px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+table th{
+    background:var(--pink1);
+    color:white;
+    padding:10px;
+}
+
+table td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#999;
+    font-size:13px;
+}
+
+/* DARK MODE */
+
+.dark{
+    background:#1e1e1e;
+}
+
+.dark .mobile-container{
+    background:#2b2b2b;
+    color:white;
+}
+
+.dark .card{
+    background:#333;
+    color:white;
+}
+
+.dark input,
+.dark select{
+    background:#444;
+    color:white;
+}
+
+.dark .status-box{
+    background:#444;
+}
+
+</style>
 </head>
+
 <body>
 
 <div class="mobile-container">
-    <header>
-        <h1>E-Perpus School</h1>
-        <p>Informatika Kelas 11</p>
-    </header>
 
-    <div class="content">
-        <!-- TAHAP 1: CEK KARTU & CARI BUKU -->
-        <div id="step1" class="card">
-            <h3>1. Cari Buku</h3>
-            <p>Pastikan membawa kartu pelajar!</p>
-            <input type="text" id="cariBuku" placeholder="Ketik judul buku (contoh: Biologi)...">
-            <button onclick="nextStep(2)">Cari & Ambil Buku</button>
-        </div>
+<header>
 
-        <!-- TAHAP 2: CEK KONDISI -->
-        <div id="step2" class="card hidden">
-            <h3>2. Cek Kondisi Buku</h3>
-            <p>Periksa apakah ada kerusakan pada buku.</p>
-            <label>
-                <input type="checkbox" id="kondisiBuku" style="width: auto;"> Buku dalam kondisi baik
-            </label>
-            <button style="margin-top:15px;" onclick="checkKondisi()">Lanjut ke Petugas</button>
-            <button style="background: #ccc; margin-top:5px;" onclick="backTo(1)">Batal</button>
-        </div>
+    <h1>📚 E-Perpus Pinky</h1>
+    <p>Tugas Informatika Kelas 11</p>
 
-        <!-- TAHAP 3: PROSES PINJAM (PETUGAS) -->
-        <div id="step3" class="card hidden">
-            <h3>3. Meja Petugas</h3>
-            <input type="text" id="namaSiswa" placeholder="Nama Lengkap Siswa">
-            <input type="text" id="kelasSiswa" placeholder="Kelas (Contoh: 11 MIPA 1)">
-            <p style="font-size: 0.8em;">*Data akan diinput ke sistem</p>
-            <button onclick="prosesPinjam()">Konfirmasi Peminjaman</button>
-        </div>
+    <p id="jam"></p>
 
-        <!-- TAHAP 4: STATUS PINJAM & PENGEMBALIAN -->
-        <div id="step4" class="card hidden">
-            <h3>4. Status Peminjaman</h3>
-            <div id="detailPinjam" class="status-box"></div>
-            <hr border="1" color="#fbb1bd">
-            <p>Kembalikan buku sebelum batas waktu!</p>
-            <button onclick="prosesKembali()">Kembalikan Buku Sekarang</button>
-        </div>
+    <button class="dark-btn" onclick="darkMode()">
+        🌙 Dark Mode
+    </button>
+
+</header>
+
+<div class="content">
+
+    <!-- STEP 1 -->
+
+    <div id="step1" class="card">
+
+        <h3>1. Cari Buku</h3>
+
+        <p>Pastikan membawa kartu pelajar.</p>
+
+        <select id="cariBuku" onchange="tampilCover()">
+
+            <option value="">-- Pilih Buku --</option>
+
+            <option>Biologi</option>
+            <option>Fisika</option>
+            <option>Kimia</option>
+            <option>Matematika</option>
+            <option>Bahasa Indonesia</option>
+
+        </select>
+
+        <img
+        id="coverBuku"
+        src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
+        >
+
+        <button onclick="nextStep(2)">
+            Cari & Ambil Buku
+        </button>
+
     </div>
 
-    <footer>Tugas Informatika Semester 2</footer>
+    <!-- STEP 2 -->
+
+    <div id="step2" class="card hidden">
+
+        <h3>2. Cek Kondisi Buku</h3>
+
+        <p>Periksa kondisi buku sebelum dipinjam.</p>
+
+        <label>
+
+            <input
+            type="checkbox"
+            id="kondisiBuku"
+            style="width:auto;"
+            >
+
+            Buku dalam kondisi baik
+
+        </label>
+
+        <button onclick="checkKondisi()">
+            Lanjut ke Petugas
+        </button>
+
+        <button
+        onclick="backTo(1)"
+        style="background:#ccc;color:black;"
+        >
+            Batal
+        </button>
+
+    </div>
+
+    <!-- STEP 3 -->
+
+    <div id="step3" class="card hidden">
+
+        <h3>3. Data Peminjaman</h3>
+
+        <input
+        type="text"
+        id="namaSiswa"
+        placeholder="Nama Lengkap"
+        >
+
+        <input
+        type="text"
+        id="kelasSiswa"
+        placeholder="Kelas"
+        >
+
+        <button onclick="prosesPinjam()">
+            Konfirmasi Peminjaman
+        </button>
+
+    </div>
+
+    <!-- STEP 4 -->
+
+    <div id="step4" class="card hidden">
+
+        <h3>4. Status Peminjaman</h3>
+
+        <div id="detailPinjam" class="status-box"></div>
+
+        <button onclick="prosesKembali()">
+            Kembalikan Buku
+        </button>
+
+    </div>
+
+    <!-- RIWAYAT -->
+
+    <div class="card">
+
+        <h3>📋 Riwayat Peminjaman</h3>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Buku</th>
+                </tr>
+            </thead>
+
+            <tbody id="riwayatTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<footer>
+    Dibuat Untuk Tugas Informatika Semester 2
+</footer>
+
 </div>
 
 <script>
-    // LOGIKA APLIKASI BERDASARKAN ALGORITMA
-    let db = {}; 
 
-    function nextStep(step) {
-        document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-        document.getElementById('step' + step).classList.remove('hidden');
-    }
+let db = {};
 
-    function backTo(step) {
-        nextStep(step);
-    }
+/* JAM REALTIME */
 
-    function checkKondisi() {
-        const ok = document.getElementById('kondisiBuku').checked;
-        if(ok) {
-            nextStep(3);
-        } else {
-            alert("Siswa melaporkan kerusakan. Buku harus diperbaiki petugas dulu!");
-        }
-    }
+setInterval(() => {
 
-    function prosesPinjam() {
-        const nama = document.getElementById('namaSiswa').value;
-        const kelas = document.getElementById('kelasSiswa').value;
-        const buku = document.getElementById('cariBuku').value;
+    let now = new Date();
 
-        if(!nama || !kelas) return alert("Lengkapi data siswa!");
+    document.getElementById("jam").innerHTML =
+    now.toLocaleTimeString('id-ID');
 
-        // Set Tanggal (Simulasi sistem komputer)
-        let tglPinjam = new Date();
-        let tglKembali = new Date();
-        tglKembali.setDate(tglPinjam.getDate() + 7); // Batas waktu 7 hari
+},1000);
 
-        db = {
-            nama: nama,
-            buku: buku,
-            tgl: tglPinjam.toLocaleDateString(),
-            deadline: tglKembali.toLocaleDateString(),
-            rawDeadline: tglKembali
-        };
+/* DARK MODE */
 
-        document.getElementById('detailPinjam').innerHTML = `
-            <b>Peminjam:</b> ${db.nama} (${db.kelasSiswa}) <br>
-            <b>Buku:</b> ${db.buku} <br>
-            <b>Tgl Pinjam:</b> ${db.tgl} <br>
-            <b>Batas Kembali:</b> <span style="color:red">${db.deadline}</span>
-        `;
-        
-        alert("Pencatatan Berhasil! Terima kasih.");
-        nextStep(4);
-    }
+function darkMode(){
 
-    function prosesKembali() {
-        // Simulasi pengecekan denda
-        let hariIni = new Date();
-        let pesan = "Petugas memeriksa kondisi buku...\n";
-        
-        if(hariIni > db.rawDeadline) {
-            pesan += "Siswa terlambat! Sanksi: Denda Rp 5.000";
-        } else {
-            pesan += "Kondisi Baik & Tepat Waktu. Selesai!";
+    document.body.classList.toggle("dark");
+
+}
+
+/* PINDAH STEP */
+
+function nextStep(step){
+
+    document
+    .querySelectorAll(".card")
+    .forEach(card => {
+
+        if(card.id){
+            card.classList.add("hidden");
         }
 
-        alert(pesan);
-        alert("Buku dikembalikan ke rak. Proses Selesai.");
-        location.reload(); // Reset aplikasi
+    });
+
+    document
+    .getElementById("step"+step)
+    .classList.remove("hidden");
+
+}
+
+function backTo(step){
+
+    nextStep(step);
+
+}
+
+/* CEK KONDISI */
+
+function checkKondisi(){
+
+    let ok =
+    document.getElementById("kondisiBuku").checked;
+
+    if(ok){
+
+        nextStep(3);
+
     }
+
+    else{
+
+        alert(
+        "Buku rusak. Laporkan ke petugas!"
+        );
+
+    }
+
+}
+
+/* COVER BUKU */
+
+function tampilCover(){
+
+    let buku =
+    document.getElementById("cariBuku").value;
+
+    let gambar =
+    document.getElementById("coverBuku");
+
+    if(buku == "Biologi"){
+
+        gambar.src =
+        "https://via.placeholder.com/120x170/ff85a2/ffffff?text=Biologi";
+
+    }
+
+    else if(buku == "Fisika"){
+
+        gambar.src =
+        "https://via.placeholder.com/120x170/ff85a2/ffffff?text=Fisika";
+
+    }
+
+    else if(buku == "Kimia"){
+
+        gambar.src =
+        "https://via.placeholder.com/120x170/ff85a2/ffffff?text=Kimia";
+
+    }
+
+    else if(buku == "Matematika"){
+
+        gambar.src =
+        "https://via.placeholder.com/120x170/ff85a2/ffffff?text=Matematika";
+
+    }
+
+    else{
+
+        gambar.src =
+        "https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku";
+
+    }
+
+}
+
+/* PROSES PINJAM */
+
+function prosesPinjam(){
+
+    let nama =
+    document.getElementById("namaSiswa").value;
+
+    let kelas =
+    document.getElementById("kelasSiswa").value;
+
+    let buku =
+    document.getElementById("cariBuku").value;
+
+    if(!nama || !kelas || !buku){
+
+        alert("Lengkapi data!");
+
+        return;
+
+    }
+
+    let tglPinjam = new Date();
+
+    let tglKembali = new Date();
+
+    tglKembali.setDate(
+    tglPinjam.getDate() + 7
+    );
+
+    db = {
+
+        nama:nama,
+        kelas:kelas,
+        buku:buku,
+        tgl:tglPinjam.toLocaleDateString(),
+        deadline:tglKembali.toLocaleDateString(),
+        rawDeadline:tglKembali
+
+    };
+
+    document.getElementById(
+    "detailPinjam"
+    ).innerHTML =
+
+    `
+    <b>Nama:</b> ${db.nama}<br>
+    <b>Kelas:</b> ${db.kelas}<br>
+    <b>Buku:</b> ${db.buku}<br>
+    <b>Tanggal Pinjam:</b> ${db.tgl}<br>
+    <b>Batas Pengembalian:</b>
+    <span style="color:red;">
+    ${db.deadline}
+    </span>
+    `;
+
+    /* SUARA */
+
+    let suara = new Audio(
+    "https://www.soundjay.com/buttons/sounds/button-3.mp3"
+    );
+
+    suara.play();
+
+    /* TAMBAH RIWAYAT */
+
+    document.getElementById(
+    "riwayatTable"
+    ).innerHTML +=
+
+    `
+    <tr>
+        <td>${nama}</td>
+        <td>${buku}</td>
+    </tr>
+    `;
+
+    alert("Peminjaman berhasil!");
+
+    nextStep(4);
+
+}
+
+/* PENGEMBALIAN */
+
+function prosesKembali(){
+
+    let hariIni = new Date();
+
+    let pesan =
+    "Petugas memeriksa kondisi buku...\n";
+
+    if(hariIni > db.rawDeadline){
+
+        pesan +=
+        "Terlambat! Denda Rp5.000";
+
+    }
+
+    else{
+
+        pesan +=
+        "Buku dikembalikan tepat waktu.";
+
+    }
+
+    alert(pesan);
+
+    alert(
+    "Buku dikembalikan ke rak."
+    );
+
+    location.reload();
+
+}
+
 </script>
 
 </body>
