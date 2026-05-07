@@ -2,150 +2,216 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Perpustakaan Sekolah</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Perpus Pinky - Tugas Informatika</title>
     <style>
-        :root { --primary: #2c3e50; --secondary: #3498db; --success: #27ae60; --danger: #e74c3c; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        h2 { color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card { padding: 20px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa; }
-        input, select, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
-        button { background: var(--secondary); color: white; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; }
-        button:hover { background: var(--primary); }
-        .status-box { margin-top: 20px; padding: 15px; border-radius: 5px; display: none; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: var(--primary); color: white; }
+        /* CSS UNTUK TAMPILAN MOBILE & WARNA PINK */
+        :root {
+            --primary-pink: #ff85a2;
+            --soft-pink: #fbb1bd;
+            --bg-pink: #f9f0f2;
+            --dark-pink: #d03d5a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-pink);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 450px; /* Ukuran maksimal HP */
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background-color: var(--primary-pink);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border: 2px solid var(--soft-pink);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        h3 { color: var(--dark-pink); margin-top: 0; }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid var(--soft-pink);
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: var(--dark-pink); }
+
+        .status-box {
+            background: #fdf2f4;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .hidden { display: none; }
+
+        footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: var(--soft-pink);
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>E-Perpustakaan: Manajemen Pinjam & Kembali</h2>
-    
-    <div class="grid">
-        <!-- Tahap 1: Peminjaman -->
-        <div class="card">
-            <h3>Peminjaman Baru</h3>
-            <input type="text" id="nama" placeholder="Nama Siswa (Sesuai Kartu)">
-            <input type="text" id="kelas" placeholder="Kelas">
-            <input type="text" id="judul" placeholder="Judul Buku">
-            <label><input type="checkbox" id="kondisiBaik"> Kondisi buku sudah diperiksa & baik</label>
-            <button onclick="pinjamBuku()">Proses Pinjam</button>
+<div class="mobile-container">
+    <header>
+        <h1>E-Perpus School</h1>
+        <p>Informatika Kelas 11</p>
+    </header>
+
+    <div class="content">
+        <!-- TAHAP 1: CEK KARTU & CARI BUKU -->
+        <div id="step1" class="card">
+            <h3>1. Cari Buku</h3>
+            <p>Pastikan membawa kartu pelajar!</p>
+            <input type="text" id="cariBuku" placeholder="Ketik judul buku (contoh: Biologi)...">
+            <button onclick="nextStep(2)">Cari & Ambil Buku</button>
         </div>
 
-        <!-- Tahap 2: Pengembalian -->
-        <div class="card">
-            <h3>Pengembalian</h3>
-            <p>Pilih nama siswa yang ingin mengembalikan buku:</p>
-            <select id="selectSiswa"></select>
-            <label>Tanggal Kembali:</label>
-            <input type="date" id="tglKembali">
-            <button onclick="kembalikanBuku()" style="background: var(--success);">Proses Kembali</button>
+        <!-- TAHAP 2: CEK KONDISI -->
+        <div id="step2" class="card hidden">
+            <h3>2. Cek Kondisi Buku</h3>
+            <p>Periksa apakah ada kerusakan pada buku.</p>
+            <label>
+                <input type="checkbox" id="kondisiBuku" style="width: auto;"> Buku dalam kondisi baik
+            </label>
+            <button style="margin-top:15px;" onclick="checkKondisi()">Lanjut ke Petugas</button>
+            <button style="background: #ccc; margin-top:5px;" onclick="backTo(1)">Batal</button>
+        </div>
+
+        <!-- TAHAP 3: PROSES PINJAM (PETUGAS) -->
+        <div id="step3" class="card hidden">
+            <h3>3. Meja Petugas</h3>
+            <input type="text" id="namaSiswa" placeholder="Nama Lengkap Siswa">
+            <input type="text" id="kelasSiswa" placeholder="Kelas (Contoh: 11 MIPA 1)">
+            <p style="font-size: 0.8em;">*Data akan diinput ke sistem</p>
+            <button onclick="prosesPinjam()">Konfirmasi Peminjaman</button>
+        </div>
+
+        <!-- TAHAP 4: STATUS PINJAM & PENGEMBALIAN -->
+        <div id="step4" class="card hidden">
+            <h3>4. Status Peminjaman</h3>
+            <div id="detailPinjam" class="status-box"></div>
+            <hr border="1" color="#fbb1bd">
+            <p>Kembalikan buku sebelum batas waktu!</p>
+            <button onclick="prosesKembali()">Kembalikan Buku Sekarang</button>
         </div>
     </div>
 
-    <div id="notifikasi" class="status-box"></div>
-
-    <h3>Daftar Peminjaman Aktif</h3>
-    <table id="tabelPinjam">
-        <thead>
-            <tr>
-                <th>Siswa</th>
-                <th>Buku</th>
-                <th>Tgl Pinjam</th>
-                <th>Batas Kembali</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody id="isiTabel"></tbody>
-    </table>
+    <footer>Tugas Informatika Semester 2</footer>
 </div>
 
 <script>
-    let database = [];
+    // LOGIKA APLIKASI BERDASARKAN ALGORITMA
+    let db = {}; 
 
-    function pinjamBuku() {
-        const nama = document.getElementById('nama').value;
-        const kelas = document.getElementById('kelas').value;
-        const judul = document.getElementById('judul').value;
-        const kondisi = document.getElementById('kondisiBaik').checked;
+    function nextStep(step) {
+        document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+        document.getElementById('step' + step).classList.remove('hidden');
+    }
 
-        if (!nama || !kelas || !judul) return alert("Mohon lengkapi data!");
-        if (!kondisi) return alert("Siswa harus memeriksa kondisi buku terlebih dahulu!");
+    function backTo(step) {
+        nextStep(step);
+    }
 
-        const tglPinjam = new Date();
-        const batasKembali = new Date();
-        batasKembali.setDate(tglPinjam.getDate() + 7); // Durasi 7 hari
+    function checkKondisi() {
+        const ok = document.getElementById('kondisiBuku').checked;
+        if(ok) {
+            nextStep(3);
+        } else {
+            alert("Siswa melaporkan kerusakan. Buku harus diperbaiki petugas dulu!");
+        }
+    }
 
-        const dataBaru = {
-            id: Date.now(),
-            nama, kelas, judul,
-            tglPinjam: tglPinjam.toISOString().split('T')[0],
-            batasKembali: batasKembali.toISOString().split('T')[0]
+    function prosesPinjam() {
+        const nama = document.getElementById('namaSiswa').value;
+        const kelas = document.getElementById('kelasSiswa').value;
+        const buku = document.getElementById('cariBuku').value;
+
+        if(!nama || !kelas) return alert("Lengkapi data siswa!");
+
+        // Set Tanggal (Simulasi sistem komputer)
+        let tglPinjam = new Date();
+        let tglKembali = new Date();
+        tglKembali.setDate(tglPinjam.getDate() + 7); // Batas waktu 7 hari
+
+        db = {
+            nama: nama,
+            buku: buku,
+            tgl: tglPinjam.toLocaleDateString(),
+            deadline: tglKembali.toLocaleDateString(),
+            rawDeadline: tglKembali
         };
 
-        database.push(dataBaru);
-        updateUI();
-        clearForm();
+        document.getElementById('detailPinjam').innerHTML = `
+            <b>Peminjam:</b> ${db.nama} (${db.kelasSiswa}) <br>
+            <b>Buku:</b> ${db.buku} <br>
+            <b>Tgl Pinjam:</b> ${db.tgl} <br>
+            <b>Batas Kembali:</b> <span style="color:red">${db.deadline}</span>
+        `;
+        
+        alert("Pencatatan Berhasil! Terima kasih.");
+        nextStep(4);
     }
 
-    function updateUI() {
-        const isiTabel = document.getElementById('isiTabel');
-        const selectSiswa = document.getElementById('selectSiswa');
-        isiTabel.innerHTML = "";
-        selectSiswa.innerHTML = "<option value=''>-- Pilih Siswa --</option>";
-
-        database.forEach(item => {
-            isiTabel.innerHTML += `
-                <tr>
-                    <td>${item.nama}</td>
-                    <td>${item.judul}</td>
-                    <td>${item.tglPinjam}</td>
-                    <td>${item.batasKembali}</td>
-                    <td><span style="color:orange">Dipinjam</span></td>
-                </tr>`;
-            
-            selectSiswa.innerHTML += `<option value="${item.id}">${item.nama} - ${item.judul}</option>`;
-        });
-    }
-
-    function kembalikanBuku() {
-        const id = document.getElementById('selectSiswa').value;
-        const tglKembaliInput = document.getElementById('tglKembali').value;
+    function prosesKembali() {
+        // Simulasi pengecekan denda
+        let hariIni = new Date();
+        let pesan = "Petugas memeriksa kondisi buku...\n";
         
-        if (!id || !tglKembaliInput) return alert("Pilih data pengembalian!");
-
-        const index = database.findIndex(i => i.id == id);
-        const data = database[index];
-        
-        const d1 = new Date(data.batasKembali);
-        const d2 = new Date(tglKembaliInput);
-        const notif = document.getElementById('notifikasi');
-        
-        notif.style.display = "block";
-        
-        if (d2 > d1) {
-            const selisihHari = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
-            const denda = selisihHari * 2000;
-            notif.innerHTML = `<strong>Sanksi:</strong> Terlambat ${selisihHari} hari. Denda sebesar Rp ${denda.toLocaleString()}.`;
-            notif.style.background = "#f8d7da";
-            notif.style.color = "#721c24";
+        if(hariIni > db.rawDeadline) {
+            pesan += "Siswa terlambat! Sanksi: Denda Rp 5.000";
         } else {
-            notif.innerHTML = "<strong>Sukses:</strong> Buku dikembalikan tepat waktu. Kondisi baik.";
-            notif.style.background = "#d4edda";
-            notif.style.color = "#155724";
+            pesan += "Kondisi Baik & Tepat Waktu. Selesai!";
         }
 
-        database.splice(index, 1);
-        updateUI();
-    }
-
-    function clearForm() {
-        document.getElementById('nama').value = "";
-        document.getElementById('judul').value = "";
-        document.getElementById('kondisiBaik').checked = false;
+        alert(pesan);
+        alert("Buku dikembalikan ke rak. Proses Selesai.");
+        location.reload(); // Reset aplikasi
     }
 </script>
 
