@@ -126,7 +126,7 @@ button:hover{
 }
 
 /* =========================
-   RIWAYAT PEMINJAMAN
+   RIWAYAT
 ========================= */
 
 .table-wrapper{
@@ -140,7 +140,6 @@ table{
     border-collapse:collapse;
     margin-top:12px;
     table-layout:auto;
-    word-wrap:break-word;
 }
 
 table th{
@@ -156,10 +155,8 @@ table td{
     padding:6px;
     text-align:center;
     font-size:10px;
-
     word-break:break-word;
     overflow-wrap:break-word;
-
     max-width:80px;
 }
 
@@ -195,6 +192,11 @@ table td:nth-child(6){
     width:70px;
 }
 
+table th:nth-child(7),
+table td:nth-child(7){
+    width:80px;
+}
+
 /* NOMOR */
 
 .nomor{
@@ -216,7 +218,24 @@ table td:nth-child(6){
     color:var(--pink4);
 }
 
-/* HAPUS SEMUA */
+/* SELESAI */
+
+.selesai{
+    text-decoration:line-through;
+    opacity:0.6;
+}
+
+/* TOMBOL */
+
+.btn-selesai{
+    background:#28a745;
+    border:none;
+    color:white;
+    padding:5px 8px;
+    border-radius:8px;
+    font-size:10px;
+    cursor:pointer;
+}
 
 .hapus-semua{
     width:auto;
@@ -426,6 +445,7 @@ footer{
                 <th>Tanggal</th>
                 <th>Jam</th>
                 <th>Status</th>
+                <th>Aksi</th>
             </tr>
         </thead>
 
@@ -433,21 +453,21 @@ footer{
 
             <tr>
                 <td class="nomor">1</td>
-                <td colspan="5" class="kosong">
+                <td colspan="6" class="kosong">
                     Belum ada riwayat peminjaman
                 </td>
             </tr>
 
             <tr>
                 <td class="nomor">2</td>
-                <td colspan="5" class="kosong">
+                <td colspan="6" class="kosong">
                     Belum ada riwayat peminjaman
                 </td>
             </tr>
 
             <tr>
                 <td class="nomor">3</td>
-                <td colspan="5" class="kosong">
+                <td colspan="6" class="kosong">
                     Belum ada riwayat peminjaman
                 </td>
             </tr>
@@ -652,7 +672,7 @@ function tambahRiwayat(nama,buku){
             ${nomorRiwayat}
         </td>
 
-        <td>${nama}</td>
+        <td class="nama-cell">${nama}</td>
 
         <td>${buku}</td>
 
@@ -664,9 +684,31 @@ function tambahRiwayat(nama,buku){
             Dipinjam
         </td>
 
+        <td>
+            <button
+            class="btn-selesai"
+            onclick="tandaiSelesai(this)">
+            Selesai
+            </button>
+        </td>
+
     `;
 
     nomorRiwayat++;
+
+}
+
+/* TANDAI SELESAI */
+
+function tandaiSelesai(btn){
+
+    let row =
+    btn.parentElement.parentElement;
+
+    row.classList.toggle("selesai");
+
+    row.querySelector(".status").innerHTML =
+    "Selesai";
 
 }
 
@@ -731,21 +773,21 @@ function hapusSemua(){
 
             <tr>
                 <td class="nomor">1</td>
-                <td colspan="5" class="kosong">
+                <td colspan="6" class="kosong">
                     Belum ada riwayat peminjaman
                 </td>
             </tr>
 
             <tr>
                 <td class="nomor">2</td>
-                <td colspan="5" class="kosong">
+                <td colspan="6" class="kosong">
                     Belum ada riwayat peminjaman
                 </td>
             </tr>
 
             <tr>
                 <td class="nomor">3</td>
-                <td colspan="5" class="kosong">
+                <td colspan="6" class="kosong">
                     Belum ada riwayat peminjaman
                 </td>
             </tr>
@@ -762,4 +804,4 @@ function hapusSemua(){
 </script>
 
 </body>
-</html>
+    </html>
