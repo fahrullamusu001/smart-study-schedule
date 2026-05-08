@@ -79,6 +79,7 @@ header h1{
     padding:18px;
     margin-bottom:20px;
     animation:muncul 0.5s;
+    overflow-x:auto;
 }
 
 @keyframes muncul{
@@ -144,24 +145,32 @@ button:hover{
     width:120px;
 }
 
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
+
 table{
     width:100%;
     border-collapse:collapse;
     margin-top:15px;
+    min-width:520px;
 }
 
 table th{
     background:var(--pink1);
     color:white;
-    padding:10px;
-    font-size:14px;
+    padding:8px;
+    font-size:12px;
+    white-space:nowrap;
 }
 
 table td{
     border:1px solid #ddd;
-    padding:10px;
+    padding:8px;
     text-align:center;
-    font-size:13px;
+    font-size:11px;
+    white-space:nowrap;
 }
 
 footer{
@@ -177,13 +186,13 @@ footer{
 }
 
 .action-btn{
-    padding:7px 10px;
+    padding:5px 8px;
     border:none;
     border-radius:8px;
     color:white;
     cursor:pointer;
     margin:2px;
-    font-size:12px;
+    font-size:10px;
 }
 
 .hijau{
@@ -361,12 +370,15 @@ footer{
 
         <h3>📋 Riwayat Peminjaman</h3>
 
+        <div class="table-wrapper">
+
         <table>
 
             <thead>
                 <tr>
                     <th>Nama</th>
                     <th>Buku</th>
+                    <th>Tanggal</th>
                     <th>Jam</th>
                     <th>Status</th>
                     <th>Aksi</th>
@@ -378,6 +390,8 @@ footer{
             </tbody>
 
         </table>
+
+        </div>
 
     </div>
 
@@ -400,7 +414,10 @@ setInterval(() => {
     let now = new Date();
 
     document.getElementById("jam").innerHTML =
-    now.toLocaleTimeString('id-ID');
+    now.toLocaleTimeString('id-ID',{
+        hour:'2-digit',
+        minute:'2-digit'
+    });
 
 },1000);
 
@@ -530,16 +547,6 @@ function prosesPinjam(){
     </span>
     `;
 
-    /* SUARA */
-
-    let suara = new Audio(
-    "https://www.soundjay.com/buttons/sounds/button-3.mp3"
-    );
-
-    suara.play();
-
-    /* TAMBAH RIWAYAT */
-
     tambahRiwayat(nama,buku);
 
     alert("Peminjaman berhasil!");
@@ -552,9 +559,16 @@ function prosesPinjam(){
 
 function tambahRiwayat(nama,buku){
 
-    // AMBIL JAM SAAT INI
+    // JAM TANPA DETIK
     let waktuSekarang =
-    new Date().toLocaleTimeString('id-ID');
+    new Date().toLocaleTimeString('id-ID',{
+        hour:'2-digit',
+        minute:'2-digit'
+    });
+
+    // TANGGAL SAAT INI
+    let tanggalSekarang =
+    new Date().toLocaleDateString('id-ID');
 
     let table =
     document.getElementById("riwayatTable");
@@ -566,6 +580,8 @@ function tambahRiwayat(nama,buku){
         <td>${nama}</td>
 
         <td>${buku}</td>
+
+        <td>${tanggalSekarang}</td>
 
         <td>${waktuSekarang}</td>
 
@@ -666,4 +682,4 @@ function peminjamanBaru(){
 </script>
 
 </body>
-    </html>
+</html>
