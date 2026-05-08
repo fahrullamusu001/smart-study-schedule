@@ -367,6 +367,7 @@ footer{
                 <tr>
                     <th>Nama</th>
                     <th>Buku</th>
+                    <th>Jam</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -551,6 +552,10 @@ function prosesPinjam(){
 
 function tambahRiwayat(nama,buku){
 
+    // AMBIL JAM SAAT INI
+    let waktuSekarang =
+    new Date().toLocaleTimeString('id-ID');
+
     let table =
     document.getElementById("riwayatTable");
 
@@ -561,6 +566,8 @@ function tambahRiwayat(nama,buku){
         <td>${nama}</td>
 
         <td>${buku}</td>
+
+        <td>${waktuSekarang}</td>
 
         <td class="status">
             Dipinjam
@@ -659,4 +666,4 @@ function peminjamanBaru(){
 </script>
 
 </body>
-</html>
+    </html>
