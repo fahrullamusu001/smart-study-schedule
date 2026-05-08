@@ -73,7 +73,6 @@ header{
     border-radius:18px;
     padding:18px;
     margin-bottom:20px;
-    overflow-x:auto;
 }
 
 h3{
@@ -88,6 +87,7 @@ select{
     margin-top:10px;
     border:2px solid var(--pink2);
     border-radius:10px;
+    outline:none;
 }
 
 button{
@@ -125,60 +125,98 @@ button:hover{
     width:120px;
 }
 
+/* =========================
+   RIWAYAT PEMINJAMAN
+========================= */
+
 .table-wrapper{
     width:100%;
     overflow-x:auto;
+    border-radius:12px;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    margin-top:15px;
-    min-width:650px;
+    margin-top:12px;
+    table-layout:auto;
+    word-wrap:break-word;
 }
 
 table th{
     background:var(--pink1);
     color:white;
-    padding:8px;
-    font-size:12px;
+    padding:6px;
+    font-size:11px;
+    text-align:center;
 }
 
 table td{
     border:1px solid #ddd;
-    padding:8px;
+    padding:6px;
     text-align:center;
-    font-size:11px;
+    font-size:10px;
+
+    word-break:break-word;
+    overflow-wrap:break-word;
+
+    max-width:80px;
 }
+
+/* UKURAN KOLOM */
+
+table th:nth-child(1),
+table td:nth-child(1){
+    width:35px;
+}
+
+table th:nth-child(2),
+table td:nth-child(2){
+    width:90px;
+}
+
+table th:nth-child(3),
+table td:nth-child(3){
+    width:90px;
+}
+
+table th:nth-child(4),
+table td:nth-child(4){
+    width:70px;
+}
+
+table th:nth-child(5),
+table td:nth-child(5){
+    width:55px;
+}
+
+table th:nth-child(6),
+table td:nth-child(6){
+    width:70px;
+}
+
+/* NOMOR */
 
 .nomor{
     font-weight:bold;
     color:var(--pink4);
 }
 
+/* KOSONG */
+
 .kosong{
     color:#aaa;
     font-style:italic;
 }
 
-.selesai{
-    text-decoration:line-through;
-    opacity:0.6;
+/* STATUS */
+
+.status{
+    font-weight:bold;
+    color:var(--pink4);
 }
 
-.action-btn{
-    padding:5px 8px;
-    border:none;
-    border-radius:8px;
-    color:white;
-    cursor:pointer;
-    margin:2px;
-    font-size:10px;
-}
-
-.hijau{
-    background:#28a745;
-}
+/* HAPUS SEMUA */
 
 .hapus-semua{
     width:auto;
@@ -188,6 +226,8 @@ table td{
     float:right;
     font-size:12px;
 }
+
+/* FOOTER */
 
 footer{
     text-align:center;
@@ -224,6 +264,22 @@ footer{
 
 .dark table td{
     border:1px solid #666;
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+    table th{
+        font-size:10px;
+        padding:5px;
+    }
+
+    table td{
+        font-size:9px;
+        padding:5px;
+    }
+
 }
 
 </style>
@@ -401,8 +457,6 @@ footer{
     </table>
 
     </div>
-
-    <!-- HAPUS SEMUA -->
 
     <button
     class="hapus-semua"
@@ -582,8 +636,6 @@ function tambahRiwayat(nama,buku){
 
     let table =
     document.getElementById("riwayatTable");
-
-    /* HAPUS TEMPLATE KOSONG */
 
     if(riwayatKosong){
 
