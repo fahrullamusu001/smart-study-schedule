@@ -36,7 +36,6 @@ body{
     min-height:100vh;
     background:white;
     box-shadow:0 0 20px rgba(0,0,0,0.1);
-    transition:0.3s;
 }
 
 header{
@@ -46,10 +45,6 @@ header{
     padding:25px;
     border-bottom-left-radius:25px;
     border-bottom-right-radius:25px;
-}
-
-header h1{
-    margin-bottom:5px;
 }
 
 #jam{
@@ -78,20 +73,7 @@ header h1{
     border-radius:18px;
     padding:18px;
     margin-bottom:20px;
-    animation:muncul 0.5s;
     overflow-x:auto;
-}
-
-@keyframes muncul{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
 }
 
 h3{
@@ -106,7 +88,6 @@ select{
     margin-top:10px;
     border:2px solid var(--pink2);
     border-radius:10px;
-    outline:none;
 }
 
 button{
@@ -119,7 +100,6 @@ button{
     color:white;
     font-weight:bold;
     cursor:pointer;
-    transition:0.3s;
 }
 
 button:hover{
@@ -154,7 +134,7 @@ table{
     width:100%;
     border-collapse:collapse;
     margin-top:15px;
-    min-width:520px;
+    min-width:650px;
 }
 
 table th{
@@ -162,7 +142,6 @@ table th{
     color:white;
     padding:8px;
     font-size:12px;
-    white-space:nowrap;
 }
 
 table td{
@@ -170,14 +149,16 @@ table td{
     padding:8px;
     text-align:center;
     font-size:11px;
-    white-space:nowrap;
 }
 
-footer{
-    text-align:center;
-    padding:20px;
-    color:#999;
-    font-size:13px;
+.nomor{
+    font-weight:bold;
+    color:var(--pink4);
+}
+
+.kosong{
+    color:#aaa;
+    font-style:italic;
 }
 
 .selesai{
@@ -199,8 +180,20 @@ footer{
     background:#28a745;
 }
 
-.merah{
+.hapus-semua{
+    width:auto;
+    padding:10px 20px;
     background:#dc3545;
+    margin-top:20px;
+    float:right;
+    font-size:12px;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#999;
+    font-size:13px;
 }
 
 /* DARK MODE */
@@ -229,6 +222,10 @@ footer{
     background:#444;
 }
 
+.dark table td{
+    border:1px solid #666;
+}
+
 </style>
 </head>
 
@@ -251,149 +248,171 @@ footer{
 
 <div class="content">
 
-    <!-- STEP 1 -->
+<!-- STEP 1 -->
 
-    <div id="step1" class="card">
+<div id="step1" class="card">
 
-        <h3>1. Cari Buku</h3>
+    <h3>1. Cari Buku</h3>
 
-        <p>Pastikan membawa kartu pelajar.</p>
+    <p>Pastikan membawa kartu pelajar.</p>
 
-        <select id="cariBuku" onchange="tampilCover()">
+    <select id="cariBuku" onchange="tampilCover()">
 
-            <option value="">-- Pilih Buku --</option>
+        <option value="">-- Pilih Buku --</option>
 
-            <option>Pen. Agama Islam</option>
-            <option>PKN</option>
-            <option>Bahasa Indonesia</option>
-            <option>Bahasa Inggris</option>
-            <option>Seni Budaya</option>
-            <option>PJOK</option>
-            <option>Matematika</option>
-            <option>Fisika</option>
-            <option>Sejarah Indonesia</option>
-            <option>Biologi</option>
-            <option>Kimia</option>
-            <option>Informatika</option>
+        <option>Pen. Agama Islam</option>
+        <option>PKN</option>
+        <option>Bahasa Indonesia</option>
+        <option>Bahasa Inggris</option>
+        <option>Seni Budaya</option>
+        <option>PJOK</option>
+        <option>Matematika</option>
+        <option>Fisika</option>
+        <option>Sejarah Indonesia</option>
+        <option>Biologi</option>
+        <option>Kimia</option>
+        <option>Informatika</option>
 
-        </select>
+    </select>
 
-        <img
-        id="coverBuku"
-        src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
-        >
+    <img
+    id="coverBuku"
+    src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
+    >
 
-        <button onclick="nextStep(2)">
-            Cari & Ambil Buku
-        </button>
+    <button onclick="nextStep(2)">
+        Cari & Ambil Buku
+    </button>
 
-    </div>
+</div>
 
-    <!-- STEP 2 -->
+<!-- STEP 2 -->
 
-    <div id="step2" class="card hidden">
+<div id="step2" class="card hidden">
 
-        <h3>2. Cek Kondisi Buku</h3>
+    <h3>2. Cek Kondisi Buku</h3>
 
-        <p>Periksa kondisi buku sebelum dipinjam.</p>
-
-        <label>
-
-            <input
-            type="checkbox"
-            id="kondisiBuku"
-            style="width:auto;"
-            >
-
-            Buku dalam kondisi baik
-
-        </label>
-
-        <button onclick="checkKondisi()">
-            Lanjut ke Petugas
-        </button>
-
-        <button
-        onclick="backTo(1)"
-        style="background:#ccc;color:black;"
-        >
-            Batal
-        </button>
-
-    </div>
-
-    <!-- STEP 3 -->
-
-    <div id="step3" class="card hidden">
-
-        <h3>3. Data Peminjaman</h3>
+    <label>
 
         <input
-        type="text"
-        id="namaSiswa"
-        placeholder="Nama Lengkap"
+        type="checkbox"
+        id="kondisiBuku"
+        style="width:auto;"
         >
 
-        <input
-        type="text"
-        id="kelasSiswa"
-        placeholder="Kelas"
-        >
+        Buku dalam kondisi baik
 
-        <button onclick="prosesPinjam()">
-            Konfirmasi Peminjaman
-        </button>
+    </label>
+
+    <button onclick="checkKondisi()">
+        Lanjut ke Petugas
+    </button>
+
+</div>
+
+<!-- STEP 3 -->
+
+<div id="step3" class="card hidden">
+
+    <h3>3. Data Peminjaman</h3>
+
+    <input
+    type="text"
+    id="namaSiswa"
+    placeholder="Nama Lengkap"
+    >
+
+    <input
+    type="text"
+    id="kelasSiswa"
+    placeholder="Kelas"
+    >
+
+    <button onclick="prosesPinjam()">
+        Konfirmasi Peminjaman
+    </button>
+
+</div>
+
+<!-- STEP 4 -->
+
+<div id="step4" class="card hidden">
+
+    <h3>4. Status Peminjaman</h3>
+
+    <div id="detailPinjam" class="status-box"></div>
+
+    <button onclick="prosesKembali()">
+        Kembalikan Buku
+    </button>
+
+    <button onclick="peminjamanBaru()">
+        ➕ Buat Peminjaman Baru
+    </button>
+
+</div>
+
+<!-- RIWAYAT -->
+
+<div class="card">
+
+    <h3>📋 Riwayat Peminjaman</h3>
+
+    <div class="table-wrapper">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Buku</th>
+                <th>Tanggal</th>
+                <th>Jam</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="riwayatTable">
+
+            <tr>
+                <td class="nomor">1</td>
+                <td colspan="5" class="kosong">
+                    Belum ada riwayat peminjaman
+                </td>
+            </tr>
+
+            <tr>
+                <td class="nomor">2</td>
+                <td colspan="5" class="kosong">
+                    Belum ada riwayat peminjaman
+                </td>
+            </tr>
+
+            <tr>
+                <td class="nomor">3</td>
+                <td colspan="5" class="kosong">
+                    Belum ada riwayat peminjaman
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
 
     </div>
 
-    <!-- STEP 4 -->
+    <!-- HAPUS SEMUA -->
 
-    <div id="step4" class="card hidden">
+    <button
+    class="hapus-semua"
+    onclick="hapusSemua()">
+    🗑 Hapus Semua Riwayat
+    </button>
 
-        <h3>4. Status Peminjaman</h3>
+    <div style="clear:both;"></div>
 
-        <div id="detailPinjam" class="status-box"></div>
-
-        <button onclick="prosesKembali()">
-            Kembalikan Buku
-        </button>
-
-        <button onclick="peminjamanBaru()">
-            ➕ Buat Peminjaman Baru
-        </button>
-
-    </div>
-
-    <!-- RIWAYAT -->
-
-    <div class="card">
-
-        <h3>📋 Riwayat Peminjaman</h3>
-
-        <div class="table-wrapper">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Buku</th>
-                    <th>Tanggal</th>
-                    <th>Jam</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-
-            <tbody id="riwayatTable">
-
-            </tbody>
-
-        </table>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
@@ -406,6 +425,8 @@ footer{
 <script>
 
 let db = {};
+let nomorRiwayat = 1;
+let riwayatKosong = true;
 
 /* JAM REALTIME */
 
@@ -429,7 +450,7 @@ function darkMode(){
 
 }
 
-/* PINDAH STEP */
+/* STEP */
 
 function nextStep(step){
 
@@ -444,12 +465,6 @@ function nextStep(step){
     document
     .getElementById("step"+step)
     .classList.remove("hidden");
-
-}
-
-function backTo(step){
-
-    nextStep(step);
 
 }
 
@@ -476,23 +491,20 @@ function checkKondisi(){
 
 }
 
-/* COVER BUKU */
+/* COVER */
 
 function tampilCover(){
 
     let buku =
     document.getElementById("cariBuku").value;
 
-    let gambar =
-    document.getElementById("coverBuku");
-
-    gambar.src =
+    document.getElementById("coverBuku").src =
     "https://via.placeholder.com/120x170/ff85a2/ffffff?text="
     + encodeURIComponent(buku);
 
 }
 
-/* PROSES PINJAM */
+/* PINJAM */
 
 function prosesPinjam(){
 
@@ -559,23 +571,34 @@ function prosesPinjam(){
 
 function tambahRiwayat(nama,buku){
 
-    // JAM TANPA DETIK
     let waktuSekarang =
     new Date().toLocaleTimeString('id-ID',{
         hour:'2-digit',
         minute:'2-digit'
     });
 
-    // TANGGAL SAAT INI
     let tanggalSekarang =
     new Date().toLocaleDateString('id-ID');
 
     let table =
     document.getElementById("riwayatTable");
 
+    /* HAPUS TEMPLATE KOSONG */
+
+    if(riwayatKosong){
+
+        table.innerHTML = "";
+        riwayatKosong = false;
+
+    }
+
     let row = table.insertRow();
 
     row.innerHTML = `
+
+        <td class="nomor">
+            ${nomorRiwayat}
+        </td>
 
         <td>${nama}</td>
 
@@ -589,50 +612,13 @@ function tambahRiwayat(nama,buku){
             Dipinjam
         </td>
 
-        <td>
-
-            <button
-            class="action-btn hijau"
-            onclick="selesai(this)">
-            Selesai
-            </button>
-
-            <button
-            class="action-btn merah"
-            onclick="hapus(this)">
-            Hapus
-            </button>
-
-        </td>
-
     `;
 
-}
-
-/* TANDAI SELESAI */
-
-function selesai(btn){
-
-    let row = btn.parentElement.parentElement;
-
-    row.classList.toggle("selesai");
-
-    row.querySelector(".status").innerHTML =
-    "Selesai";
+    nomorRiwayat++;
 
 }
 
-/* HAPUS RIWAYAT */
-
-function hapus(btn){
-
-    let row = btn.parentElement.parentElement;
-
-    row.remove();
-
-}
-
-/* PENGEMBALIAN */
+/* KEMBALI */
 
 function prosesKembali(){
 
@@ -657,10 +643,6 @@ function prosesKembali(){
 
     alert(pesan);
 
-    alert(
-    "Buku dikembalikan ke rak."
-    );
-
 }
 
 /* PEMINJAMAN BARU */
@@ -676,6 +658,52 @@ function peminjamanBaru(){
     "https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku";
 
     nextStep(1);
+
+}
+
+/* HAPUS SEMUA */
+
+function hapusSemua(){
+
+    let konfirmasi =
+    confirm(
+    "Yakin ingin menghapus semua riwayat?"
+    );
+
+    if(konfirmasi){
+
+        let table =
+        document.getElementById("riwayatTable");
+
+        table.innerHTML = `
+
+            <tr>
+                <td class="nomor">1</td>
+                <td colspan="5" class="kosong">
+                    Belum ada riwayat peminjaman
+                </td>
+            </tr>
+
+            <tr>
+                <td class="nomor">2</td>
+                <td colspan="5" class="kosong">
+                    Belum ada riwayat peminjaman
+                </td>
+            </tr>
+
+            <tr>
+                <td class="nomor">3</td>
+                <td colspan="5" class="kosong">
+                    Belum ada riwayat peminjaman
+                </td>
+            </tr>
+
+        `;
+
+        nomorRiwayat = 1;
+        riwayatKosong = true;
+
+    }
 
 }
 
