@@ -123,37 +123,42 @@ button:hover{
     width:120px;
 }
 
-/* =========================
+/* ======================
    RIWAYAT PEMINJAMAN
-========================= */
+====================== */
 
 .table-wrapper{
     width:100%;
     overflow-x:auto;
+    margin-top:15px;
     border-radius:12px;
 }
 
+/* AGAR TABEL MEMANJANG KE SAMPING */
 table{
-    width:100%;
     border-collapse:collapse;
-    margin-top:12px;
+    min-width:850px;
+}
+
+/* AGAR TULISAN TIDAK TURUN KE BAWAH */
+th,
+td{
     white-space:nowrap;
 }
 
 table th{
     background:var(--pink1);
     color:white;
-    padding:8px;
-    font-size:11px;
+    padding:10px 14px;
+    font-size:12px;
     text-align:center;
 }
 
 table td{
     border:1px solid #ddd;
-    padding:8px;
+    padding:10px 14px;
     text-align:center;
-    font-size:11px;
-    white-space:nowrap;
+    font-size:12px;
 }
 
 .nomor{
@@ -171,15 +176,13 @@ table td{
     color:var(--pink4);
 }
 
-/* TOMBOL */
-
 .btn-selesai{
     background:#28a745;
     border:none;
     color:white;
-    padding:5px 10px;
+    padding:7px 12px;
     border-radius:8px;
-    font-size:10px;
+    font-size:11px;
     cursor:pointer;
 }
 
@@ -187,14 +190,10 @@ table td{
     background:#1d7f34;
 }
 
-/* BARIS SELESAI */
-
 .selesai{
     text-decoration:line-through;
     opacity:0.6;
 }
-
-/* HAPUS SEMUA */
 
 .hapus-semua{
     width:auto;
