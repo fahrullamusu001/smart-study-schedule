@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Perpus Pinky XI-2</title>
+<title>E-Perpus Pinky</title>
 
 <style>
 
@@ -82,11 +82,18 @@ h3{
 input,
 select{
     width:100%;
-    padding:12px;
-    margin-top:10px;
+    padding:13px;
+    margin-top:12px;
     border:2px solid var(--pink2);
-    border-radius:10px;
+    border-radius:12px;
     font-size:14px;
+    outline:none;
+    background:white;
+}
+
+input:focus,
+select:focus{
+    border-color:var(--pink4);
 }
 
 button{
@@ -99,6 +106,7 @@ button{
     color:white;
     font-weight:bold;
     cursor:pointer;
+    font-size:15px;
 }
 
 button:hover{
@@ -124,7 +132,22 @@ button:hover{
     width:120px;
 }
 
-/* RIWAYAT */
+/* SEARCH BOX */
+
+.search-box{
+    position:relative;
+}
+
+.search-icon{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-20%);
+    color:#999;
+    font-size:14px;
+}
+
+/* TABLE */
 
 .table-wrapper{
     width:100%;
@@ -166,7 +189,7 @@ table td{
 }
 
 .kosong{
-    color:#aaa;
+    color:#999;
     font-style:italic;
 }
 
@@ -323,24 +346,40 @@ Lanjut ke Data Peminjaman
 <select id="kelasSiswa" onchange="loadNama()">
 
 <option value="">-- Pilih Kelas --</option>
-<option value="XI-2">XI-2</option>
+
+<option>XI-1</option>
+<option>XI-2</option>
+<option>XI-3</option>
+<option>XI-4</option>
+<option>XI-5</option>
+<option>XI-6</option>
+<option>XI-7</option>
+<option>XI-8</option>
+<option>XI-9</option>
+<option>XI-10</option>
 
 </select>
 
-<!-- SEARCH -->
+<!-- SEARCH NAMA -->
+
+<div class="search-box">
 
 <input
 type="text"
 id="searchNama"
-placeholder="Cari nama siswa..."
+placeholder="🔍 Cari nama siswa..."
 onkeyup="filterNama()"
 >
+
+</div>
 
 <!-- PILIH NAMA -->
 
 <select id="namaSiswa">
 
-<option value="">-- Pilih Nama Siswa --</option>
+<option value="">
+-- Pilih Nama Siswa --
+</option>
 
 </select>
 
@@ -442,11 +481,13 @@ Dibuat Untuk Tugas Informatika Semester 2
 
 <script>
 
-/* DATA SISWA XI-2 */
+/* DATA SISWA */
 
 const dataKelas = {
 
-"XI-2":[
+"XI-1": [],
+
+"XI-2": [
 
 "Abdul Rizki Rafa Hiola",
 "Ardiansyah Ismail",
@@ -484,7 +525,16 @@ const dataKelas = {
 "Nabila Putri Amara",
 "Jesika Jamalu"
 
-]
+],
+
+"XI-3": [],
+"XI-4": [],
+"XI-5": [],
+"XI-6": [],
+"XI-7": [],
+"XI-8": [],
+"XI-9": [],
+"XI-10": []
 
 };
 
@@ -514,7 +564,7 @@ document.body.classList.toggle("dark");
 
 }
 
-/* STEP */
+/* PINDAH STEP */
 
 function nextStep(step){
 
@@ -532,7 +582,7 @@ document
 
 }
 
-/* COVER BUKU */
+/* COVER */
 
 function tampilCover(){
 
@@ -566,7 +616,7 @@ alert("Buku rusak. Laporkan ke petugas!");
 
 }
 
-/* LOAD NAMA */
+/* LOAD NAMA BERDASARKAN KELAS */
 
 function loadNama(){
 
@@ -579,21 +629,36 @@ document.getElementById("namaSiswa");
 namaSelect.innerHTML =
 '<option value="">-- Pilih Nama Siswa --</option>';
 
-if(dataKelas[kelas]){
+let daftarNama =
+dataKelas[kelas];
 
-dataKelas[kelas].forEach(nama => {
+if(daftarNama.length === 0){
+
+let option =
+document.createElement("option");
+
+option.text =
+"Daftar nama belum tersedia";
+
+option.disabled = true;
+
+namaSelect.add(option);
+
+return;
+
+}
+
+daftarNama.forEach(nama => {
 
 let option =
 document.createElement("option");
 
 option.value = nama;
-option.textContent = nama;
+option.text = nama;
 
-namaSelect.appendChild(option);
+namaSelect.add(option);
 
 });
-
-}
 
 }
 
@@ -602,12 +667,13 @@ namaSelect.appendChild(option);
 function filterNama(){
 
 let input =
-document.getElementById("searchNama").value.toLowerCase();
+document.getElementById("searchNama")
+.value.toLowerCase();
 
 let select =
 document.getElementById("namaSiswa");
 
-for(let i=0; i<select.options.length; i++){
+for(let i=0;i<select.options.length;i++){
 
 let txt =
 select.options[i].text.toLowerCase();
@@ -747,7 +813,7 @@ nomorRiwayat++;
 
 }
 
-/* SELESAI */
+/* TANDAI SELESAI */
 
 function tandaiSelesai(btn){
 
@@ -802,15 +868,18 @@ alert(pesan);
 
 }
 
-/* BARU */
+/* PEMINJAMAN BARU */
 
 function peminjamanBaru(){
 
 document.getElementById("kelasSiswa").value = "";
 document.getElementById("namaSiswa").innerHTML =
 '<option value="">-- Pilih Nama Siswa --</option>';
+
 document.getElementById("searchNama").value = "";
+
 document.getElementById("cariBuku").value = "";
+
 document.getElementById("kondisiBuku").checked = false;
 
 document.getElementById("coverBuku").src =
@@ -820,7 +889,7 @@ nextStep(1);
 
 }
 
-/* HAPUS */
+/* HAPUS SEMUA */
 
 function hapusSemua(){
 
@@ -869,4 +938,4 @@ riwayatKosong = true;
 </script>
 
 </body>
-    </html>
+</html>
