@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,8 +33,8 @@ body{
 .mobile-container{
     width:100%;
     max-width:450px;
-    background:white;
     min-height:100vh;
+    background:white;
     box-shadow:0 0 20px rgba(0,0,0,0.1);
 }
 
@@ -46,9 +47,13 @@ header{
     border-bottom-right-radius:25px;
 }
 
+header h1{
+    font-size:28px;
+}
+
 #jam{
     margin-top:10px;
-    font-size:14px;
+    font-size:20px;
 }
 
 .dark-btn{
@@ -56,61 +61,53 @@ header{
     background:white;
     color:var(--pink4);
     border:none;
-    padding:10px 15px;
-    border-radius:10px;
+    padding:12px;
+    border-radius:12px;
+    width:100%;
     font-weight:bold;
     cursor:pointer;
 }
 
 .content{
-    padding:20px;
+    padding:18px;
 }
 
 .card{
     background:white;
     border:2px solid var(--pink2);
-    border-radius:18px;
+    border-radius:22px;
     padding:18px;
     margin-bottom:20px;
 }
 
 h3{
     color:var(--pink4);
-    margin-bottom:12px;
+    margin-bottom:15px;
+    font-size:22px;
 }
 
 input,
 select{
     width:100%;
-    padding:13px;
-    margin-top:12px;
+    padding:14px;
     border:2px solid var(--pink2);
-    border-radius:12px;
-    font-size:14px;
+    border-radius:16px;
+    margin-top:12px;
+    font-size:16px;
     outline:none;
-    background:white;
-}
-
-input:focus,
-select:focus{
-    border-color:var(--pink4);
 }
 
 button{
     width:100%;
-    margin-top:15px;
     padding:14px;
     border:none;
-    border-radius:12px;
+    border-radius:16px;
     background:var(--pink1);
     color:white;
     font-weight:bold;
+    margin-top:15px;
     cursor:pointer;
-    font-size:15px;
-}
-
-button:hover{
-    background:var(--pink4);
+    font-size:16px;
 }
 
 .hidden{
@@ -119,111 +116,52 @@ button:hover{
 
 .status-box{
     background:#fff5f8;
-    padding:12px;
-    border-radius:12px;
-    line-height:1.8;
-    margin-top:10px;
+    padding:15px;
+    border-radius:18px;
+    line-height:2;
 }
 
 #coverBuku{
+    width:120px;
     display:block;
     margin:15px auto;
-    border-radius:10px;
-    width:120px;
-}
-
-/* SEARCHABLE SELECT */
-
-.dropdown-box{
-    position:relative;
-    margin-top:12px;
-}
-
-.dropdown-input{
-    width:100%;
-    padding:13px;
-    border:2px solid var(--pink2);
     border-radius:12px;
-    font-size:14px;
 }
 
-.dropdown-list{
-    position:absolute;
-    width:100%;
-    max-height:220px;
-    overflow-y:auto;
-    background:white;
-    border:2px solid var(--pink2);
-    border-radius:12px;
-    margin-top:5px;
-    display:none;
-    z-index:100;
-}
-
-.dropdown-item{
-    padding:12px;
-    cursor:pointer;
-    border-bottom:1px solid #eee;
-}
-
-.dropdown-item:hover{
-    background:#ffe3ec;
-}
-
-/* TABLE */
-
-.table-wrapper{
-    width:100%;
+.table-container{
     overflow-x:auto;
-    margin-top:15px;
+    width:100%;
 }
 
 table{
     border-collapse:collapse;
-    min-width:850px;
+    min-width:1100px;
+    width:max-content;
 }
 
-th,td{
+th{
+    background:var(--pink1);
+    color:white;
+    padding:12px;
+    font-size:15px;
     white-space:nowrap;
 }
 
-table th{
-    background:var(--pink1);
-    color:white;
-    padding:10px 14px;
-    font-size:12px;
-}
-
-table td{
+td{
     border:1px solid #ddd;
-    padding:10px 14px;
+    padding:10px;
+    font-size:14px;
     text-align:center;
-    font-size:12px;
+    white-space:nowrap;
 }
 
 .nomor{
-    font-weight:bold;
     color:var(--pink4);
-}
-
-.status{
     font-weight:bold;
-    color:var(--pink4);
 }
 
 .kosong{
     color:#999;
-    font-style:italic;
-}
-
-.btn-selesai{
-    background:#28a745;
-    border:none;
-    color:white;
-    padding:7px 12px;
-    border-radius:8px;
-    font-size:11px;
-    cursor:pointer;
 }
 
 .selesai{
@@ -231,23 +169,66 @@ table td{
     opacity:0.6;
 }
 
-.hapus-semua{
+.btn-selesai{
+    background:#28a745;
+    border:none;
+    color:white;
+    padding:7px 10px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn-hapus-semua{
     width:auto;
-    padding:10px 20px;
     background:#dc3545;
+    padding:12px 18px;
+    border-radius:14px;
+    display:block;
+    margin-left:auto;
     margin-top:20px;
-    float:right;
-    font-size:12px;
+}
+
+.btn-download{
+    width:auto;
+    background:#6f42c1;
+    padding:12px 18px;
+    border-radius:14px;
+    display:block;
+    margin-left:auto;
+    margin-top:10px;
 }
 
 footer{
     text-align:center;
-    padding:25px;
+    padding:30px;
     color:#999;
-    font-size:14px;
+    font-size:15px;
 }
 
-/* DARK MODE */
+.dropdown-container{
+    position:relative;
+}
+
+.dropdown-list{
+    position:absolute;
+    width:100%;
+    background:white;
+    border:2px solid var(--pink2);
+    border-radius:16px;
+    max-height:220px;
+    overflow-y:auto;
+    z-index:10;
+}
+
+.dropdown-item{
+    padding:14px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.dropdown-item:hover{
+    background:#fff0f5;
+}
 
 .dark{
     background:#1e1e1e;
@@ -270,22 +251,14 @@ footer{
 
 .dark .dropdown-list{
     background:#444;
-    color:white;
-}
-
-.dark .dropdown-item{
-    border-bottom:1px solid #666;
 }
 
 .dark .status-box{
     background:#444;
 }
 
-.dark table td{
-    border:1px solid #666;
-}
-
 </style>
+
 </head>
 
 <body>
@@ -295,6 +268,7 @@ footer{
 <header>
 
 <h1>📚 E-Perpus Pinky</h1>
+
 <p>Tugas Informatika Kelas 11</p>
 
 <p id="jam"></p>
@@ -306,8 +280,6 @@ footer{
 </header>
 
 <div class="content">
-
-<!-- STEP 1 -->
 
 <div id="step1" class="card">
 
@@ -332,6 +304,14 @@ footer{
 
 </select>
 
+<input
+type="number"
+id="jumlahBuku"
+placeholder="Jumlah Buku Dipinjam"
+min="1"
+max="10"
+>
+
 <img
 id="coverBuku"
 src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
@@ -342,8 +322,6 @@ Cari & Ambil Buku
 </button>
 
 </div>
-
-<!-- STEP 2 -->
 
 <div id="step2" class="card hidden">
 
@@ -357,25 +335,23 @@ id="kondisiBuku"
 style="width:auto;"
 >
 
-Buku dalam kondisi baik
+ Buku dalam kondisi baik
 
 </label>
 
 <button onclick="checkKondisi()">
-Lanjut ke Data Peminjaman
+Lanjut ke Petugas
 </button>
 
 </div>
-
-<!-- STEP 3 -->
 
 <div id="step3" class="card hidden">
 
 <h3>3. Data Peminjaman</h3>
 
-<select id="kelasSiswa" onchange="loadNama()">
+<select id="kelasSiswa" onchange="loadNamaSiswa()">
 
-<option value="">-- Pilih Kelas --</option>
+<option value="">Pilih Kelas</option>
 
 <option>XI-1</option>
 <option>XI-2</option>
@@ -390,20 +366,18 @@ Lanjut ke Data Peminjaman
 
 </select>
 
-<div class="dropdown-box">
+<div class="dropdown-container">
 
 <input
 type="text"
-id="namaInput"
-class="dropdown-input"
+id="searchNama"
 placeholder="🔍 Pilih atau cari nama siswa..."
 onkeyup="filterNama()"
-onclick="showDropdown()"
 >
 
 <div
-id="dropdownList"
-class="dropdown-list">
+id="dropdownNama"
+class="dropdown-list hidden">
 </div>
 
 </div>
@@ -413,8 +387,6 @@ Konfirmasi Peminjaman
 </button>
 
 </div>
-
-<!-- STEP 4 -->
 
 <div id="step4" class="card hidden">
 
@@ -432,27 +404,28 @@ Kembalikan Buku
 
 </div>
 
-<!-- RIWAYAT -->
-
 <div class="card">
 
 <h3>📋 Riwayat Peminjaman</h3>
 
-<div class="table-wrapper">
+<div class="table-container">
 
-<table>
+<table id="tabelRiwayat">
 
 <thead>
 
 <tr>
+
 <th>No</th>
 <th>Nama</th>
 <th>Kelas</th>
 <th>Buku</th>
+<th>Jumlah</th>
 <th>Tanggal</th>
 <th>Jam</th>
 <th>Status</th>
 <th>Selesai</th>
+
 </tr>
 
 </thead>
@@ -460,24 +433,13 @@ Kembalikan Buku
 <tbody id="riwayatTable">
 
 <tr>
+
 <td class="nomor">1</td>
-<td colspan="7" class="kosong">
-Belum ada riwayat peminjaman
-</td>
-</tr>
 
-<tr>
-<td class="nomor">2</td>
-<td colspan="7" class="kosong">
+<td colspan="8" class="kosong">
 Belum ada riwayat peminjaman
 </td>
-</tr>
 
-<tr>
-<td class="nomor">3</td>
-<td colspan="7" class="kosong">
-Belum ada riwayat peminjaman
-</td>
 </tr>
 
 </tbody>
@@ -487,12 +449,18 @@ Belum ada riwayat peminjaman
 </div>
 
 <button
-class="hapus-semua"
-onclick="hapusSemua()">
+class="btn-hapus-semua"
+onclick="hapusSemua()"
+>
 🗑 Hapus Semua Riwayat
 </button>
 
-<div style="clear:both;"></div>
+<button
+class="btn-download"
+onclick="downloadExcel()"
+>
+📥 Download Riwayat
+</button>
 
 </div>
 
@@ -506,13 +474,28 @@ Dibuat Oleh Fahrul Lamusu
 
 <script>
 
-/* DATA KELAS */
+setInterval(()=>{
 
-const dataKelas = {
+let now = new Date();
 
-"XI-1":[],
+document.getElementById("jam").innerHTML =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+},1000);
+
+function darkMode(){
+
+document.body.classList.toggle("dark");
+
+}
+
+const dataSiswa = {
 
 "XI-2":[
+
 "Abdul Rizki Rafa Hiola",
 "Aira Mohi",
 "Almira Juniara Tilahunga",
@@ -548,52 +531,87 @@ const dataKelas = {
 "Sarah Zetira Alaydrus",
 "Shawwan Sobri I. Maunty",
 "Siti Aura Rivai"
-],
 
-"XI-3":[],
-"XI-4":[],
-"XI-5":[],
-"XI-6":[],
-"XI-7":[],
-"XI-8":[],
-"XI-9":[],
-"XI-10":[]
+]
 
 };
 
-let nomorRiwayat = 1;
-let riwayatKosong = true;
 let namaDipilih = "";
 
-/* JAM */
+function loadNamaSiswa(){
 
-setInterval(() => {
+let kelas =
+document.getElementById("kelasSiswa").value;
 
-let now = new Date();
+let dropdown =
+document.getElementById("dropdownNama");
 
-document.getElementById("jam").innerHTML =
-now.toLocaleTimeString('id-ID',{
-hour:'2-digit',
-minute:'2-digit'
+dropdown.innerHTML = "";
+
+if(dataSiswa[kelas]){
+
+dataSiswa[kelas].forEach(nama=>{
+
+dropdown.innerHTML += `
+<div
+class="dropdown-item"
+onclick="pilihNama('${nama}')"
+>
+${nama}
+</div>
+`;
+
 });
 
-},1000);
+}else{
 
-/* DARK MODE */
-
-function darkMode(){
-
-document.body.classList.toggle("dark");
+dropdown.innerHTML = `
+<div class="dropdown-item">
+Belum ada daftar nama
+</div>
+`;
 
 }
 
-/* STEP */
+dropdown.classList.remove("hidden");
+
+}
+
+function filterNama(){
+
+let input =
+document.getElementById("searchNama").value.toLowerCase();
+
+let items =
+document.querySelectorAll(".dropdown-item");
+
+items.forEach(item=>{
+
+item.style.display =
+item.innerText.toLowerCase().includes(input)
+? "block"
+: "none";
+
+});
+
+}
+
+function pilihNama(nama){
+
+namaDipilih = nama;
+
+document.getElementById("searchNama").value = nama;
+
+document.getElementById("dropdownNama")
+.classList.add("hidden");
+
+}
 
 function nextStep(step){
 
 document
 .querySelectorAll("#step1,#step2,#step3,#step4")
-.forEach(card => {
+.forEach(card=>{
 
 card.classList.add("hidden");
 
@@ -605,7 +623,22 @@ document
 
 }
 
-/* COVER */
+function checkKondisi(){
+
+let ok =
+document.getElementById("kondisiBuku").checked;
+
+if(ok){
+
+nextStep(3);
+
+}else{
+
+alert("Buku rusak!");
+
+}
+
+}
 
 function tampilCover(){
 
@@ -618,127 +651,10 @@ document.getElementById("coverBuku").src =
 
 }
 
-/* KONDISI */
-
-function checkKondisi(){
-
-let ok =
-document.getElementById("kondisiBuku").checked;
-
-if(ok){
-
-nextStep(3);
-
-}
-
-else{
-
-alert("Buku rusak. Laporkan ke petugas!");
-
-}
-
-}
-
-/* LOAD NAMA */
-
-function loadNama(){
-
-namaDipilih = "";
-
-document.getElementById("namaInput").value = "";
-
-let kelas =
-document.getElementById("kelasSiswa").value;
-
-let dropdown =
-document.getElementById("dropdownList");
-
-dropdown.innerHTML = "";
-
-let daftar =
-dataKelas[kelas];
-
-if(daftar.length === 0){
-
-dropdown.innerHTML =
-'<div class="dropdown-item">Daftar nama belum tersedia</div>';
-
-return;
-
-}
-
-daftar.forEach(nama => {
-
-dropdown.innerHTML +=
-`
-<div class="dropdown-item"
-onclick="pilihNama('${nama}')">
-${nama}
-</div>
-`;
-
-});
-
-}
-
-/* SHOW */
-
-function showDropdown(){
-
-document
-.getElementById("dropdownList")
-.style.display = "block";
-
-}
-
-/* PILIH */
-
-function pilihNama(nama){
-
-namaDipilih = nama;
-
-document.getElementById("namaInput").value =
-nama;
-
-document.getElementById("dropdownList")
-.style.display = "none";
-
-}
-
-/* FILTER */
-
-function filterNama(){
-
-let input =
-document.getElementById("namaInput")
-.value.toLowerCase();
-
-let items =
-document.querySelectorAll(".dropdown-item");
-
-document
-.getElementById("dropdownList")
-.style.display = "block";
-
-items.forEach(item => {
-
-let text =
-item.innerText.toLowerCase();
-
-item.style.display =
-text.includes(input)
-? "block"
-: "none";
-
-});
-
-}
-
-/* PROSES */
+let dataRiwayat =
+JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
 
 function prosesPinjam(){
-
-let nama = namaDipilih;
 
 let kelas =
 document.getElementById("kelasSiswa").value;
@@ -746,7 +662,10 @@ document.getElementById("kelasSiswa").value;
 let buku =
 document.getElementById("cariBuku").value;
 
-if(!nama || !kelas || !buku){
+let jumlah =
+document.getElementById("jumlahBuku").value;
+
+if(!kelas || !namaDipilih || !buku || !jumlah){
 
 alert("Lengkapi data!");
 
@@ -754,33 +673,42 @@ return;
 
 }
 
-let tglPinjam = new Date();
+let now = new Date();
 
-let tglKembali = new Date();
+let tanggal =
+now.toLocaleDateString('id-ID');
 
-tglKembali.setDate(
-tglPinjam.getDate() + 7
-);
+let jam =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
 
-document.getElementById("detailPinjam").innerHTML =
+let kembali = new Date();
 
-`
-<b>Nama:</b> ${nama}<br>
+kembali.setDate(now.getDate()+7);
+
+document.getElementById("detailPinjam").innerHTML = `
+
+<b>Nama:</b> ${namaDipilih}<br>
 <b>Kelas:</b> ${kelas}<br>
 <b>Buku:</b> ${buku}<br>
-<b>Tanggal Pinjam:</b>
-${tglPinjam.toLocaleDateString()}<br>
-
+<b>Jumlah Buku:</b> ${jumlah}<br>
+<b>Tanggal Pinjam:</b> ${tanggal}<br>
 <b>Batas Pengembalian:</b>
 <span style="color:red;">
-${tglKembali.toLocaleDateString()}
+${kembali.toLocaleDateString('id-ID')}
 </span>
+
 `;
 
 tambahRiwayat(
-nama,
+namaDipilih,
 kelas,
-buku
+buku,
+jumlah,
+tanggal,
+jam
 );
 
 alert("Peminjaman berhasil!");
@@ -789,49 +717,91 @@ nextStep(4);
 
 }
 
-/* RIWAYAT */
+function tambahRiwayat(
+nama,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam
+){
 
-function tambahRiwayat(nama,kelas,buku){
+dataRiwayat.push({
 
-let waktu =
-new Date().toLocaleTimeString('id-ID',{
-hour:'2-digit',
-minute:'2-digit'
+nama,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam,
+status:"Dipinjam"
+
 });
 
-let tanggal =
-new Date().toLocaleDateString('id-ID');
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
+
+tampilkanRiwayat();
+
+}
+
+function tampilkanRiwayat(){
 
 let table =
 document.getElementById("riwayatTable");
 
-if(riwayatKosong){
-
 table.innerHTML = "";
-riwayatKosong = false;
+
+if(dataRiwayat.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td class="nomor">1</td>
+
+<td colspan="8" class="kosong">
+Belum ada riwayat peminjaman
+</td>
+
+</tr>
+
+`;
+
+return;
 
 }
+
+dataRiwayat.forEach((item,index)=>{
 
 let row = table.insertRow();
 
 row.innerHTML = `
 
-<td class="nomor">${nomorRiwayat}</td>
-<td>${nama}</td>
-<td>${kelas}</td>
-<td>${buku}</td>
-<td>${tanggal}</td>
-<td>${waktu}</td>
+<td class="nomor">${index+1}</td>
 
-<td class="status">
-Dipinjam
-</td>
+<td>${item.nama}</td>
+
+<td>${item.kelas}</td>
+
+<td>${item.buku}</td>
+
+<td>${item.jumlah}</td>
+
+<td>${item.tanggal}</td>
+
+<td>${item.jam}</td>
+
+<td class="status">${item.status}</td>
 
 <td>
 
 <button
 class="btn-selesai"
-onclick="tandaiSelesai(this)">
+onclick="tandaiSelesai(this,${index})"
+>
 ✔
 </button>
 
@@ -839,107 +809,219 @@ onclick="tandaiSelesai(this)">
 
 `;
 
-nomorRiwayat++;
+if(item.status === "Selesai"){
+
+row.classList.add("selesai");
 
 }
 
-/* SELESAI */
+});
 
-function tandaiSelesai(btn){
+}
+
+function tandaiSelesai(btn,index){
 
 let row =
 btn.parentElement.parentElement;
 
 row.classList.toggle("selesai");
 
-let status =
-row.querySelector(".status");
+dataRiwayat[index].status = "Selesai";
 
-if(status.innerHTML == "Dipinjam"){
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
 
-status.innerHTML = "Selesai";
-btn.innerHTML = "↩";
-
-}
-
-else{
-
-status.innerHTML = "Dipinjam";
-btn.innerHTML = "✔";
+row.querySelector(".status").innerHTML =
+"Selesai";
 
 }
-
-}
-
-/* KEMBALI */
 
 function prosesKembali(){
 
-alert(
-"Buku berhasil dikembalikan!"
-);
+alert("Buku berhasil dikembalikan!");
 
 }
-
-/* BARU */
 
 function peminjamanBaru(){
 
 document.getElementById("kelasSiswa").value = "";
-document.getElementById("namaInput").value = "";
-document.getElementById("dropdownList").innerHTML = "";
+
+document.getElementById("searchNama").value = "";
+
 document.getElementById("cariBuku").value = "";
+
+document.getElementById("jumlahBuku").value = "";
+
+document.getElementById("dropdownNama").innerHTML = "";
+
+document.getElementById("dropdownNama")
+.classList.add("hidden");
+
 document.getElementById("kondisiBuku").checked = false;
+
+namaDipilih = "";
 
 nextStep(1);
 
 }
 
-/* HAPUS */
-
 function hapusSemua(){
 
 let konfirmasi =
-confirm(
-"Yakin ingin menghapus semua riwayat?"
-);
+confirm("Hapus semua riwayat?");
 
 if(konfirmasi){
 
-document.getElementById("riwayatTable")
-.innerHTML = `
+dataRiwayat = [];
+
+localStorage.removeItem("riwayatPerpus");
+
+tampilkanRiwayat();
+
+}
+
+}
+
+function downloadExcel(){
+
+let rows = "";
+
+dataRiwayat.forEach((item,index)=>{
+
+rows += `
 
 <tr>
-<td class="nomor">1</td>
-<td colspan="7" class="kosong">
-Belum ada riwayat peminjaman
-</td>
-</tr>
 
-<tr>
-<td class="nomor">2</td>
-<td colspan="7" class="kosong">
-Belum ada riwayat peminjaman
-</td>
-</tr>
+<td>${index+1}</td>
+<td>${item.nama}</td>
+<td>${item.kelas}</td>
+<td>${item.buku}</td>
+<td>${item.jumlah}</td>
+<td>${item.tanggal}</td>
+<td>${item.jam}</td>
+<td>${item.status}</td>
 
-<tr>
-<td class="nomor">3</td>
-<td colspan="7" class="kosong">
-Belum ada riwayat peminjaman
-</td>
 </tr>
 
 `;
 
-nomorRiwayat = 1;
-riwayatKosong = true;
+});
+
+let html = `
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    padding:30px;
+}
+
+h1{
+    text-align:center;
+    font-size:34px;
+    margin-bottom:30px;
+    color:#ff4f87;
+}
+
+table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:1800px;
+}
+
+th{
+    background:#ff85a2;
+    color:white;
+    border:4px solid black;
+    padding:28px;
+    font-size:24px;
+    text-align:center;
+    font-weight:bold;
+}
+
+td{
+    border:4px solid black;
+    padding:28px;
+    font-size:22px;
+    text-align:center;
+    white-space:nowrap;
+}
+
+tr{
+    height:80px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+Laporan Riwayat Peminjaman Buku Perpustakaan
+</h1>
+
+<table>
+
+<tr>
+
+<th style="width:120px;">No</th>
+<th style="width:500px;">Nama</th>
+<th style="width:220px;">Kelas</th>
+<th style="width:500px;">Buku</th>
+<th style="width:220px;">Jumlah</th>
+<th style="width:300px;">Tanggal</th>
+<th style="width:250px;">Jam</th>
+<th style="width:300px;">Status</th>
+
+</tr>
+
+${rows}
+
+</table>
+
+</body>
+
+</html>
+
+`;
+
+let blob = new Blob(
+['\ufeff', html],
+{
+type:'application/vnd.ms-excel'
+}
+);
+
+let url = URL.createObjectURL(blob);
+
+let a = document.createElement("a");
+
+a.href = url;
+
+a.download = "Laporan_Riwayat_Peminjaman.xls";
+
+document.body.appendChild(a);
+
+a.click();
+
+document.body.removeChild(a);
+
+URL.revokeObjectURL(url);
 
 }
 
-}
+tampilkanRiwayat();
 
 </script>
 
 </body>
-</html>
+    </html>
