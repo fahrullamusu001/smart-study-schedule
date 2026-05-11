@@ -77,7 +77,20 @@ header h1{
     border:2px solid var(--pink2);
     border-radius:22px;
     padding:18px;
-    margin-bottom:15px;
+    margin-bottom:20px;
+    animation:muncul 0.4s ease;
+}
+
+@keyframes muncul{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 h3{
@@ -108,6 +121,11 @@ button{
     margin-top:15px;
     cursor:pointer;
     font-size:16px;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.02);
 }
 
 .hidden{
@@ -135,7 +153,7 @@ button{
 
 table{
     border-collapse:collapse;
-    min-width:1100px;
+    min-width:1200px;
     width:max-content;
 }
 
@@ -149,7 +167,7 @@ th{
 
 td{
     border:1px solid #ddd;
-    padding:8px 10px;
+    padding:10px;
     font-size:13px;
     text-align:center;
     white-space:nowrap;
@@ -176,6 +194,16 @@ td{
     padding:7px 10px;
     border-radius:8px;
     cursor:pointer;
+}
+
+.btn-edit{
+    background:#ffc107;
+    color:black;
+    border:none;
+    padding:7px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-left:5px;
 }
 
 .btn-hapus-semua{
@@ -230,6 +258,14 @@ footer{
     background:#fff0f5;
 }
 
+.tab-btn{
+    width:auto;
+    padding:10px 16px;
+    border-radius:12px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
 .dark{
     background:#1e1e1e;
 }
@@ -257,12 +293,6 @@ footer{
     background:#444;
 }
 
-.show-popup{
-    opacity:1 !important;
-    pointer-events:auto !important;
-    transform:translate(-50%,-50%) scale(1) !important;
-}
-
 </style>
 
 </head>
@@ -286,83 +316,6 @@ footer{
 </header>
 
 <div class="content">
-
-<!-- DASHBOARD -->
-
-<div class="card">
-
-<h3>📊 Dashboard Ringkasan</h3>
-
-<div style="
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-text-align:center;
-">
-
-<div style="
-background:#fff0f5;
-padding:15px;
-border-radius:18px;
-border:2px solid #fbb1bd;
-">
-
-<div style="font-size:28px;">📚</div>
-
-<div id="totalBuku" style="
-font-size:24px;
-font-weight:bold;
-color:#d63384;
-margin-top:5px;
-">0</div>
-
-<div style="font-size:14px;">Total Buku</div>
-
-</div>
-
-<div style="
-background:#fff0f5;
-padding:15px;
-border-radius:18px;
-border:2px solid #fbb1bd;
-">
-
-<div style="font-size:28px;">👨‍🎓</div>
-
-<div id="totalSiswa" style="
-font-size:24px;
-font-weight:bold;
-color:#d63384;
-margin-top:5px;
-">0</div>
-
-<div style="font-size:14px;">Total Siswa</div>
-
-</div>
-
-<div style="
-background:#fff0f5;
-padding:15px;
-border-radius:18px;
-border:2px solid #fbb1bd;
-">
-
-<div style="font-size:28px;">📝</div>
-
-<div id="totalTransaksi" style="
-font-size:24px;
-font-weight:bold;
-color:#d63384;
-margin-top:5px;
-">0</div>
-
-<div style="font-size:14px;">Transaksi</div>
-
-</div>
-
-</div>
-
-</div>
 
 <!-- STEP 1 -->
 
@@ -485,10 +438,6 @@ Konfirmasi Peminjaman
 
 <div id="detailPinjam" class="status-box"></div>
 
-<button onclick="prosesKembali()">
-Kembalikan Buku
-</button>
-
 <button onclick="peminjamanBaru()">
 ➕ Buat Peminjaman Baru
 </button>
@@ -500,6 +449,22 @@ Kembalikan Buku
 <div class="card">
 
 <h3>📋 Riwayat Peminjaman</h3>
+
+<div>
+
+<button class="tab-btn" onclick="filterRiwayat('Semua')">
+📋 Semua
+</button>
+
+<button class="tab-btn" onclick="filterRiwayat('Dipinjam')">
+📚 Dipinjam
+</button>
+
+<button class="tab-btn" onclick="filterRiwayat('Selesai')">
+✅ Selesai
+</button>
+
+</div>
 
 <div class="table-container">
 
@@ -517,23 +482,13 @@ Kembalikan Buku
 <th>Tanggal</th>
 <th>Jam</th>
 <th>Status</th>
-<th>Selesai</th>
+<th>Aksi</th>
 
 </tr>
 
 </thead>
 
 <tbody id="riwayatTable">
-
-<tr>
-
-<td class="nomor">1</td>
-
-<td colspan="8" class="kosong">
-Belum ada riwayat peminjaman
-</td>
-
-</tr>
 
 </tbody>
 
@@ -565,50 +520,15 @@ Dibuat Oleh Fahrul Lamusu
 
 </div>
 
-<!-- POPUP -->
-
-<div id="popupSukses" style="
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%) scale(0.7);
-background:white;
-padding:25px;
-border-radius:25px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-text-align:center;
-z-index:9999;
-opacity:0;
-pointer-events:none;
-transition:0.4s;
-width:300px;
-border:3px solid #ff85a2;
-">
-
-<div style="
-font-size:60px;
-margin-bottom:10px;
-">
-✅
-</div>
-
-<h2 style="
-color:#d63384;
-margin-bottom:10px;
-">
-Peminjaman Berhasil
-</h2>
-
-<p style="
-color:#555;
-font-size:16px;
-">
-📚 Buku berhasil dipinjam
-</p>
-
-</div>
-
 <script>
+
+const suaraSukses = new Audio(
+'https://www.soundjay.com/buttons/sounds/button-3.mp3'
+);
+
+const suaraSelesai = new Audio(
+'https://www.soundjay.com/buttons/sounds/button-09.mp3'
+);
 
 /* JAM */
 
@@ -677,6 +597,7 @@ const dataSiswa = {
 };
 
 let namaDipilih = "";
+let filterAktif = "Semua";
 
 /* LOAD NAMA */
 
@@ -719,7 +640,7 @@ dropdown.classList.remove("hidden");
 
 }
 
-/* FILTER */
+/* FILTER NAMA */
 
 function filterNama(){
 
@@ -760,7 +681,9 @@ function nextStep(step){
 document
 .querySelectorAll("#step1,#step2,#step3,#step4")
 .forEach(card=>{
+
 card.classList.add("hidden");
+
 });
 
 document
@@ -802,50 +725,6 @@ document.getElementById("coverBuku").src =
 let dataRiwayat =
 JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
 
-/* DASHBOARD */
-
-function updateDashboard(){
-
-let totalBuku = 0;
-
-let siswaUnik = [];
-
-dataRiwayat.forEach(item=>{
-
-totalBuku += Number(item.jumlah);
-
-if(!siswaUnik.includes(item.nama)){
-siswaUnik.push(item.nama);
-}
-
-});
-
-document.getElementById("totalBuku").innerHTML =
-totalBuku;
-
-document.getElementById("totalSiswa").innerHTML =
-siswaUnik.length;
-
-document.getElementById("totalTransaksi").innerHTML =
-dataRiwayat.length;
-
-}
-
-/* POPUP */
-
-function tampilPopup(){
-
-let popup =
-document.getElementById("popupSukses");
-
-popup.classList.add("show-popup");
-
-setTimeout(()=>{
-popup.classList.remove("show-popup");
-},2500);
-
-}
-
 /* PINJAM */
 
 function prosesPinjam(){
@@ -862,6 +741,7 @@ document.getElementById("jumlahBuku").value;
 if(!kelas || !namaDipilih || !buku || !jumlah){
 
 alert("Lengkapi data!");
+
 return;
 
 }
@@ -877,21 +757,14 @@ hour:'2-digit',
 minute:'2-digit'
 });
 
-let kembali = new Date();
-
-kembali.setDate(now.getDate()+7);
-
 document.getElementById("detailPinjam").innerHTML = `
 
 <b>Nama:</b> ${namaDipilih}<br>
 <b>Kelas:</b> ${kelas}<br>
 <b>Buku:</b> ${buku}<br>
 <b>Jumlah Buku:</b> ${jumlah}<br>
-<b>Tanggal Pinjam:</b> ${tanggal}<br>
-<b>Batas Pengembalian:</b>
-<span style="color:red;">
-${kembali.toLocaleDateString('id-ID')}
-</span>
+<b>Tanggal:</b> ${tanggal}<br>
+<b>Jam:</b> ${jam}
 
 `;
 
@@ -904,7 +777,9 @@ tanggal,
 jam
 );
 
-tampilPopup();
+suaraSukses.play();
+
+alert("Peminjaman berhasil!");
 
 nextStep(4);
 
@@ -940,7 +815,15 @@ JSON.stringify(dataRiwayat)
 
 tampilkanRiwayat();
 
-updateDashboard();
+}
+
+/* FILTER RIWAYAT */
+
+function filterRiwayat(status){
+
+filterAktif = status;
+
+tampilkanRiwayat();
 
 }
 
@@ -953,7 +836,18 @@ document.getElementById("riwayatTable");
 
 table.innerHTML = "";
 
-if(dataRiwayat.length === 0){
+let dataFilter = dataRiwayat;
+
+if(filterAktif !== "Semua"){
+
+dataFilter =
+dataRiwayat.filter(
+item => item.status === filterAktif
+);
+
+}
+
+if(dataFilter.length === 0){
 
 table.innerHTML = `
 
@@ -962,7 +856,7 @@ table.innerHTML = `
 <td class="nomor">1</td>
 
 <td colspan="8" class="kosong">
-Belum ada riwayat peminjaman
+Belum ada data
 </td>
 
 </tr>
@@ -973,7 +867,7 @@ return;
 
 }
 
-dataRiwayat.forEach((item,index)=>{
+dataFilter.forEach((item,index)=>{
 
 let row = table.insertRow();
 
@@ -999,9 +893,16 @@ row.innerHTML = `
 
 <button
 class="btn-selesai"
-onclick="tandaiSelesai(this,${index})"
+onclick="tandaiSelesai(${index})"
 >
 ✔
+</button>
+
+<button
+class="btn-edit"
+onclick="editRiwayat(${index})"
+>
+✏
 </button>
 
 </td>
@@ -1018,12 +919,7 @@ row.classList.add("selesai");
 
 /* SELESAI */
 
-function tandaiSelesai(btn,index){
-
-let row =
-btn.parentElement.parentElement;
-
-row.classList.toggle("selesai");
+function tandaiSelesai(index){
 
 dataRiwayat[index].status = "Selesai";
 
@@ -1032,15 +928,42 @@ localStorage.setItem(
 JSON.stringify(dataRiwayat)
 );
 
-row.querySelector(".status").innerHTML =
-"Selesai";
+suaraSelesai.play();
+
+tampilkanRiwayat();
 
 }
 
-/* KEMBALI */
+/* EDIT */
 
-function prosesKembali(){
-alert("Buku berhasil dikembalikan!");
+function editRiwayat(index){
+
+let bukuBaru =
+prompt(
+"Edit Nama Buku",
+dataRiwayat[index].buku
+);
+
+let jumlahBaru =
+prompt(
+"Edit Jumlah Buku",
+dataRiwayat[index].jumlah
+);
+
+if(bukuBaru && jumlahBaru){
+
+dataRiwayat[index].buku = bukuBaru;
+dataRiwayat[index].jumlah = jumlahBaru;
+
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
+
+tampilkanRiwayat();
+
+}
+
 }
 
 /* BARU */
@@ -1048,14 +971,9 @@ alert("Buku berhasil dikembalikan!");
 function peminjamanBaru(){
 
 document.getElementById("kelasSiswa").value = "";
-
 document.getElementById("searchNama").value = "";
-
 document.getElementById("cariBuku").value = "";
-
 document.getElementById("jumlahBuku").value = "";
-
-document.getElementById("dropdownNama").innerHTML = "";
 
 document.getElementById("dropdownNama")
 .classList.add("hidden");
@@ -1083,8 +1001,6 @@ localStorage.removeItem("riwayatPerpus");
 
 tampilkanRiwayat();
 
-updateDashboard();
-
 }
 
 }
@@ -1092,6 +1008,45 @@ updateDashboard();
 /* DOWNLOAD */
 
 function downloadExcel(){
+
+let table = `
+<table border="2">
+
+<tr>
+<th>No</th>
+<th>Nama</th>
+<th>Kelas</th>
+<th>Buku</th>
+<th>Jumlah</th>
+<th>Tanggal</th>
+<th>Jam</th>
+<th>Status</th>
+</tr>
+
+`;
+
+dataRiwayat.forEach((item,index)=>{
+
+table += `
+
+<tr>
+
+<td>${index+1}</td>
+<td>${item.nama}</td>
+<td>${item.kelas}</td>
+<td>${item.buku}</td>
+<td>${item.jumlah}</td>
+<td>${item.tanggal}</td>
+<td>${item.jam}</td>
+<td>${item.status}</td>
+
+</tr>
+
+`;
+
+});
+
+table += `</table>`;
 
 let html = `
 
@@ -1103,18 +1058,6 @@ let html = `
 
 <style>
 
-body{
-font-family:Arial;
-padding:30px;
-}
-
-h1{
-text-align:center;
-font-size:28px;
-margin-bottom:30px;
-color:#d63384;
-}
-
 table{
 border-collapse:collapse;
 width:100%;
@@ -1123,14 +1066,21 @@ font-size:20px;
 
 th,td{
 border:3px solid black;
-padding:18px;
+padding:20px;
 text-align:center;
-white-space:nowrap;
 }
 
 th{
-background:#ffb6c1;
+background:#ff85a2;
+color:white;
 font-weight:bold;
+}
+
+h1{
+text-align:center;
+color:#d63384;
+font-size:30px;
+margin-bottom:30px;
 }
 
 </style>
@@ -1143,7 +1093,7 @@ font-weight:bold;
 Laporan Riwayat Peminjaman Buku Perpustakaan
 </h1>
 
-${document.getElementById("tabelRiwayat").outerHTML}
+${table}
 
 </body>
 
@@ -1183,9 +1133,7 @@ URL.revokeObjectURL(url);
 
 tampilkanRiwayat();
 
-updateDashboard();
-
 </script>
 
 </body>
-    </html>
+</html>
