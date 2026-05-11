@@ -77,7 +77,7 @@ header h1{
     border:2px solid var(--pink2);
     border-radius:22px;
     padding:18px;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 h3{
@@ -142,18 +142,17 @@ table{
 th{
     background:var(--pink1);
     color:white;
-    padding:12px;
-    font-size:15px;
+    padding:10px;
+    font-size:14px;
     white-space:nowrap;
 }
 
 td{
     border:1px solid #ddd;
-    padding:8px 12px;
-    font-size:14px;
+    padding:8px 10px;
+    font-size:13px;
     text-align:center;
     white-space:nowrap;
-    line-height:1.3;
 }
 
 .nomor{
@@ -258,6 +257,12 @@ footer{
     background:#444;
 }
 
+.show-popup{
+    opacity:1 !important;
+    pointer-events:auto !important;
+    transform:translate(-50%,-50%) scale(1) !important;
+}
+
 </style>
 
 </head>
@@ -281,6 +286,85 @@ footer{
 </header>
 
 <div class="content">
+
+<!-- DASHBOARD -->
+
+<div class="card">
+
+<h3>📊 Dashboard Ringkasan</h3>
+
+<div style="
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+text-align:center;
+">
+
+<div style="
+background:#fff0f5;
+padding:15px;
+border-radius:18px;
+border:2px solid #fbb1bd;
+">
+
+<div style="font-size:28px;">📚</div>
+
+<div id="totalBuku" style="
+font-size:24px;
+font-weight:bold;
+color:#d63384;
+margin-top:5px;
+">0</div>
+
+<div style="font-size:14px;">Total Buku</div>
+
+</div>
+
+<div style="
+background:#fff0f5;
+padding:15px;
+border-radius:18px;
+border:2px solid #fbb1bd;
+">
+
+<div style="font-size:28px;">👨‍🎓</div>
+
+<div id="totalSiswa" style="
+font-size:24px;
+font-weight:bold;
+color:#d63384;
+margin-top:5px;
+">0</div>
+
+<div style="font-size:14px;">Total Siswa</div>
+
+</div>
+
+<div style="
+background:#fff0f5;
+padding:15px;
+border-radius:18px;
+border:2px solid #fbb1bd;
+">
+
+<div style="font-size:28px;">📝</div>
+
+<div id="totalTransaksi" style="
+font-size:24px;
+font-weight:bold;
+color:#d63384;
+margin-top:5px;
+">0</div>
+
+<div style="font-size:14px;">Transaksi</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STEP 1 -->
 
 <div id="step1" class="card">
 
@@ -324,6 +408,8 @@ Cari & Ambil Buku
 
 </div>
 
+<!-- STEP 2 -->
+
 <div id="step2" class="card hidden">
 
 <h3>2. Cek Kondisi Buku</h3>
@@ -345,6 +431,8 @@ Lanjut ke Petugas
 </button>
 
 </div>
+
+<!-- STEP 3 -->
 
 <div id="step3" class="card hidden">
 
@@ -389,6 +477,8 @@ Konfirmasi Peminjaman
 
 </div>
 
+<!-- STEP 4 -->
+
 <div id="step4" class="card hidden">
 
 <h3>4. Status Peminjaman</h3>
@@ -404,6 +494,8 @@ Kembalikan Buku
 </button>
 
 </div>
+
+<!-- RIWAYAT -->
 
 <div class="card">
 
@@ -473,7 +565,52 @@ Dibuat Oleh Fahrul Lamusu
 
 </div>
 
+<!-- POPUP -->
+
+<div id="popupSukses" style="
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0.7);
+background:white;
+padding:25px;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+text-align:center;
+z-index:9999;
+opacity:0;
+pointer-events:none;
+transition:0.4s;
+width:300px;
+border:3px solid #ff85a2;
+">
+
+<div style="
+font-size:60px;
+margin-bottom:10px;
+">
+✅
+</div>
+
+<h2 style="
+color:#d63384;
+margin-bottom:10px;
+">
+Peminjaman Berhasil
+</h2>
+
+<p style="
+color:#555;
+font-size:16px;
+">
+📚 Buku berhasil dipinjam
+</p>
+
+</div>
+
 <script>
+
+/* JAM */
 
 setInterval(()=>{
 
@@ -487,11 +624,13 @@ minute:'2-digit'
 
 },1000);
 
+/* DARK MODE */
+
 function darkMode(){
-
 document.body.classList.toggle("dark");
-
 }
+
+/* DATA SISWA */
 
 const dataSiswa = {
 
@@ -539,6 +678,8 @@ const dataSiswa = {
 
 let namaDipilih = "";
 
+/* LOAD NAMA */
+
 function loadNamaSiswa(){
 
 let kelas =
@@ -578,6 +719,8 @@ dropdown.classList.remove("hidden");
 
 }
 
+/* FILTER */
+
 function filterNama(){
 
 let input =
@@ -597,6 +740,8 @@ item.innerText.toLowerCase().includes(input)
 
 }
 
+/* PILIH NAMA */
+
 function pilihNama(nama){
 
 namaDipilih = nama;
@@ -608,14 +753,14 @@ document.getElementById("dropdownNama")
 
 }
 
+/* STEP */
+
 function nextStep(step){
 
 document
 .querySelectorAll("#step1,#step2,#step3,#step4")
 .forEach(card=>{
-
 card.classList.add("hidden");
-
 });
 
 document
@@ -624,22 +769,22 @@ document
 
 }
 
+/* KONDISI */
+
 function checkKondisi(){
 
 let ok =
 document.getElementById("kondisiBuku").checked;
 
 if(ok){
-
 nextStep(3);
-
 }else{
-
 alert("Buku rusak!");
-
 }
 
 }
+
+/* COVER */
 
 function tampilCover(){
 
@@ -652,8 +797,56 @@ document.getElementById("coverBuku").src =
 
 }
 
+/* STORAGE */
+
 let dataRiwayat =
 JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
+
+/* DASHBOARD */
+
+function updateDashboard(){
+
+let totalBuku = 0;
+
+let siswaUnik = [];
+
+dataRiwayat.forEach(item=>{
+
+totalBuku += Number(item.jumlah);
+
+if(!siswaUnik.includes(item.nama)){
+siswaUnik.push(item.nama);
+}
+
+});
+
+document.getElementById("totalBuku").innerHTML =
+totalBuku;
+
+document.getElementById("totalSiswa").innerHTML =
+siswaUnik.length;
+
+document.getElementById("totalTransaksi").innerHTML =
+dataRiwayat.length;
+
+}
+
+/* POPUP */
+
+function tampilPopup(){
+
+let popup =
+document.getElementById("popupSukses");
+
+popup.classList.add("show-popup");
+
+setTimeout(()=>{
+popup.classList.remove("show-popup");
+},2500);
+
+}
+
+/* PINJAM */
 
 function prosesPinjam(){
 
@@ -669,7 +862,6 @@ document.getElementById("jumlahBuku").value;
 if(!kelas || !namaDipilih || !buku || !jumlah){
 
 alert("Lengkapi data!");
-
 return;
 
 }
@@ -712,11 +904,13 @@ tanggal,
 jam
 );
 
-alert("Peminjaman berhasil!");
+tampilPopup();
 
 nextStep(4);
 
 }
+
+/* TAMBAH RIWAYAT */
 
 function tambahRiwayat(
 nama,
@@ -746,7 +940,11 @@ JSON.stringify(dataRiwayat)
 
 tampilkanRiwayat();
 
+updateDashboard();
+
 }
+
+/* TAMPILKAN */
 
 function tampilkanRiwayat(){
 
@@ -811,14 +1009,14 @@ onclick="tandaiSelesai(this,${index})"
 `;
 
 if(item.status === "Selesai"){
-
 row.classList.add("selesai");
-
 }
 
 });
 
 }
+
+/* SELESAI */
 
 function tandaiSelesai(btn,index){
 
@@ -839,11 +1037,13 @@ row.querySelector(".status").innerHTML =
 
 }
 
+/* KEMBALI */
+
 function prosesKembali(){
-
 alert("Buku berhasil dikembalikan!");
-
 }
+
+/* BARU */
 
 function peminjamanBaru(){
 
@@ -868,6 +1068,8 @@ nextStep(1);
 
 }
 
+/* HAPUS */
+
 function hapusSemua(){
 
 let konfirmasi =
@@ -881,41 +1083,15 @@ localStorage.removeItem("riwayatPerpus");
 
 tampilkanRiwayat();
 
+updateDashboard();
+
 }
 
 }
+
+/* DOWNLOAD */
 
 function downloadExcel(){
-
-let isiTabel = "";
-
-dataRiwayat.forEach((item,index)=>{
-
-isiTabel += `
-
-<tr>
-
-<td>${index+1}</td>
-
-<td>${item.nama}</td>
-
-<td>${item.kelas}</td>
-
-<td>${item.buku}</td>
-
-<td>${item.jumlah}</td>
-
-<td>${item.tanggal}</td>
-
-<td>${item.jam}</td>
-
-<td>${item.status}</td>
-
-</tr>
-
-`;
-
-});
 
 let html = `
 
@@ -928,38 +1104,33 @@ let html = `
 <style>
 
 body{
-    font-family:Arial;
-    padding:30px;
+font-family:Arial;
+padding:30px;
 }
 
 h1{
-    text-align:center;
-    font-size:34px;
-    margin-bottom:30px;
+text-align:center;
+font-size:28px;
+margin-bottom:30px;
+color:#d63384;
 }
 
 table{
-    border-collapse:collapse;
-    width:100%;
-    min-width:1800px;
+border-collapse:collapse;
+width:100%;
+font-size:20px;
+}
+
+th,td{
+border:3px solid black;
+padding:18px;
+text-align:center;
+white-space:nowrap;
 }
 
 th{
-    background:black;
-    color:white;
-    border:4px solid black;
-    padding:30px;
-    text-align:center;
-    font-size:24px;
-    font-weight:bold;
-}
-
-td{
-    border:4px solid black;
-    padding:28px;
-    text-align:center;
-    font-size:22px;
-    white-space:nowrap;
+background:#ffb6c1;
+font-weight:bold;
 }
 
 </style>
@@ -972,24 +1143,7 @@ td{
 Laporan Riwayat Peminjaman Buku Perpustakaan
 </h1>
 
-<table>
-
-<tr>
-
-<th style="width:120px;">No</th>
-<th style="width:520px;">Nama</th>
-<th style="width:220px;">Kelas</th>
-<th style="width:520px;">Buku</th>
-<th style="width:220px;">Jumlah</th>
-<th style="width:300px;">Tanggal</th>
-<th style="width:220px;">Jam</th>
-<th style="width:260px;">Status</th>
-
-</tr>
-
-${isiTabel}
-
-</table>
+${document.getElementById("tabelRiwayat").outerHTML}
 
 </body>
 
@@ -1013,7 +1167,7 @@ document.createElement("a");
 a.href = url;
 
 a.download =
-"Laporan_Riwayat_Peminjaman.xls";
+"Laporan_Riwayat_Perpustakaan.xls";
 
 document.body.appendChild(a);
 
@@ -1025,7 +1179,11 @@ URL.revokeObjectURL(url);
 
 }
 
+/* LOAD */
+
 tampilkanRiwayat();
+
+updateDashboard();
 
 </script>
 
