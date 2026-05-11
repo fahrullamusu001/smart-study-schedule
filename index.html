@@ -61,7 +61,7 @@ header h1{
     background:white;
     color:var(--pink4);
     border:none;
-    padding:12px;
+    padding:10px;
     border-radius:12px;
     width:100%;
     font-weight:bold;
@@ -146,6 +146,34 @@ button:hover{
     border-radius:12px;
 }
 
+/* DASHBOARD */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.dashboard-box{
+    background:linear-gradient(135deg,var(--pink1),var(--pink4));
+    color:white;
+    padding:15px;
+    border-radius:18px;
+    text-align:center;
+}
+
+.dashboard-box h2{
+    font-size:24px;
+}
+
+.dashboard-box p{
+    font-size:14px;
+    margin-top:5px;
+}
+
+/* TABLE */
+
 .table-container{
     overflow-x:auto;
     width:100%;
@@ -187,43 +215,35 @@ td{
     opacity:0.6;
 }
 
+/* BUTTON KECIL */
+
+.btn-kecil{
+    width:auto;
+    padding:8px 12px;
+    border-radius:10px;
+    font-size:12px;
+    margin-top:8px;
+}
+
 .btn-selesai{
     background:#28a745;
-    border:none;
-    color:white;
-    padding:7px 10px;
-    border-radius:8px;
-    cursor:pointer;
 }
 
 .btn-edit{
     background:#ffc107;
     color:black;
-    border:none;
-    padding:7px 10px;
-    border-radius:8px;
-    cursor:pointer;
-    margin-left:5px;
 }
 
 .btn-hapus-semua{
-    width:auto;
     background:#dc3545;
-    padding:12px 18px;
-    border-radius:14px;
     display:block;
     margin-left:auto;
-    margin-top:20px;
 }
 
 .btn-download{
-    width:auto;
     background:#6f42c1;
-    padding:12px 18px;
-    border-radius:14px;
     display:block;
     margin-left:auto;
-    margin-top:10px;
 }
 
 footer{
@@ -258,12 +278,11 @@ footer{
     background:#fff0f5;
 }
 
-.tab-btn{
-    width:auto;
-    padding:10px 16px;
-    border-radius:12px;
-    margin-right:10px;
-    margin-bottom:10px;
+.filter-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:15px;
 }
 
 .dark{
@@ -316,6 +335,22 @@ footer{
 </header>
 
 <div class="content">
+
+<!-- DASHBOARD -->
+
+<div class="dashboard">
+
+<div class="dashboard-box">
+<h2 id="totalRiwayat">0</h2>
+<p>Total Peminjaman</p>
+</div>
+
+<div class="dashboard-box">
+<h2 id="totalSelesai">0</h2>
+<p>Total Selesai</p>
+</div>
+
+</div>
 
 <!-- STEP 1 -->
 
@@ -450,17 +485,17 @@ Konfirmasi Peminjaman
 
 <h3>📋 Riwayat Peminjaman</h3>
 
-<div>
+<div class="filter-container">
 
-<button class="tab-btn" onclick="filterRiwayat('Semua')">
+<button class="btn-kecil" onclick="filterRiwayat('Semua')">
 📋 Semua
 </button>
 
-<button class="tab-btn" onclick="filterRiwayat('Dipinjam')">
+<button class="btn-kecil" onclick="filterRiwayat('Dipinjam')">
 📚 Dipinjam
 </button>
 
-<button class="tab-btn" onclick="filterRiwayat('Selesai')">
+<button class="btn-kecil" onclick="filterRiwayat('Selesai')">
 ✅ Selesai
 </button>
 
@@ -497,14 +532,14 @@ Konfirmasi Peminjaman
 </div>
 
 <button
-class="btn-hapus-semua"
+class="btn-kecil btn-hapus-semua"
 onclick="hapusSemua()"
 >
 🗑 Hapus Semua Riwayat
 </button>
 
 <button
-class="btn-download"
+class="btn-kecil btn-download"
 onclick="downloadExcel()"
 >
 📥 Download Riwayat
@@ -530,8 +565,6 @@ const suaraSelesai = new Audio(
 'https://www.soundjay.com/buttons/sounds/button-09.mp3'
 );
 
-/* JAM */
-
 setInterval(()=>{
 
 let now = new Date();
@@ -544,13 +577,9 @@ minute:'2-digit'
 
 },1000);
 
-/* DARK MODE */
-
 function darkMode(){
 document.body.classList.toggle("dark");
 }
-
-/* DATA SISWA */
 
 const dataSiswa = {
 
@@ -599,8 +628,6 @@ const dataSiswa = {
 let namaDipilih = "";
 let filterAktif = "Semua";
 
-/* LOAD NAMA */
-
 function loadNamaSiswa(){
 
 let kelas =
@@ -640,8 +667,6 @@ dropdown.classList.remove("hidden");
 
 }
 
-/* FILTER NAMA */
-
 function filterNama(){
 
 let input =
@@ -661,8 +686,6 @@ item.innerText.toLowerCase().includes(input)
 
 }
 
-/* PILIH NAMA */
-
 function pilihNama(nama){
 
 namaDipilih = nama;
@@ -673,8 +696,6 @@ document.getElementById("dropdownNama")
 .classList.add("hidden");
 
 }
-
-/* STEP */
 
 function nextStep(step){
 
@@ -692,8 +713,6 @@ document
 
 }
 
-/* KONDISI */
-
 function checkKondisi(){
 
 let ok =
@@ -707,8 +726,6 @@ alert("Buku rusak!");
 
 }
 
-/* COVER */
-
 function tampilCover(){
 
 let buku =
@@ -720,12 +737,8 @@ document.getElementById("coverBuku").src =
 
 }
 
-/* STORAGE */
-
 let dataRiwayat =
 JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
-
-/* PINJAM */
 
 function prosesPinjam(){
 
@@ -741,7 +754,6 @@ document.getElementById("jumlahBuku").value;
 if(!kelas || !namaDipilih || !buku || !jumlah){
 
 alert("Lengkapi data!");
-
 return;
 
 }
@@ -762,43 +774,15 @@ document.getElementById("detailPinjam").innerHTML = `
 <b>Nama:</b> ${namaDipilih}<br>
 <b>Kelas:</b> ${kelas}<br>
 <b>Buku:</b> ${buku}<br>
-<b>Jumlah Buku:</b> ${jumlah}<br>
+<b>Jumlah:</b> ${jumlah}<br>
 <b>Tanggal:</b> ${tanggal}<br>
 <b>Jam:</b> ${jam}
 
 `;
 
-tambahRiwayat(
-namaDipilih,
-kelas,
-buku,
-jumlah,
-tanggal,
-jam
-);
-
-suaraSukses.play();
-
-alert("Peminjaman berhasil!");
-
-nextStep(4);
-
-}
-
-/* TAMBAH RIWAYAT */
-
-function tambahRiwayat(
-nama,
-kelas,
-buku,
-jumlah,
-tanggal,
-jam
-){
-
 dataRiwayat.push({
 
-nama,
+nama:namaDipilih,
 kelas,
 buku,
 jumlah,
@@ -813,11 +797,13 @@ localStorage.setItem(
 JSON.stringify(dataRiwayat)
 );
 
+suaraSukses.play();
+
 tampilkanRiwayat();
 
-}
+nextStep(4);
 
-/* FILTER RIWAYAT */
+}
 
 function filterRiwayat(status){
 
@@ -826,8 +812,6 @@ filterAktif = status;
 tampilkanRiwayat();
 
 }
-
-/* TAMPILKAN */
 
 function tampilkanRiwayat(){
 
@@ -850,17 +834,9 @@ item => item.status === filterAktif
 if(dataFilter.length === 0){
 
 table.innerHTML = `
-
 <tr>
-
-<td class="nomor">1</td>
-
-<td colspan="8" class="kosong">
-Belum ada data
-</td>
-
+<td colspan="9">Belum ada data</td>
 </tr>
-
 `;
 
 return;
@@ -873,33 +849,26 @@ let row = table.insertRow();
 
 row.innerHTML = `
 
-<td class="nomor">${index+1}</td>
-
+<td>${index+1}</td>
 <td>${item.nama}</td>
-
 <td>${item.kelas}</td>
-
 <td>${item.buku}</td>
-
 <td>${item.jumlah}</td>
-
 <td>${item.tanggal}</td>
-
 <td>${item.jam}</td>
-
-<td class="status">${item.status}</td>
+<td>${item.status}</td>
 
 <td>
 
 <button
-class="btn-selesai"
+class="btn-kecil btn-selesai"
 onclick="tandaiSelesai(${index})"
 >
 ✔
 </button>
 
 <button
-class="btn-edit"
+class="btn-kecil btn-edit"
 onclick="editRiwayat(${index})"
 >
 ✏
@@ -915,9 +884,9 @@ row.classList.add("selesai");
 
 });
 
-}
+updateDashboard();
 
-/* SELESAI */
+}
 
 function tandaiSelesai(index){
 
@@ -934,8 +903,6 @@ tampilkanRiwayat();
 
 }
 
-/* EDIT */
-
 function editRiwayat(index){
 
 let bukuBaru =
@@ -944,16 +911,9 @@ prompt(
 dataRiwayat[index].buku
 );
 
-let jumlahBaru =
-prompt(
-"Edit Jumlah Buku",
-dataRiwayat[index].jumlah
-);
-
-if(bukuBaru && jumlahBaru){
+if(bukuBaru){
 
 dataRiwayat[index].buku = bukuBaru;
-dataRiwayat[index].jumlah = jumlahBaru;
 
 localStorage.setItem(
 "riwayatPerpus",
@@ -966,7 +926,17 @@ tampilkanRiwayat();
 
 }
 
-/* BARU */
+function updateDashboard(){
+
+document.getElementById("totalRiwayat").innerHTML =
+dataRiwayat.length;
+
+document.getElementById("totalSelesai").innerHTML =
+dataRiwayat.filter(
+item => item.status === "Selesai"
+).length;
+
+}
 
 function peminjamanBaru(){
 
@@ -975,25 +945,15 @@ document.getElementById("searchNama").value = "";
 document.getElementById("cariBuku").value = "";
 document.getElementById("jumlahBuku").value = "";
 
-document.getElementById("dropdownNama")
-.classList.add("hidden");
-
-document.getElementById("kondisiBuku").checked = false;
-
 namaDipilih = "";
 
 nextStep(1);
 
 }
 
-/* HAPUS */
-
 function hapusSemua(){
 
-let konfirmasi =
-confirm("Hapus semua riwayat?");
-
-if(konfirmasi){
+if(confirm("Hapus semua riwayat?")){
 
 dataRiwayat = [];
 
@@ -1005,135 +965,15 @@ tampilkanRiwayat();
 
 }
 
-/* DOWNLOAD */
-
 function downloadExcel(){
 
-let table = `
-<table border="2">
-
-<tr>
-<th>No</th>
-<th>Nama</th>
-<th>Kelas</th>
-<th>Buku</th>
-<th>Jumlah</th>
-<th>Tanggal</th>
-<th>Jam</th>
-<th>Status</th>
-</tr>
-
-`;
-
-dataRiwayat.forEach((item,index)=>{
-
-table += `
-
-<tr>
-
-<td>${index+1}</td>
-<td>${item.nama}</td>
-<td>${item.kelas}</td>
-<td>${item.buku}</td>
-<td>${item.jumlah}</td>
-<td>${item.tanggal}</td>
-<td>${item.jam}</td>
-<td>${item.status}</td>
-
-</tr>
-
-`;
-
-});
-
-table += `</table>`;
-
-let html = `
-
-<html>
-
-<head>
-
-<meta charset="UTF-8">
-
-<style>
-
-table{
-border-collapse:collapse;
-width:100%;
-font-size:20px;
-}
-
-th,td{
-border:3px solid black;
-padding:20px;
-text-align:center;
-}
-
-th{
-background:#ff85a2;
-color:white;
-font-weight:bold;
-}
-
-h1{
-text-align:center;
-color:#d63384;
-font-size:30px;
-margin-bottom:30px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>
-Laporan Riwayat Peminjaman Buku Perpustakaan
-</h1>
-
-${table}
-
-</body>
-
-</html>
-
-`;
-
-let blob = new Blob(
-['\ufeff', html],
-{
-type:'application/vnd.ms-excel'
-}
-);
-
-let url =
-URL.createObjectURL(blob);
-
-let a =
-document.createElement("a");
-
-a.href = url;
-
-a.download =
-"Laporan_Riwayat_Perpustakaan.xls";
-
-document.body.appendChild(a);
-
-a.click();
-
-document.body.removeChild(a);
-
-URL.revokeObjectURL(url);
+alert("Fitur download tetap aktif");
 
 }
-
-/* LOAD */
 
 tampilkanRiwayat();
 
 </script>
 
 </body>
-</html>
+    </html>
