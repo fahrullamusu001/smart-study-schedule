@@ -66,7 +66,7 @@ header{
     font-size:18px;
     font-weight:bold;
     cursor:pointer;
-    z-index:999999;
+    z-index:99999;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -82,7 +82,7 @@ header{
     border-radius:18px;
     padding:15px;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
-    z-index:999999;
+    z-index:99999;
     display:none;
 }
 
@@ -142,6 +142,8 @@ header{
     color:#333;
     font-size:12px;
     cursor:pointer;
+    padding:0;
+    margin:0;
 }
 
 .admin-badge{
@@ -152,19 +154,6 @@ header{
     border-radius:10px;
     text-align:center;
     font-size:12px;
-    display:none;
-}
-
-.logout-btn{
-    width:100%;
-    margin-top:10px;
-    padding:10px;
-    border:none;
-    border-radius:12px;
-    background:#dc3545;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
     display:none;
 }
 
@@ -451,13 +440,13 @@ footer{
 
 <header>
 
-<button type="button" class="setting-btn" onclick="toggleSetting()">
+<div class="setting-btn" onclick="toggleSetting()">
 ⚙
-</button>
+</div>
 
 <div class="setting-panel" id="settingPanel">
 
-<button type="button" class="close-setting" onclick="toggleSetting()">
+<button class="close-setting" onclick="toggleSetting()">
 ✕
 </button>
 
@@ -471,12 +460,7 @@ footer{
 Masuk sebagai admin/guru untuk membuka fitur peminjaman buku.
 </p>
 
-<button
-type="button"
-class="setting-login-btn"
-id="loginBtn"
-onclick="bukaLogin()"
->
+<button class="setting-login-btn" onclick="bukaLogin()">
 Login Admin
 </button>
 
@@ -494,11 +478,7 @@ id="passwordAdmin"
 placeholder="Password Admin"
 >
 
-<button
-type="button"
-class="setting-login-btn"
-onclick="loginAdmin()"
->
+<button class="setting-login-btn" onclick="loginAdmin()">
 Masuk
 </button>
 
@@ -507,15 +487,6 @@ Masuk
 <div class="admin-badge" id="adminBadge">
 ✅ Admin Sudah Login
 </div>
-
-<button
-type="button"
-class="logout-btn"
-id="logoutBtn"
-onclick="logoutAdmin()"
->
-🚪 Logout Admin
-</button>
 
 </div>
 
@@ -527,171 +498,12 @@ onclick="logoutAdmin()"
 
 <p id="jam"></p>
 
-<button type="button" class="dark-btn" onclick="darkMode()">
+<button class="dark-btn" onclick="darkMode()">
 🌙 Dark Mode
 </button>
 
 </header>
 
-<script>
-
-function toggleSetting(){
-document.getElementById("settingPanel").classList.toggle("active");
-}
-
-function bukaLogin(){
-document.getElementById("loginBox").classList.toggle("active");
-}
-
-function darkMode(){
-
-document.body.classList.toggle("dark");
-
-if(document.body.classList.contains("dark")){
-localStorage.setItem("darkMode","true");
-}else{
-localStorage.setItem("darkMode","false");
-}
-
-}
-
-setInterval(()=>{
-
-let now = new Date();
-
-document.getElementById("jam").innerHTML =
-now.toLocaleTimeString('id-ID',{
-hour:'2-digit',
-minute:'2-digit'
-});
-
-},1000);
-
-let isAdmin = false;
-
-function loginAdmin(){
-
-let username =
-document.getElementById("usernameAdmin").value;
-
-let password =
-document.getElementById("passwordAdmin").value;
-
-if(username === "admin" && password === "12345"){
-
-isAdmin = true;
-
-localStorage.setItem("adminLogin","true");
-
-document.getElementById("step1")
-.classList.remove("hidden");
-
-document.getElementById("hapusBtn")
-.classList.remove("hidden");
-
-document.getElementById("downloadBtn")
-.classList.remove("hidden");
-
-document.getElementById("adminBadge")
-.style.display = "block";
-
-document.getElementById("logoutBtn")
-.style.display = "block";
-
-document.getElementById("loginBtn")
-.style.display = "none";
-
-document.getElementById("loginBox")
-.classList.remove("active");
-
-alert("Login Admin Berhasil!");
-
-toggleSetting();
-
-}else{
-
-alert("Username atau Password salah!");
-
-}
-
-}
-
-function logoutAdmin(){
-
-isAdmin = false;
-
-localStorage.removeItem("adminLogin");
-
-document.getElementById("step1")
-.classList.add("hidden");
-
-document.getElementById("step2")
-.classList.add("hidden");
-
-document.getElementById("step3")
-.classList.add("hidden");
-
-document.getElementById("step4")
-.classList.add("hidden");
-
-document.getElementById("hapusBtn")
-.classList.add("hidden");
-
-document.getElementById("downloadBtn")
-.classList.add("hidden");
-
-document.getElementById("adminBadge")
-.style.display = "none";
-
-document.getElementById("logoutBtn")
-.style.display = "none";
-
-document.getElementById("loginBtn")
-.style.display = "block";
-
-alert("Logout berhasil!");
-
-}
-
-window.addEventListener("DOMContentLoaded",function(){
-
-let savedLogin =
-localStorage.getItem("adminLogin");
-
-if(savedLogin === "true"){
-
-isAdmin = true;
-
-document.getElementById("step1")
-.classList.remove("hidden");
-
-document.getElementById("hapusBtn")
-.classList.remove("hidden");
-
-document.getElementById("downloadBtn")
-.classList.remove("hidden");
-
-document.getElementById("adminBadge")
-.style.display = "block";
-
-document.getElementById("logoutBtn")
-.style.display = "block";
-
-document.getElementById("loginBtn")
-.style.display = "none";
-
-}
-
-let savedDark =
-localStorage.getItem("darkMode");
-
-if(savedDark === "true"){
-document.body.classList.add("dark");
-}
-
-});
-
-</script>
 <div class="content">
 
 <div class="card">
@@ -764,6 +576,170 @@ Cari & Ambil Buku
 
 </div>
 
+<div id="step2" class="card hidden">
+
+<h3>2. Cek Kondisi Buku</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="kondisiBuku"
+style="width:auto;"
+>
+
+ Buku dalam kondisi baik
+
+</label>
+
+<button onclick="checkKondisi()">
+Lanjut ke Petugas
+</button>
+
+</div>
+
+<div id="step3" class="card hidden">
+
+<h3>3. Data Peminjaman</h3>
+
+<select id="kelasSiswa" onchange="loadNamaSiswa()">
+
+<option value="">Pilih Kelas</option>
+
+<option>XI-1</option>
+<option>XI-2</option>
+<option>XI-3</option>
+<option>XI-4</option>
+<option>XI-5</option>
+<option>XI-6</option>
+<option>XI-7</option>
+<option>XI-8</option>
+<option>XI-9</option>
+<option>XI-10</option>
+
+</select>
+
+<div class="dropdown-container">
+
+<input
+type="text"
+id="searchNama"
+placeholder="🔍 Pilih atau cari nama siswa..."
+onkeyup="filterNama()"
+>
+
+<div
+id="dropdownNama"
+class="dropdown-list hidden">
+</div>
+
+</div>
+
+<button onclick="prosesPinjam()">
+Konfirmasi Peminjaman
+</button>
+
+</div>
+
+<div id="step4" class="card hidden">
+
+<h3>4. Status Peminjaman</h3>
+
+<div id="detailPinjam" class="status-box"></div>
+
+<button onclick="peminjamanBaru()">
+➕ Buat Peminjaman Baru
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>📋 Riwayat Peminjaman</h3>
+
+<div class="table-container">
+
+<table id="tabelRiwayat">
+
+<thead>
+
+<tr>
+
+<th>No</th>
+<th>Nama</th>
+<th>Kelas</th>
+<th>Buku</th>
+<th>Jumlah</th>
+<th>Tanggal</th>
+<th>Jam</th>
+<th>Status</th>
+<th>Selesai</th>
+
+</tr>
+
+</thead>
+
+<tbody id="riwayatTable">
+
+<tr>
+
+<td class="nomor">1</td>
+
+<td colspan="8" class="kosong">
+Belum ada riwayat peminjaman
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="action-buttons">
+
+<button
+class="btn-filter"
+onclick="filterRiwayat('Dipinjam')"
+>
+Dipinjam
+</button>
+
+<button
+class="btn-filter"
+onclick="filterRiwayat('Selesai')"
+>
+Selesai
+</button>
+
+<button
+class="btn-filter"
+onclick="filterRiwayat('Semua')"
+>
+Semua
+</button>
+
+<button
+id="hapusBtn"
+class="btn-hapus-semua hidden"
+onclick="hapusSemua()"
+>
+🗑 Hapus Semua
+</button>
+
+<button
+id="downloadBtn"
+class="btn-download hidden"
+onclick="downloadExcel()"
+>
+📥 Download Riwayat
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 <footer>
@@ -774,13 +750,198 @@ Dibuat Oleh Fahrul Lamusu
 
 <script>
 
+/* ====================== */
+/* DARK MODE */
+/* ====================== */
+
+function darkMode(){
+
+document.body.classList.toggle("dark");
+
+/* SIMPAN DARK MODE */
+if(document.body.classList.contains("dark")){
+localStorage.setItem("darkMode","true");
+}else{
+localStorage.setItem("darkMode","false");
+}
+
+}
+
+/* ====================== */
+/* JAM */
+/* ====================== */
+
+setInterval(()=>{
+
+let now = new Date();
+
+document.getElementById("jam").innerHTML =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+},1000);
+
+/* ====================== */
+/* PENGATURAN */
+/* ====================== */
+
+function toggleSetting(){
+
+let panel =
+document.getElementById("settingPanel");
+
+panel.classList.toggle("active");
+
+}
+
+function bukaLogin(){
+
+let box =
+document.getElementById("loginBox");
+
+box.classList.toggle("active");
+
+}
+
+/* ====================== */
+/* LOGIN ADMIN */
+/* ====================== */
+
+let isAdmin = false;
+
+function loginAdmin(){
+
+let username =
+document.getElementById("usernameAdmin").value;
+
+let password =
+document.getElementById("passwordAdmin").value;
+
+if(
+username === "admin"
+&&
+password === "12345"
+){
+
+isAdmin = true;
+
+/* SIMPAN LOGIN */
+localStorage.setItem("adminLogin","true");
+
+document.getElementById("step1")
+.classList.remove("hidden");
+
+document.getElementById("hapusBtn")
+.classList.remove("hidden");
+
+document.getElementById("downloadBtn")
+.classList.remove("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "block";
+
+alert("Login Admin Berhasil!");
+
+toggleSetting();
+
+}else{
+
+alert("Username atau Password salah!");
+
+}
+
+}
+
+/* ====================== */
+/* AUTO LOGIN SETELAH REFRESH */
+/* ====================== */
+
+window.addEventListener("DOMContentLoaded", function(){
+
+/* AUTO LOGIN ADMIN */
+
+let savedLogin =
+localStorage.getItem("adminLogin");
+
+if(savedLogin === "true"){
+
+isAdmin = true;
+
+document.getElementById("step1")
+.classList.remove("hidden");
+
+document.getElementById("hapusBtn")
+.classList.remove("hidden");
+
+document.getElementById("downloadBtn")
+.classList.remove("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "block";
+
+}
+
+/* AUTO DARK MODE */
+
+let savedDark =
+localStorage.getItem("darkMode");
+
+if(savedDark === "true"){
+
+document.body.classList.add("dark");
+
+}
+
+});
+
+/* ====================== */
+/* DATA SISWA */
+/* ====================== */
+
 const dataSiswa = {
+
 "XI-2":[
+
 "Abdul Rizki Rafa Hiola",
 "Aira Mohi",
+"Almira Juniara Tilahunga",
+"Amelia H. Radzak",
+"Annisa Salsabila Badu",
+"Ardiansyah Ismail",
+"Artika Latiman",
+"Balqis Aurelia Susanto",
+"Chelsea Ishak",
+"Cholid Azzam Surantinojo",
+"Fadel Nur Rizki Wakid",
 "Fahrul Lamusu",
+"Fakhriansyah Eka Tabri",
+"Fatriyaningsih Putri Yasin",
+"Fauzan Fatih Tolinggilo",
+"Fauzia Nurazizah Rauf",
+"Indah Cahyaning Wulan",
+"Jenny Mulyani Hasan",
+"Jesika Jamalu",
+"Kanaya Gufranai Kai",
+"Khumaira Umar",
+"Moh. Adi Firdaus",
+"Moh. Farel Ali",
+"Moh. Ilyansyah Kaharu",
+"Moh. Rayhan Panggi",
+"Moh. Ridho Prasetyo Lasaleng",
+"Mutmainah Dali",
+"Nabila Putri Amara",
+"Navila Cahyani Masi",
+"Nazwa Kirana",
+"Nurain Nggadu",
+"Putri Nuraini Nento",
+"Sarah Zetira Alaydrus",
+"Shawwan Sobri I. Maunty",
 "Siti Aura Rivai"
+
 ]
+
 };
 
 let namaDipilih = "";
@@ -809,6 +970,14 @@ ${nama}
 `;
 
 });
+
+}else{
+
+dropdown.innerHTML = `
+<div class="dropdown-item">
+Belum ada daftar nama
+</div>
+`;
 
 }
 
@@ -862,6 +1031,23 @@ document
 
 }
 
+function checkKondisi(){
+
+let ok =
+document.getElementById("kondisiBuku").checked;
+
+if(ok){
+
+nextStep(3);
+
+}else{
+
+alert("Buku rusak!");
+
+}
+
+}
+
 function tampilCover(){
 
 let buku =
@@ -873,8 +1059,253 @@ document.getElementById("coverBuku").src =
 
 }
 
-function downloadExcel(){
-alert("Download berhasil!");
+let dataRiwayat =
+JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
+
+function updateDashboard(){
+
+let totalBuku = 0;
+
+let siswaUnik = [];
+
+dataRiwayat.forEach(item=>{
+
+totalBuku += Number(item.jumlah);
+
+if(!siswaUnik.includes(item.nama)){
+siswaUnik.push(item.nama);
+}
+
+});
+
+document.getElementById("totalBuku").innerHTML =
+totalBuku;
+
+document.getElementById("totalSiswa").innerHTML =
+siswaUnik.length;
+
+document.getElementById("totalTransaksi").innerHTML =
+dataRiwayat.length;
+
+}
+
+function prosesPinjam(){
+
+let kelas =
+document.getElementById("kelasSiswa").value;
+
+let buku =
+document.getElementById("cariBuku").value;
+
+let jumlah =
+document.getElementById("jumlahBuku").value;
+
+if(!kelas || !namaDipilih || !buku || !jumlah){
+
+alert("Lengkapi data!");
+
+return;
+
+}
+
+let now = new Date();
+
+let tanggal =
+now.toLocaleDateString('id-ID');
+
+let jam =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+let kembali = new Date();
+
+kembali.setDate(now.getDate()+7);
+
+document.getElementById("detailPinjam").innerHTML = `
+
+<b>Nama:</b> ${namaDipilih}<br>
+<b>Kelas:</b> ${kelas}<br>
+<b>Buku:</b> ${buku}<br>
+<b>Jumlah Buku:</b> ${jumlah}<br>
+<b>Tanggal Pinjam:</b> ${tanggal}<br>
+<b>Batas Pengembalian:</b>
+<span style="color:red;">
+${kembali.toLocaleDateString('id-ID')}
+</span>
+
+`;
+
+tambahRiwayat(
+namaDipilih,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam
+);
+
+alert("Peminjaman berhasil!");
+
+nextStep(4);
+
+}
+
+function tambahRiwayat(
+nama,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam
+){
+
+dataRiwayat.push({
+
+nama,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam,
+status:"Dipinjam"
+
+});
+
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
+
+tampilkanRiwayat();
+
+updateDashboard();
+
+}
+
+function tampilkanRiwayat(filter = "Semua"){
+
+let table =
+document.getElementById("riwayatTable");
+
+table.innerHTML = "";
+
+let filteredData = dataRiwayat;
+
+if(filter !== "Semua"){
+filteredData = dataRiwayat.filter(item => item.status === filter);
+}
+
+if(filteredData.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td class="nomor">1</td>
+
+<td colspan="8" class="kosong">
+Belum ada riwayat peminjaman
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+filteredData.forEach((item,index)=>{
+
+let row = table.insertRow();
+
+row.innerHTML = `
+
+<td class="nomor">${index+1}</td>
+
+<td>${item.nama}</td>
+
+<td>${item.kelas}</td>
+
+<td>${item.buku}</td>
+
+<td>${item.jumlah}</td>
+
+<td>${item.tanggal}</td>
+
+<td>${item.jam}</td>
+
+<td class="status">${item.status}</td>
+
+<td>
+
+<button
+class="btn-selesai"
+onclick="tandaiSelesai(this,${dataRiwayat.indexOf(item)})"
+>
+✔
+</button>
+
+</td>
+
+`;
+
+if(item.status === "Selesai"){
+
+row.classList.add("selesai");
+
+}
+
+});
+
+}
+
+function tandaiSelesai(btn,index){
+
+let row =
+btn.parentElement.parentElement;
+
+row.classList.toggle("selesai");
+
+dataRiwayat[index].status = "Selesai";
+
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
+
+row.querySelector(".status").innerHTML =
+"Selesai";
+
+}
+
+function filterRiwayat(status){
+tampilkanRiwayat(status);
+}
+
+function peminjamanBaru(){
+
+document.getElementById("kelasSiswa").value = "";
+
+document.getElementById("searchNama").value = "";
+
+document.getElementById("cariBuku").value = "";
+
+document.getElementById("jumlahBuku").value = "";
+
+document.getElementById("dropdownNama").innerHTML = "";
+
+document.getElementById("dropdownNama")
+.classList.add("hidden");
+
+document.getElementById("kondisiBuku").checked = false;
+
+namaDipilih = "";
+
+nextStep(1);
+
 }
 
 function hapusSemua(){
@@ -884,15 +1315,29 @@ confirm("Hapus semua riwayat?");
 
 if(konfirmasi){
 
+dataRiwayat = [];
+
 localStorage.removeItem("riwayatPerpus");
 
-alert("Riwayat berhasil dihapus!");
+tampilkanRiwayat();
+
+updateDashboard();
 
 }
 
 }
+
+function downloadExcel(){
+
+alert("Download berhasil!");
+
+}
+
+tampilkanRiwayat();
+
+updateDashboard();
 
 </script>
 
 </body>
-</html>
+    </html>
