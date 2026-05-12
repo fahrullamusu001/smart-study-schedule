@@ -57,16 +57,16 @@ header{
     position:absolute;
     top:8px;
     left:8px;
-    width:38px;
-    height:38px;
+    width:45px;
+    height:45px;
     border-radius:50%;
     border:none;
     background:white;
     color:var(--pink4);
-    font-size:18px;
+    font-size:22px;
     font-weight:bold;
     cursor:pointer;
-    z-index:99999;
+    z-index:999999;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -75,14 +75,14 @@ header{
 
 .setting-panel{
     position:absolute;
-    top:55px;
+    top:60px;
     left:8px;
-    width:220px;
+    width:240px;
     background:white;
     border-radius:18px;
     padding:15px;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
-    z-index:99999;
+    z-index:999999;
     display:none;
 }
 
@@ -191,6 +191,8 @@ header h1{
     width:100%;
     font-weight:bold;
     cursor:pointer;
+    position:relative;
+    z-index:1000;
 }
 
 .content{
@@ -456,8 +458,7 @@ footer{
 <button
 type="button"
 class="setting-btn"
-onclick="toggleSetting()"
->
+id="settingBtn">
 ⚙
 </button>
 
@@ -466,8 +467,7 @@ onclick="toggleSetting()"
 <button
 type="button"
 class="close-setting"
-onclick="toggleSetting()"
->
+id="closeSetting">
 ✕
 </button>
 
@@ -484,9 +484,7 @@ Masuk sebagai admin/guru untuk membuka fitur peminjaman buku.
 <button
 type="button"
 class="setting-login-btn"
-id="loginBtn"
-onclick="bukaLogin()"
->
+id="loginBtn">
 Login Admin
 </button>
 
@@ -507,8 +505,7 @@ placeholder="Password Admin"
 <button
 type="button"
 class="setting-login-btn"
-onclick="loginAdmin()"
->
+id="masukAdminBtn">
 Masuk
 </button>
 
@@ -521,9 +518,7 @@ Masuk
 <button
 type="button"
 class="logout-btn"
-id="logoutBtn"
-onclick="logoutAdmin()"
->
+id="logoutBtn">
 🚪 Logout Admin
 </button>
 
@@ -540,8 +535,7 @@ onclick="logoutAdmin()"
 <button
 type="button"
 class="dark-btn"
-onclick="darkMode()"
->
+id="darkBtn">
 🌙 Dark Mode
 </button>
 
@@ -745,24 +739,21 @@ Belum ada riwayat peminjaman
 <button
 type="button"
 class="btn-filter"
-onclick="filterRiwayat('Dipinjam')"
->
+onclick="filterRiwayat('Dipinjam')">
 Dipinjam
 </button>
 
 <button
 type="button"
 class="btn-filter"
-onclick="filterRiwayat('Selesai')"
->
+onclick="filterRiwayat('Selesai')">
 Selesai
 </button>
 
 <button
 type="button"
 class="btn-filter"
-onclick="filterRiwayat('Semua')"
->
+onclick="filterRiwayat('Semua')">
 Semua
 </button>
 
@@ -770,8 +761,7 @@ Semua
 type="button"
 id="hapusBtn"
 class="btn-hapus-semua hidden"
-onclick="hapusSemua()"
->
+onclick="hapusSemua()">
 🗑 Hapus Semua
 </button>
 
@@ -779,8 +769,7 @@ onclick="hapusSemua()"
 type="button"
 id="downloadBtn"
 class="btn-download hidden"
-onclick="downloadExcel()"
->
+onclick="downloadExcel()">
 📥 Download Riwayat
 </button>
 
@@ -966,10 +955,28 @@ toggleSetting();
 }
 
 /* ====================== */
-/* AUTO LOGIN SETELAH REFRESH */
+/* AUTO LOGIN */
 /* ====================== */
 
 window.addEventListener("DOMContentLoaded", function(){
+
+document.getElementById("settingBtn")
+.addEventListener("click", toggleSetting);
+
+document.getElementById("closeSetting")
+.addEventListener("click", toggleSetting);
+
+document.getElementById("darkBtn")
+.addEventListener("click", darkMode);
+
+document.getElementById("loginBtn")
+.addEventListener("click", bukaLogin);
+
+document.getElementById("masukAdminBtn")
+.addEventListener("click", loginAdmin);
+
+document.getElementById("logoutBtn")
+.addEventListener("click", logoutAdmin);
 
 let savedLogin =
 localStorage.getItem("adminLogin");
@@ -1330,36 +1337,4 @@ return;
 
 }
 
-filteredData.forEach((item,index)=>{
-
-let row = table.insertRow();
-
-row.innerHTML = `
-
-<td class="nomor">${index+1}</td>
-
-<td>${item.nama}</td>
-
-<td>${item.kelas}</td>
-
-<td>${item.buku}</td>
-
-<td>${item.jumlah}</td>
-
-<td>${item.tanggal}</td>
-
-<td>${item.jam}</td>
-
-<td class="status">${item.status}</td>
-
-<td>
-
-<button
-type="button"
-class="btn-selesai"
-onclick="tandaiSelesai(this,${dataRiwayat.indexOf(item)})"
->
-✔
-</button>
-
-    
+filteredDa
