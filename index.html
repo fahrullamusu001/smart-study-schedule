@@ -799,15 +799,7 @@ function toggleSetting(){
 let panel =
 document.getElementById("settingPanel");
 
-if(panel.classList.contains("active")){
-
-panel.classList.remove("active");
-
-}else{
-
-panel.classList.add("active");
-
-}
+panel.classList.toggle("active");
 
 }
 
@@ -816,15 +808,7 @@ function bukaLogin(){
 let box =
 document.getElementById("loginBox");
 
-if(box.classList.contains("active")){
-
-box.classList.remove("active");
-
-}else{
-
-box.classList.add("active");
-
-}
+box.classList.toggle("active");
 
 }
 
@@ -832,8 +816,7 @@ box.classList.add("active");
 /* LOGIN ADMIN */
 /* ====================== */
 
-let isAdmin =
-localStorage.getItem("adminLogin") === "true";
+let isAdmin = false;
 
 function loginAdmin(){
 
@@ -851,10 +834,8 @@ password === "12345"
 
 isAdmin = true;
 
-localStorage.setItem(
-"adminLogin",
-"true"
-);
+/* SIMPAN LOGIN */
+localStorage.setItem("adminLogin","true");
 
 document.getElementById("step1")
 .classList.remove("hidden");
@@ -880,11 +861,18 @@ alert("Username atau Password salah!");
 
 }
 
-/* AUTO LOGIN SAAT REFRESH */
+/* ====================== */
+/* AUTO LOGIN SETELAH REFRESH */
+/* ====================== */
 
-window.onload = function(){
+window.addEventListener("load", function(){
 
-if(isAdmin){
+let savedLogin =
+localStorage.getItem("adminLogin");
+
+if(savedLogin === "true"){
+
+isAdmin = true;
 
 document.getElementById("step1")
 .classList.remove("hidden");
@@ -900,7 +888,7 @@ document.getElementById("adminBadge")
 
 }
 
-};
+});
 
 /* ====================== */
 /* DATA SISWA */
