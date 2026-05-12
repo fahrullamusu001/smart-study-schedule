@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Perpus Pinky Premium</title>
+<title>E-Perpus Pinky</title>
 
 <style>
 
@@ -14,7 +14,6 @@
     --pink2:#fbb1bd;
     --pink3:#fff0f5;
     --pink4:#d63384;
-    --white:#ffffff;
 }
 
 *{
@@ -37,19 +36,142 @@ body{
     min-height:100vh;
     background:white;
     box-shadow:0 0 20px rgba(0,0,0,0.1);
-    position:relative;
+    overflow:hidden;
 }
 
-/* HEADER */
-
 header{
+    position:relative;
     background:linear-gradient(135deg,var(--pink1),var(--pink4));
     color:white;
     text-align:center;
-    padding:25px;
+    padding:25px 20px 35px;
     border-bottom-left-radius:35px;
     border-bottom-right-radius:35px;
-    position:relative;
+}
+
+/* PENGATURAN PREMIUM */
+
+.settings-btn{
+    position:absolute;
+    top:18px;
+    left:18px;
+    width:52px;
+    height:52px;
+    border:none;
+    border-radius:18px;
+    background:rgba(255,255,255,0.95);
+    color:var(--pink4);
+    font-size:26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    cursor:pointer;
+    z-index:100;
+    transition:0.3s;
+}
+
+.settings-btn:hover{
+    transform:scale(1.05);
+}
+
+.settings-panel{
+    position:fixed;
+    top:0;
+    left:-100%;
+    width:320px;
+    height:100vh;
+    background:white;
+    z-index:999;
+    box-shadow:5px 0 25px rgba(0,0,0,0.2);
+    transition:0.4s;
+    padding:25px;
+    overflow-y:auto;
+}
+
+.settings-panel.active{
+    left:0;
+}
+
+.settings-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.settings-title{
+    font-size:28px;
+    font-weight:bold;
+    color:var(--pink4);
+}
+
+.close-settings{
+    background:#eee;
+    color:#444;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.setting-item{
+    background:#fff0f5;
+    border:2px solid var(--pink2);
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:18px;
+}
+
+.setting-item h3{
+    margin:0 0 10px;
+    font-size:20px;
+}
+
+.setting-item p{
+    font-size:14px;
+    color:#666;
+    margin-bottom:12px;
+}
+
+.login-btn{
+    background:linear-gradient(135deg,var(--pink1),var(--pink4));
+    color:white;
+    border:none;
+    padding:13px;
+    width:100%;
+    border-radius:14px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.login-box{
+    margin-top:15px;
+    display:none;
+}
+
+.login-box input{
+    width:100%;
+    margin-bottom:12px;
+}
+
+.logout-btn{
+    background:#dc3545;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.4);
+    z-index:998;
+    display:none;
+}
+
+.overlay.active{
+    display:block;
 }
 
 header h1{
@@ -58,43 +180,21 @@ header h1{
 }
 
 #jam{
-    margin-top:10px;
-    font-size:18px;
-}
-
-/* TOMBOL PENGATURAN PREMIUM */
-
-.setting-btn{
-    position:absolute;
-    top:20px;
-    left:20px;
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    border:none;
-    background:rgba(255,255,255,0.95);
-    box-shadow:0 6px 15px rgba(0,0,0,0.15);
-    font-size:26px;
-    cursor:pointer;
-    z-index:999;
-    transition:0.3s;
-}
-
-.setting-btn:hover{
-    transform:scale(1.08) rotate(20deg);
+    margin-top:15px;
+    font-size:20px;
 }
 
 .dark-btn{
-    margin-top:15px;
+    margin-top:25px;
     background:white;
     color:var(--pink4);
     border:none;
     padding:14px;
-    border-radius:16px;
+    border-radius:18px;
     width:100%;
     font-weight:bold;
     cursor:pointer;
-    font-size:20px;
+    font-size:18px;
 }
 
 .content{
@@ -104,9 +204,9 @@ header h1{
 .card{
     background:white;
     border:2px solid var(--pink2);
-    border-radius:22px;
+    border-radius:28px;
     padding:18px;
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
 h3{
@@ -202,76 +302,51 @@ td{
     background:#28a745;
     border:none;
     color:white;
-    padding:5px 8px;
-    border-radius:7px;
+    padding:7px 10px;
+    border-radius:8px;
     cursor:pointer;
-    font-size:12px;
-    margin:0;
     width:auto;
+    margin:0;
 }
 
 .action-buttons{
     display:flex;
-    justify-content:flex-end;
-    gap:8px;
-    margin-top:15px;
+    gap:10px;
     flex-wrap:wrap;
+    margin-top:20px;
 }
 
 .btn-filter{
     width:auto;
-    padding:8px 14px;
-    border-radius:10px;
-    font-size:12px;
+    padding:10px 16px;
+    border-radius:14px;
+    font-size:14px;
     margin:0;
 }
 
 .btn-hapus-semua{
     width:auto;
     background:#dc3545;
-    padding:8px 14px;
-    border-radius:10px;
-    font-size:12px;
+    padding:10px 16px;
+    border-radius:14px;
+    font-size:14px;
     margin:0;
 }
 
 .btn-download{
     width:auto;
     background:#6f42c1;
-    padding:8px 14px;
-    border-radius:10px;
-    font-size:12px;
+    padding:10px 16px;
+    border-radius:14px;
+    font-size:14px;
     margin:0;
 }
 
-.dashboard-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-}
-
-.dashboard-box{
-    background:#fff0f5;
-    padding:10px;
-    border-radius:15px;
-    border:2px solid #fbb1bd;
+footer{
     text-align:center;
-}
-
-.dashboard-icon{
-    font-size:20px;
-}
-
-.dashboard-number{
-    font-size:18px;
-    font-weight:bold;
-    color:#d63384;
-    margin-top:5px;
-}
-
-.dashboard-label{
-    font-size:11px;
-    margin-top:3px;
+    padding:30px;
+    color:#999;
+    font-size:15px;
 }
 
 .dropdown-container{
@@ -299,79 +374,35 @@ td{
     background:#fff0f5;
 }
 
-/* MODAL PENGATURAN */
-
-.modal{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.5);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    padding:20px;
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
 }
 
-.modal-box{
-    width:100%;
-    max-width:380px;
-    background:white;
-    border-radius:28px;
-    padding:25px;
-    animation:pop 0.3s ease;
-    position:relative;
-}
-
-@keyframes pop{
-    from{
-        transform:scale(0.8);
-        opacity:0;
-    }
-    to{
-        transform:scale(1);
-        opacity:1;
-    }
-}
-
-.modal-title{
-    text-align:center;
-    color:var(--pink4);
-    font-size:28px;
-    margin-bottom:20px;
-}
-
-.close-modal{
-    position:absolute;
-    right:15px;
-    top:10px;
-    font-size:28px;
-    color:#999;
-    cursor:pointer;
-}
-
-.login-info{
+.dashboard-box{
     background:#fff0f5;
-    padding:15px;
+    padding:12px;
     border-radius:18px;
-    margin-bottom:15px;
-    line-height:1.8;
-}
-
-.admin-panel{
-    margin-top:20px;
-}
-
-footer{
+    border:2px solid #fbb1bd;
     text-align:center;
-    padding:30px;
-    color:#999;
-    font-size:15px;
 }
 
-/* DARK MODE */
+.dashboard-icon{
+    font-size:25px;
+}
+
+.dashboard-number{
+    font-size:22px;
+    font-weight:bold;
+    color:#d63384;
+    margin-top:5px;
+}
+
+.dashboard-label{
+    font-size:13px;
+    margin-top:3px;
+}
 
 .dark{
     background:#1e1e1e;
@@ -400,17 +431,13 @@ footer{
     background:#444;
 }
 
-.dark .dashboard-box{
-    background:#444;
-}
-
-.dark .modal-box{
-    background:#333;
+.dark .settings-panel{
+    background:#2b2b2b;
     color:white;
 }
 
-.dark .login-info{
-    background:#444;
+.dark .setting-item{
+    background:#3b3b3b;
 }
 
 </style>
@@ -419,12 +446,74 @@ footer{
 
 <body>
 
+<div class="overlay" id="overlay" onclick="closeSettings()"></div>
+
+<!-- PANEL PENGATURAN -->
+
+<div class="settings-panel" id="settingsPanel">
+
+<div class="settings-header">
+
+<div class="settings-title">
+⚙ Pengaturan
+</div>
+
+<button class="close-settings" onclick="closeSettings()">
+✕
+</button>
+
+</div>
+
+<!-- LOGIN ADMIN -->
+
+<div class="setting-item">
+
+<h3>🔐 Login Admin</h3>
+
+<p>
+Masuk sebagai admin/guru untuk mengakses fitur peminjaman buku.
+</p>
+
+<button
+class="login-btn"
+onclick="toggleLoginBox()"
+id="loginToggleBtn"
+>
+Login Admin
+</button>
+
+<div class="login-box" id="loginBox">
+
+<input
+type="text"
+id="username"
+placeholder="Username Admin"
+>
+
+<input
+type="password"
+id="password"
+placeholder="Password Admin"
+>
+
+<button onclick="loginAdmin()">
+Masuk Sebagai Admin
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 <div class="mobile-container">
 
 <header>
 
-<button class="setting-btn" onclick="bukaPengaturan()">
-⚙️
+<!-- TOMBOL PENGATURAN BARU -->
+
+<button class="settings-btn" onclick="openSettings()">
+⚙
 </button>
 
 <h1>📚 E-Perpus Pinky</h1>
@@ -475,8 +564,6 @@ footer{
 
 <div id="fiturAdmin" class="hidden">
 
-<!-- STEP 1 -->
-
 <div id="step1" class="card">
 
 <h3>1. Cari Buku</h3>
@@ -519,8 +606,6 @@ Cari & Ambil Buku
 
 </div>
 
-<!-- STEP 2 -->
-
 <div id="step2" class="card hidden">
 
 <h3>2. Cek Kondisi Buku</h3>
@@ -543,8 +628,6 @@ Lanjut ke Petugas
 
 </div>
 
-<!-- STEP 3 -->
-
 <div id="step3" class="card hidden">
 
 <h3>3. Data Peminjaman</h3>
@@ -555,14 +638,6 @@ Lanjut ke Petugas
 
 <option>XI-1</option>
 <option>XI-2</option>
-<option>XI-3</option>
-<option>XI-4</option>
-<option>XI-5</option>
-<option>XI-6</option>
-<option>XI-7</option>
-<option>XI-8</option>
-<option>XI-9</option>
-<option>XI-10</option>
 
 </select>
 
@@ -571,7 +646,7 @@ Lanjut ke Petugas
 <input
 type="text"
 id="searchNama"
-placeholder="🔍 Pilih atau cari nama siswa..."
+placeholder="🔍 Cari nama siswa..."
 onkeyup="filterNama()"
 >
 
@@ -587,8 +662,6 @@ Konfirmasi Peminjaman
 </button>
 
 </div>
-
-<!-- STEP 4 -->
 
 <div id="step4" class="card hidden">
 
@@ -673,17 +746,17 @@ onclick="filterRiwayat('Semua')"
 Semua
 </button>
 
+<div id="adminButtons" class="hidden" style="display:flex; gap:10px; flex-wrap:wrap;">
+
 <button
-id="hapusBtn"
-class="btn-hapus-semua hidden"
+class="btn-hapus-semua"
 onclick="hapusSemua()"
 >
 🗑 Hapus Semua
 </button>
 
 <button
-id="downloadBtn"
-class="btn-download hidden"
+class="btn-download"
 onclick="downloadExcel()"
 >
 📥 Download Riwayat
@@ -695,67 +768,11 @@ onclick="downloadExcel()"
 
 </div>
 
+</div>
+
 <footer>
 Dibuat Oleh Fahrul Lamusu
 </footer>
-
-</div>
-
-<!-- MODAL PENGATURAN -->
-
-<div id="modalPengaturan" class="modal">
-
-<div class="modal-box">
-
-<div class="close-modal" onclick="tutupPengaturan()">
-×
-</div>
-
-<div class="modal-title">
-⚙️ Pengaturan
-</div>
-
-<div class="login-info">
-
-<b>Status:</b>
-<span id="statusAdmin">
-Belum Login
-</span>
-
-</div>
-
-<div id="loginArea">
-
-<input
-type="text"
-id="username"
-placeholder="Username Admin"
->
-
-<input
-type="password"
-id="password"
-placeholder="Password Admin"
->
-
-<button onclick="loginAdmin()">
-🔐 Login Admin
-</button>
-
-</div>
-
-<div
-id="adminArea"
-class="admin-panel hidden"
->
-
-<button onclick="logoutAdmin()">
-🚪 Logout Admin
-</button>
-
-</div>
-
-</div>
 
 </div>
 
@@ -771,7 +788,7 @@ document.getElementById("jam").innerHTML =
 now.toLocaleTimeString('id-ID',{
 hour:'2-digit',
 minute:'2-digit'
-});
+}).replace(".",":");
 
 },1000);
 
@@ -781,88 +798,74 @@ function darkMode(){
 document.body.classList.toggle("dark");
 }
 
-/* MODAL */
+/* SETTINGS */
 
-function bukaPengaturan(){
-document.getElementById("modalPengaturan").style.display = "flex";
+function openSettings(){
+
+document
+.getElementById("settingsPanel")
+.classList.add("active");
+
+document
+.getElementById("overlay")
+.classList.add("active");
+
 }
 
-function tutupPengaturan(){
-document.getElementById("modalPengaturan").style.display = "none";
+function closeSettings(){
+
+document
+.getElementById("settingsPanel")
+.classList.remove("active");
+
+document
+.getElementById("overlay")
+.classList.remove("active");
+
+}
+
+function toggleLoginBox(){
+
+let box =
+document.getElementById("loginBox");
+
+box.style.display =
+box.style.display === "block"
+? "none"
+: "block";
+
 }
 
 /* LOGIN ADMIN */
 
-let isAdmin =
-localStorage.getItem("adminLogin") || "false";
-
-function cekAdmin(){
-
-if(isAdmin === "true"){
-
-document.getElementById("fiturAdmin")
-.classList.remove("hidden");
-
-document.getElementById("hapusBtn")
-.classList.remove("hidden");
-
-document.getElementById("downloadBtn")
-.classList.remove("hidden");
-
-document.getElementById("statusAdmin")
-.innerHTML = "Admin Aktif";
-
-document.getElementById("loginArea")
-.classList.add("hidden");
-
-document.getElementById("adminArea")
-.classList.remove("hidden");
-
-}else{
-
-document.getElementById("fiturAdmin")
-.classList.add("hidden");
-
-document.getElementById("hapusBtn")
-.classList.add("hidden");
-
-document.getElementById("downloadBtn")
-.classList.add("hidden");
-
-document.getElementById("statusAdmin")
-.innerHTML = "Belum Login";
-
-document.getElementById("loginArea")
-.classList.remove("hidden");
-
-document.getElementById("adminArea")
-.classList.add("hidden");
-
-}
-
-}
+let adminLogin = false;
 
 function loginAdmin(){
 
-let user =
+let username =
 document.getElementById("username").value;
 
-let pass =
+let password =
 document.getElementById("password").value;
 
-if(user === "admin" && pass === "12345"){
+if(
+username === "admin" &&
+password === "12345"
+){
 
-localStorage.setItem("adminLogin","true");
+adminLogin = true;
 
-isAdmin = "true";
+alert("Login Admin Berhasil!");
 
-cekAdmin();
+document
+.getElementById("fiturAdmin")
+.classList.remove("hidden");
 
-tutupPengaturan();
+document
+.getElementById("adminButtons")
+.classList.remove("hidden");
 
-alert("Login Admin Berhasil");
-
-nextStep(1);
+closeSettings();
 
 }else{
 
@@ -872,62 +875,15 @@ alert("Username atau Password salah!");
 
 }
 
-function logoutAdmin(){
-
-localStorage.setItem("adminLogin","false");
-
-isAdmin = "false";
-
-cekAdmin();
-
-tutupPengaturan();
-
-alert("Logout berhasil");
-
-}
-
 /* DATA SISWA */
 
 const dataSiswa = {
 
 "XI-2":[
-
+"Fahrul Lamusu",
 "Abdul Rizki Rafa Hiola",
 "Aira Mohi",
-"Almira Juniara Tilahunga",
-"Amelia H. Radzak",
-"Annisa Salsabila Badu",
-"Ardiansyah Ismail",
-"Artika Latiman",
-"Balqis Aurelia Susanto",
-"Chelsea Ishak",
-"Cholid Azzam Surantinojo",
-"Fadel Nur Rizki Wakid",
-"Fahrul Lamusu",
-"Fakhriansyah Eka Tabri",
-"Fatriyaningsih Putri Yasin",
-"Fauzan Fatih Tolinggilo",
-"Fauzia Nurazizah Rauf",
-"Indah Cahyaning Wulan",
-"Jenny Mulyani Hasan",
-"Jesika Jamalu",
-"Kanaya Gufranai Kai",
-"Khumaira Umar",
-"Moh. Adi Firdaus",
-"Moh. Farel Ali",
-"Moh. Ilyansyah Kaharu",
-"Moh. Rayhan Panggi",
-"Moh. Ridho Prasetyo Lasaleng",
-"Mutmainah Dali",
-"Nabila Putri Amara",
-"Navila Cahyani Masi",
-"Nazwa Kirana",
-"Nurain Nggadu",
-"Putri Nuraini Nento",
-"Sarah Zetira Alaydrus",
-"Shawwan Sobri I. Maunty",
-"Siti Aura Rivai"
-
+"Chelsea Ishak"
 ]
 
 };
@@ -977,8 +933,7 @@ document.querySelectorAll(".dropdown-item");
 items.forEach(item=>{
 
 item.style.display =
-item.innerText.toLowerCase()
-.includes(input)
+item.innerText.toLowerCase().includes(input)
 ? "block"
 : "none";
 
@@ -990,10 +945,10 @@ function pilihNama(nama){
 
 namaDipilih = nama;
 
-document.getElementById("searchNama")
-.value = nama;
+document.getElementById("searchNama").value = nama;
 
-document.getElementById("dropdownNama")
+document
+.getElementById("dropdownNama")
 .classList.add("hidden");
 
 }
@@ -1019,8 +974,7 @@ document
 function checkKondisi(){
 
 let ok =
-document.getElementById("kondisiBuku")
-.checked;
+document.getElementById("kondisiBuku").checked;
 
 if(ok){
 
@@ -1066,14 +1020,14 @@ siswaUnik.push(item.nama);
 
 });
 
-document.getElementById("totalBuku")
-.innerHTML = totalBuku;
+document.getElementById("totalBuku").innerHTML =
+totalBuku;
 
-document.getElementById("totalSiswa")
-.innerHTML = siswaUnik.length;
+document.getElementById("totalSiswa").innerHTML =
+siswaUnik.length;
 
-document.getElementById("totalTransaksi")
-.innerHTML = dataRiwayat.length;
+document.getElementById("totalTransaksi").innerHTML =
+dataRiwayat.length;
 
 }
 
@@ -1107,22 +1061,13 @@ hour:'2-digit',
 minute:'2-digit'
 });
 
-let kembali = new Date();
-
-kembali.setDate(now.getDate()+7);
-
-document.getElementById("detailPinjam")
-.innerHTML = `
+document.getElementById("detailPinjam").innerHTML = `
 
 <b>Nama:</b> ${namaDipilih}<br>
 <b>Kelas:</b> ${kelas}<br>
 <b>Buku:</b> ${buku}<br>
 <b>Jumlah Buku:</b> ${jumlah}<br>
-<b>Tanggal Pinjam:</b> ${tanggal}<br>
-<b>Batas Pengembalian:</b>
-<span style="color:red;">
-${kembali.toLocaleDateString('id-ID')}
-</span>
+<b>Tanggal:</b> ${tanggal}
 
 `;
 
@@ -1134,8 +1079,6 @@ jumlah,
 tanggal,
 jam
 );
-
-alert("Peminjaman berhasil!");
 
 nextStep(4);
 
@@ -1173,7 +1116,7 @@ updateDashboard();
 
 }
 
-function tampilkanRiwayat(filter="Semua"){
+function tampilkanRiwayat(filter = "Semua"){
 
 let table =
 document.getElementById("riwayatTable");
@@ -1185,8 +1128,8 @@ let filteredData = dataRiwayat;
 if(filter !== "Semua"){
 
 filteredData =
-dataRiwayat.filter(item =>
-item.status === filter
+dataRiwayat.filter(
+item => item.status === filter
 );
 
 }
@@ -1258,11 +1201,6 @@ row.classList.add("selesai");
 
 function tandaiSelesai(btn,index){
 
-let row =
-btn.parentElement.parentElement;
-
-row.classList.toggle("selesai");
-
 dataRiwayat[index].status = "Selesai";
 
 localStorage.setItem(
@@ -1270,8 +1208,7 @@ localStorage.setItem(
 JSON.stringify(dataRiwayat)
 );
 
-row.querySelector(".status")
-.innerHTML = "Selesai";
+tampilkanRiwayat();
 
 }
 
@@ -1282,21 +1219,9 @@ tampilkanRiwayat(status);
 function peminjamanBaru(){
 
 document.getElementById("kelasSiswa").value = "";
-
 document.getElementById("searchNama").value = "";
-
 document.getElementById("cariBuku").value = "";
-
 document.getElementById("jumlahBuku").value = "";
-
-document.getElementById("dropdownNama")
-.innerHTML = "";
-
-document.getElementById("dropdownNama")
-.classList.add("hidden");
-
-document.getElementById("kondisiBuku")
-.checked = false;
 
 namaDipilih = "";
 
@@ -1325,101 +1250,13 @@ updateDashboard();
 
 function downloadExcel(){
 
-let isiTabel = "";
-
-dataRiwayat.forEach((item,index)=>{
-
-isiTabel += `
-
-<tr>
-
-<td>${index+1}</td>
-<td>${item.nama}</td>
-<td>${item.kelas}</td>
-<td>${item.buku}</td>
-<td>${item.jumlah}</td>
-<td>${item.tanggal}</td>
-<td>${item.jam}</td>
-<td>${item.status}</td>
-
-</tr>
-
-`;
-
-});
-
-let html = `
-
-<html>
-<head>
-<meta charset="UTF-8">
-</head>
-
-<body>
-
-<h2>
-Laporan Riwayat Peminjaman
-</h2>
-
-<table border="1">
-
-<tr>
-
-<th>No</th>
-<th>Nama</th>
-<th>Kelas</th>
-<th>Buku</th>
-<th>Jumlah</th>
-<th>Tanggal</th>
-<th>Jam</th>
-<th>Status</th>
-
-</tr>
-
-${isiTabel}
-
-</table>
-
-</body>
-</html>
-
-`;
-
-let blob = new Blob(
-['\ufeff', html],
-{
-type:'application/vnd.ms-excel'
-}
-);
-
-let url =
-URL.createObjectURL(blob);
-
-let a =
-document.createElement("a");
-
-a.href = url;
-
-a.download =
-"Laporan_Riwayat_Peminjaman.xls";
-
-document.body.appendChild(a);
-
-a.click();
-
-document.body.removeChild(a);
-
-URL.revokeObjectURL(url);
+alert("Download berhasil!");
 
 }
-
-/* START */
 
 tampilkanRiwayat();
 
 updateDashboard();
-
-cekAdmin();
 
 </script>
 
