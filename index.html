@@ -49,110 +49,90 @@ header{
     position:relative;
 }
 
-/* PENGATURAN BARU */
-
 .setting-btn{
     position:absolute;
     top:12px;
     left:12px;
-    width:45px;
-    height:45px;
+    width:42px;
+    height:42px;
     border-radius:50%;
     border:none;
     background:white;
     color:var(--pink4);
-    font-size:22px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    font-size:20px;
     display:flex;
     align-items:center;
     justify-content:center;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
     cursor:pointer;
     z-index:100;
-    padding:0;
 }
 
-.setting-panel{
+.setting-btn:hover{
+    transform:scale(1.05);
+}
+
+.popup-setting{
     position:absolute;
-    top:65px;
-    left:12px;
-    width:230px;
+    top:60px;
+    left:10px;
+    width:280px;
     background:white;
-    border-radius:18px;
-    padding:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-    z-index:200;
+    border-radius:24px;
+    padding:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:999;
+    border:2px solid var(--pink2);
+}
+
+.popup-setting.hidden{
     display:none;
-    animation:fadeIn .2s ease;
 }
 
-.setting-panel h4{
+.popup-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.popup-title h2{
     color:var(--pink4);
-    margin-bottom:12px;
-    font-size:18px;
+    font-size:22px;
 }
 
-.setting-item{
+.close-popup{
+    background:#eee;
+    color:#444;
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    border:none;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.setting-card{
     background:#fff0f5;
     border:2px solid var(--pink2);
-    border-radius:14px;
-    padding:12px;
-    margin-top:10px;
+    border-radius:20px;
+    padding:15px;
 }
 
-.setting-item p{
-    font-size:13px;
-    color:#666;
-    margin-top:4px;
+.setting-card h3{
+    font-size:18px;
+    margin-bottom:8px;
 }
 
-.setting-login-btn{
-    margin-top:10px;
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:12px;
-    background:linear-gradient(135deg,var(--pink1),var(--pink4));
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.login-box{
-    display:none;
-    margin-top:10px;
-}
-
-.login-box input{
-    margin-top:8px;
-}
-
-.close-setting{
-    position:absolute;
-    top:10px;
-    right:10px;
-    background:#eee;
-    color:#333;
-    border:none;
-    width:28px;
-    height:28px;
-    border-radius:50%;
-    cursor:pointer;
+.setting-card p{
     font-size:14px;
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(-10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    color:#555;
+    margin-bottom:15px;
 }
 
 header h1{
     font-size:28px;
+    margin-top:10px;
 }
 
 #jam{
@@ -379,10 +359,6 @@ footer{
     background:#444;
 }
 
-.dark .setting-panel{
-    background:#333;
-}
-
 .dashboard-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -423,57 +399,37 @@ footer{
 
 <header>
 
-<!-- TOMBOL PENGATURAN BARU -->
-
-<button class="setting-btn" onclick="toggleSetting()">
+<button class="setting-btn" onclick="togglePengaturan()">
 ⚙️
 </button>
 
-<div class="setting-panel" id="settingPanel">
+<div id="popupPengaturan" class="popup-setting hidden">
 
-<button class="close-setting" onclick="toggleSetting()">
+<div class="popup-title">
+
+<h2>⚙️ Pengaturan</h2>
+
+<button class="close-popup" onclick="togglePengaturan()">
 ✕
 </button>
 
-<h4>⚙️ Pengaturan</h4>
+</div>
 
-<div class="setting-item">
+<div class="setting-card">
 
-<b>🔐 Login Admin</b>
+<h3>🔐 Login Admin</h3>
 
 <p>
 Masuk sebagai admin/guru untuk membuka fitur peminjaman buku.
 </p>
 
-<button
-class="setting-login-btn"
-onclick="bukaLogin()"
->
+<button onclick="loginAdmin()">
 Login Admin
 </button>
 
-<div class="login-box" id="loginBox">
-
-<input
-type="text"
-id="usernameAdmin"
-placeholder="Username Admin"
->
-
-<input
-type="password"
-id="passwordAdmin"
-placeholder="Password Admin"
->
-
-<button
-class="setting-login-btn"
-onclick="loginAdmin()"
->
-Masuk
+<button onclick="logoutAdmin()" style="background:#dc3545;">
+Logout Admin
 </button>
-
-</div>
 
 </div>
 
@@ -492,8 +448,6 @@ Masuk
 </header>
 
 <div class="content">
-
-<!-- DASHBOARD -->
 
 <div class="card">
 
@@ -523,9 +477,9 @@ Masuk
 
 </div>
 
-<!-- STEP 1 -->
+<div id="fiturPinjam" class="hidden">
 
-<div id="step1" class="card hidden">
+<div id="step1" class="card">
 
 <h3>1. Cari Buku</h3>
 
@@ -567,8 +521,6 @@ Cari & Ambil Buku
 
 </div>
 
-<!-- STEP 2 -->
-
 <div id="step2" class="card hidden">
 
 <h3>2. Cek Kondisi Buku</h3>
@@ -590,8 +542,6 @@ Lanjut ke Petugas
 </button>
 
 </div>
-
-<!-- STEP 3 -->
 
 <div id="step3" class="card hidden">
 
@@ -636,8 +586,6 @@ Konfirmasi Peminjaman
 
 </div>
 
-<!-- STEP 4 -->
-
 <div id="step4" class="card hidden">
 
 <h3>4. Status Peminjaman</h3>
@@ -650,7 +598,7 @@ Konfirmasi Peminjaman
 
 </div>
 
-<!-- RIWAYAT -->
+</div>
 
 <div class="card">
 
@@ -720,7 +668,7 @@ Semua
 </button>
 
 <button
-id="hapusBtn"
+id="btnHapus"
 class="btn-hapus-semua hidden"
 onclick="hapusSemua()"
 >
@@ -728,7 +676,7 @@ onclick="hapusSemua()"
 </button>
 
 <button
-id="downloadBtn"
+id="btnDownload"
 class="btn-download hidden"
 onclick="downloadExcel()"
 >
@@ -749,70 +697,91 @@ Dibuat Oleh Fahrul Lamusu
 
 <script>
 
-let isAdmin = false;
+let adminLogin =
+localStorage.getItem("adminLogin") === "true";
 
-function toggleSetting(){
+function cekAdmin(){
 
-let panel =
-document.getElementById("settingPanel");
+if(adminLogin){
 
-if(panel.style.display === "block"){
-panel.style.display = "none";
+document
+.getElementById("fiturPinjam")
+.classList.remove("hidden");
+
+document
+.getElementById("btnHapus")
+.classList.remove("hidden");
+
+document
+.getElementById("btnDownload")
+.classList.remove("hidden");
+
 }else{
-panel.style.display = "block";
-}
 
-}
+document
+.getElementById("fiturPinjam")
+.classList.add("hidden");
 
-function bukaLogin(){
+document
+.getElementById("btnHapus")
+.classList.add("hidden");
 
-let box =
-document.getElementById("loginBox");
+document
+.getElementById("btnDownload")
+.classList.add("hidden");
 
-if(box.style.display === "block"){
-box.style.display = "none";
-}else{
-box.style.display = "block";
 }
 
 }
 
 function loginAdmin(){
 
-let username =
-document.getElementById("usernameAdmin").value;
-
 let password =
-document.getElementById("passwordAdmin").value;
+prompt("Masukkan Password Admin");
 
-if(
-username === "admin"
-&&
-password === "12345"
-){
+if(password === "admin123"){
 
-isAdmin = true;
+adminLogin = true;
 
-alert("Login Admin Berhasil!");
+localStorage.setItem("adminLogin","true");
 
-document.getElementById("step1")
-.classList.remove("hidden");
+cekAdmin();
 
-document.getElementById("hapusBtn")
-.classList.remove("hidden");
+alert("Login Admin Berhasil");
 
-document.getElementById("downloadBtn")
-.classList.remove("hidden");
-
-toggleSetting();
+togglePengaturan();
 
 }else{
 
-alert("Username atau Password salah!");
+alert("Password Salah!");
 
 }
 
 }
+
+function logoutAdmin(){
+
+adminLogin = false;
+
+localStorage.setItem("adminLogin","false");
+
+cekAdmin();
+
+alert("Logout Berhasil");
+
+togglePengaturan();
+
+}
+
+function togglePengaturan(){
+
+document
+.getElementById("popupPengaturan")
+.classList.toggle("hidden");
+
+}
+
+cekAdmin();
 
 setInterval(()=>{
 
