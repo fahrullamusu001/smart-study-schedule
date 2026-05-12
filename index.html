@@ -157,6 +157,21 @@ header{
     display:none;
 }
 
+/* TOMBOL LOGOUT */
+
+.logout-btn{
+    width:100%;
+    margin-top:10px;
+    padding:10px;
+    border:none;
+    border-radius:12px;
+    background:#dc3545;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    display:none;
+}
+
 /* ====================== */
 
 header h1{
@@ -487,6 +502,14 @@ Masuk
 <div class="admin-badge" id="adminBadge">
 ✅ Admin Sudah Login
 </div>
+
+<button
+class="logout-btn"
+id="logoutBtn"
+onclick="logoutAdmin()"
+>
+🚪 Logout Admin
+</button>
 
 </div>
 
@@ -842,6 +865,9 @@ document.getElementById("downloadBtn")
 document.getElementById("adminBadge")
 .style.display = "block";
 
+document.getElementById("logoutBtn")
+.style.display = "block";
+
 alert("Login Admin Berhasil!");
 
 toggleSetting();
@@ -849,6 +875,57 @@ toggleSetting();
 }else{
 
 alert("Username atau Password salah!");
+
+}
+
+}
+
+/* ====================== */
+/* LOGOUT ADMIN */
+/* ====================== */
+
+function logoutAdmin(){
+
+let konfirmasi =
+confirm("Yakin ingin logout admin?");
+
+if(konfirmasi){
+
+isAdmin = false;
+
+localStorage.removeItem("adminLogin");
+
+document.getElementById("step1")
+.classList.add("hidden");
+
+document.getElementById("step2")
+.classList.add("hidden");
+
+document.getElementById("step3")
+.classList.add("hidden");
+
+document.getElementById("step4")
+.classList.add("hidden");
+
+document.getElementById("hapusBtn")
+.classList.add("hidden");
+
+document.getElementById("downloadBtn")
+.classList.add("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "none";
+
+document.getElementById("logoutBtn")
+.style.display = "none";
+
+document.getElementById("usernameAdmin").value = "";
+
+document.getElementById("passwordAdmin").value = "";
+
+alert("Logout berhasil!");
+
+toggleSetting();
 
 }
 
@@ -879,6 +956,9 @@ document.getElementById("downloadBtn")
 .classList.remove("hidden");
 
 document.getElementById("adminBadge")
+.style.display = "block";
+
+document.getElementById("logoutBtn")
 .style.display = "block";
 
 }
@@ -1340,4 +1420,4 @@ updateDashboard();
 </script>
 
 </body>
-    </html>
+</html>
