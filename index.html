@@ -86,46 +86,38 @@ h3{
     font-size:22px;
 }
 
-input,
-select{
-    width:100%;
-    padding:14px;
-    border:2px solid var(--pink2);
-    border-radius:16px;
-    margin-top:12px;
-    font-size:16px;
-    outline:none;
-}
-
 button{
-    width:100%;
-    padding:14px;
     border:none;
-    border-radius:16px;
-    background:var(--pink1);
-    color:white;
-    font-weight:bold;
-    margin-top:15px;
     cursor:pointer;
-    font-size:16px;
 }
 
-.hidden{
-    display:none;
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
 }
 
-.status-box{
-    background:#fff5f8;
-    padding:15px;
+.dashboard-box{
+    background:linear-gradient(135deg,#ff85a2,#ffb6c1);
+    padding:12px;
     border-radius:18px;
-    line-height:2;
+    text-align:center;
+    color:white;
 }
 
-#coverBuku{
-    width:120px;
-    display:block;
-    margin:15px auto;
-    border-radius:12px;
+.dashboard-icon{
+    font-size:22px;
+}
+
+.dashboard-number{
+    font-size:20px;
+    font-weight:bold;
+    margin-top:4px;
+}
+
+.dashboard-text{
+    font-size:12px;
+    margin-top:3px;
 }
 
 .table-container{
@@ -171,27 +163,33 @@ td{
 
 .btn-selesai{
     background:#28a745;
-    border:none;
     color:white;
-    padding:7px 10px;
+    padding:6px 10px;
     border-radius:8px;
-    cursor:pointer;
+    font-size:12px;
+}
+
+.filter-container{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
 }
 
 .filter-btn{
-    width:auto;
-    padding:10px 16px;
-    border-radius:12px;
-    font-size:14px;
     background:#ff85a2;
-    margin-top:0;
+    color:white;
+    padding:8px 12px;
+    border-radius:10px;
+    font-size:12px;
 }
 
 .btn-hapus-semua{
     width:auto;
     background:#dc3545;
+    color:white;
     padding:10px 14px;
-    font-size:14px;
+    font-size:13px;
     border-radius:12px;
     display:block;
     margin-left:auto;
@@ -201,8 +199,9 @@ td{
 .btn-download{
     width:auto;
     background:#6f42c1;
+    color:white;
     padding:10px 14px;
-    font-size:14px;
+    font-size:13px;
     border-radius:12px;
     display:block;
     margin-left:auto;
@@ -216,31 +215,6 @@ footer{
     font-size:15px;
 }
 
-.dropdown-container{
-    position:relative;
-}
-
-.dropdown-list{
-    position:absolute;
-    width:100%;
-    background:white;
-    border:2px solid var(--pink2);
-    border-radius:16px;
-    max-height:220px;
-    overflow-y:auto;
-    z-index:10;
-}
-
-.dropdown-item{
-    padding:14px;
-    border-bottom:1px solid #eee;
-    cursor:pointer;
-}
-
-.dropdown-item:hover{
-    background:#fff0f5;
-}
-
 .dark{
     background:#1e1e1e;
 }
@@ -252,26 +226,6 @@ footer{
 
 .dark .card{
     background:#333;
-}
-
-.dark input,
-.dark select{
-    background:#444;
-    color:white;
-}
-
-.dark .dropdown-list{
-    background:#444;
-}
-
-.dark .status-box{
-    background:#444;
-}
-
-.show-popup{
-    opacity:1 !important;
-    pointer-events:auto !important;
-    transform:translate(-50%,-50%) scale(1) !important;
 }
 
 </style>
@@ -298,147 +252,55 @@ footer{
 
 <div class="content">
 
-<!-- DASHBOARD PREMIUM -->
+<!-- DASHBOARD -->
 
 <div class="card">
 
 <h3>📊 Dashboard Premium</h3>
 
-<div style="
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-">
+<div class="dashboard-grid">
 
-<div style="
-background:linear-gradient(135deg,#ff85a2,#ffb6c1);
-padding:18px;
-border-radius:20px;
-color:white;
-text-align:center;
-">
+<div class="dashboard-box">
 
-<div style="font-size:30px;">📚</div>
+<div class="dashboard-icon">📚</div>
 
-<div id="totalBuku" style="
-font-size:26px;
-font-weight:bold;
-">
-0
-</div>
+<div id="totalBuku" class="dashboard-number">0</div>
 
-<div>Total Buku</div>
+<div class="dashboard-text">Total Buku</div>
 
 </div>
 
-<div style="
-background:linear-gradient(135deg,#d63384,#ff85a2);
-padding:18px;
-border-radius:20px;
-color:white;
-text-align:center;
-">
+<div class="dashboard-box">
 
-<div style="font-size:30px;">👨‍🎓</div>
+<div class="dashboard-icon">👨‍🎓</div>
 
-<div id="totalSiswa" style="
-font-size:26px;
-font-weight:bold;
-">
-0
-</div>
+<div id="totalSiswa" class="dashboard-number">0</div>
 
-<div>Total Siswa</div>
+<div class="dashboard-text">Total Siswa</div>
 
 </div>
 
-<div style="
-background:linear-gradient(135deg,#ff9eb5,#ffc0cb);
-padding:18px;
-border-radius:20px;
-color:white;
-text-align:center;
-">
+<div class="dashboard-box">
 
-<div style="font-size:30px;">📝</div>
+<div class="dashboard-icon">📝</div>
 
-<div id="totalTransaksi" style="
-font-size:26px;
-font-weight:bold;
-">
-0
-</div>
+<div id="totalTransaksi" class="dashboard-number">0</div>
 
-<div>Total Transaksi</div>
+<div class="dashboard-text">Transaksi</div>
 
 </div>
 
-<div style="
-background:linear-gradient(135deg,#ff6f91,#ff85a2);
-padding:18px;
-border-radius:20px;
-color:white;
-text-align:center;
-">
+<div class="dashboard-box">
 
-<div style="font-size:30px;">✅</div>
+<div class="dashboard-icon">✅</div>
 
-<div id="totalSelesai" style="
-font-size:26px;
-font-weight:bold;
-">
-0
-</div>
+<div id="totalSelesai" class="dashboard-number">0</div>
 
-<div>Buku Selesai</div>
+<div class="dashboard-text">Selesai</div>
 
 </div>
 
 </div>
-
-</div>
-
-<!-- STEP 1 -->
-
-<div id="step1" class="card">
-
-<h3>1. Cari Buku</h3>
-
-<select id="cariBuku" onchange="tampilCover()">
-
-<option value="">-- Pilih Buku --</option>
-
-<option>Pen. Agama Islam</option>
-<option>PKN</option>
-<option>Bahasa Indonesia</option>
-<option>Bahasa Inggris</option>
-<option>Seni Budaya</option>
-<option>PJOK</option>
-<option>Matematika</option>
-<option>Fisika</option>
-<option>Sejarah Indonesia</option>
-<option>Biologi</option>
-<option>Kimia</option>
-<option>Informatika</option>
-
-</select>
-
-<input
-type="number"
-id="jumlahBuku"
-placeholder="Jumlah Buku Dipinjam"
-min="1"
-max="10"
->
-
-<img
-id="coverBuku"
-src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
->
-
-<button onclick="nextStep(2)">
-Cari & Ambil Buku
-</button>
 
 </div>
 
@@ -448,12 +310,9 @@ Cari & Ambil Buku
 
 <h3>📋 Riwayat Peminjaman</h3>
 
-<div style="
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:15px;
-">
+<!-- TOMBOL FILTER -->
+
+<div class="filter-container">
 
 <button class="filter-btn" onclick="filterRiwayat('Semua')">
 📋 Semua
@@ -485,7 +344,7 @@ margin-bottom:15px;
 <th>Tanggal</th>
 <th>Jam</th>
 <th>Status</th>
-<th>Selesai</th>
+<th>Aksi</th>
 
 </tr>
 
@@ -558,7 +417,19 @@ document.body.classList.toggle("dark");
 /* STORAGE */
 
 let dataRiwayat =
-JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
+JSON.parse(localStorage.getItem("riwayatPerpus")) || [
+
+{
+nama:"Fahrul Lamusu",
+kelas:"XI-2",
+buku:"Informatika",
+jumlah:"2",
+tanggal:"15/05/2026",
+jam:"08.30",
+status:"Dipinjam"
+}
+
+];
 
 /* DASHBOARD */
 
@@ -596,6 +467,94 @@ selesai;
 
 }
 
+/* TAMPILKAN RIWAYAT */
+
+function tampilkanRiwayat(){
+
+let table =
+document.getElementById("riwayatTable");
+
+table.innerHTML = "";
+
+if(dataRiwayat.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td class="nomor">1</td>
+
+<td colspan="8" class="kosong">
+Belum ada riwayat peminjaman
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+dataRiwayat.forEach((item,index)=>{
+
+let row = table.insertRow();
+
+row.innerHTML = `
+
+<td class="nomor">${index+1}</td>
+
+<td>${item.nama}</td>
+
+<td>${item.kelas}</td>
+
+<td>${item.buku}</td>
+
+<td>${item.jumlah}</td>
+
+<td>${item.tanggal}</td>
+
+<td>${item.jam}</td>
+
+<td class="status">${item.status}</td>
+
+<td>
+
+<button
+class="btn-selesai"
+onclick="tandaiSelesai(${index})"
+>
+✔ Selesai
+</button>
+
+</td>
+
+`;
+
+if(item.status === "Selesai"){
+row.classList.add("selesai");
+}
+
+});
+
+}
+
+/* PINDAH TOMBOL SELESAI */
+
+function tandaiSelesai(index){
+
+dataRiwayat[index].status = "Selesai";
+
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
+
+tampilkanRiwayat();
+updateDashboard();
+
+}
+
 /* FILTER */
 
 function filterRiwayat(status){
@@ -622,6 +581,27 @@ statusCell.innerHTML === status
 }
 
 });
+
+}
+
+/* HAPUS */
+
+function hapusSemua(){
+
+let konfirmasi =
+confirm("Hapus semua riwayat?");
+
+if(konfirmasi){
+
+dataRiwayat = [];
+
+localStorage.removeItem("riwayatPerpus");
+
+tampilkanRiwayat();
+
+updateDashboard();
+
+}
 
 }
 
@@ -659,7 +639,7 @@ font-size:22px;
 
 th,td{
 border:3px solid black;
-padding:24px 40px;
+padding:24px 45px;
 text-align:center;
 white-space:nowrap;
 }
@@ -715,9 +695,12 @@ URL.revokeObjectURL(url);
 
 }
 
+/* LOAD */
+
+tampilkanRiwayat();
 updateDashboard();
 
 </script>
 
 </body>
-    </html>
+</html>
