@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E-Perpus Pinky</title>
+<title>E-Perpus Pinky Premium</title>
 
 <style>
 
@@ -14,6 +14,7 @@
     --pink2:#fbb1bd;
     --pink3:#fff0f5;
     --pink4:#d63384;
+    --white:#ffffff;
 }
 
 *{
@@ -36,25 +37,51 @@ body{
     min-height:100vh;
     background:white;
     box-shadow:0 0 20px rgba(0,0,0,0.1);
+    position:relative;
 }
+
+/* HEADER */
 
 header{
     background:linear-gradient(135deg,var(--pink1),var(--pink4));
     color:white;
     text-align:center;
     padding:25px;
-    border-bottom-left-radius:25px;
-    border-bottom-right-radius:25px;
+    border-bottom-left-radius:35px;
+    border-bottom-right-radius:35px;
     position:relative;
 }
 
 header h1{
     font-size:28px;
+    margin-top:15px;
 }
 
 #jam{
     margin-top:10px;
-    font-size:20px;
+    font-size:18px;
+}
+
+/* TOMBOL PENGATURAN PREMIUM */
+
+.setting-btn{
+    position:absolute;
+    top:20px;
+    left:20px;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    border:none;
+    background:rgba(255,255,255,0.95);
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    font-size:26px;
+    cursor:pointer;
+    z-index:999;
+    transition:0.3s;
+}
+
+.setting-btn:hover{
+    transform:scale(1.08) rotate(20deg);
 }
 
 .dark-btn{
@@ -62,25 +89,12 @@ header h1{
     background:white;
     color:var(--pink4);
     border:none;
-    padding:12px;
-    border-radius:12px;
+    padding:14px;
+    border-radius:16px;
     width:100%;
     font-weight:bold;
     cursor:pointer;
-}
-
-.setting-btn{
-    position:absolute;
-    right:15px;
-    top:15px;
-    background:white;
-    color:var(--pink4);
-    border:none;
-    width:45px;
-    height:45px;
-    border-radius:50%;
     font-size:20px;
-    cursor:pointer;
 }
 
 .content{
@@ -126,7 +140,7 @@ button{
 }
 
 .hidden{
-    display:none !important;
+    display:none;
 }
 
 .status-box{
@@ -168,7 +182,6 @@ td{
     font-size:14px;
     text-align:center;
     white-space:nowrap;
-    line-height:1.2;
 }
 
 .nomor{
@@ -231,65 +244,6 @@ td{
     margin:0;
 }
 
-footer{
-    text-align:center;
-    padding:30px;
-    color:#999;
-    font-size:15px;
-}
-
-.dropdown-container{
-    position:relative;
-}
-
-.dropdown-list{
-    position:absolute;
-    width:100%;
-    background:white;
-    border:2px solid var(--pink2);
-    border-radius:16px;
-    max-height:220px;
-    overflow-y:auto;
-    z-index:10;
-}
-
-.dropdown-item{
-    padding:14px;
-    border-bottom:1px solid #eee;
-    cursor:pointer;
-}
-
-.dropdown-item:hover{
-    background:#fff0f5;
-}
-
-.dark{
-    background:#1e1e1e;
-}
-
-.dark .mobile-container{
-    background:#2b2b2b;
-    color:white;
-}
-
-.dark .card{
-    background:#333;
-}
-
-.dark input,
-.dark select{
-    background:#444;
-    color:white;
-}
-
-.dark .dropdown-list{
-    background:#444;
-}
-
-.dark .status-box{
-    background:#444;
-}
-
 .dashboard-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -320,28 +274,60 @@ footer{
     margin-top:3px;
 }
 
-.popup{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.5);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:999;
+.dropdown-container{
+    position:relative;
 }
 
-.popup-box{
-    width:90%;
-    max-width:340px;
+.dropdown-list{
+    position:absolute;
+    width:100%;
     background:white;
-    border-radius:25px;
-    padding:25px;
-    animation:popup 0.3s ease;
+    border:2px solid var(--pink2);
+    border-radius:16px;
+    max-height:220px;
+    overflow-y:auto;
+    z-index:10;
 }
 
-@keyframes popup{
+.dropdown-item{
+    padding:14px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.dropdown-item:hover{
+    background:#fff0f5;
+}
+
+/* MODAL PENGATURAN */
+
+.modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    padding:20px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:380px;
+    background:white;
+    border-radius:28px;
+    padding:25px;
+    animation:pop 0.3s ease;
+    position:relative;
+}
+
+@keyframes pop{
     from{
-        transform:scale(0.7);
+        transform:scale(0.8);
         opacity:0;
     }
     to{
@@ -350,19 +336,81 @@ footer{
     }
 }
 
-.admin-badge{
-    background:#28a745;
-    color:white;
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:12px;
-    display:inline-block;
-    margin-top:10px;
+.modal-title{
+    text-align:center;
+    color:var(--pink4);
+    font-size:28px;
+    margin-bottom:20px;
 }
 
-.logout-btn{
-    background:#dc3545;
-    margin-top:10px;
+.close-modal{
+    position:absolute;
+    right:15px;
+    top:10px;
+    font-size:28px;
+    color:#999;
+    cursor:pointer;
+}
+
+.login-info{
+    background:#fff0f5;
+    padding:15px;
+    border-radius:18px;
+    margin-bottom:15px;
+    line-height:1.8;
+}
+
+.admin-panel{
+    margin-top:20px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#999;
+    font-size:15px;
+}
+
+/* DARK MODE */
+
+.dark{
+    background:#1e1e1e;
+}
+
+.dark .mobile-container{
+    background:#2b2b2b;
+    color:white;
+}
+
+.dark .card{
+    background:#333;
+}
+
+.dark input,
+.dark select{
+    background:#444;
+    color:white;
+}
+
+.dark .dropdown-list{
+    background:#444;
+}
+
+.dark .status-box{
+    background:#444;
+}
+
+.dark .dashboard-box{
+    background:#444;
+}
+
+.dark .modal-box{
+    background:#333;
+    color:white;
+}
+
+.dark .login-info{
+    background:#444;
 }
 
 </style>
@@ -384,8 +432,6 @@ footer{
 <p>Tugas Informatika Kelas 11</p>
 
 <p id="jam"></p>
-
-<div id="statusAdmin"></div>
 
 <button class="dark-btn" onclick="darkMode()">
 🌙 Dark Mode
@@ -425,9 +471,9 @@ footer{
 
 </div>
 
-<!-- AREA ADMIN -->
+<!-- FITUR ADMIN -->
 
-<div id="adminArea" class="hidden">
+<div id="fiturAdmin" class="hidden">
 
 <!-- STEP 1 -->
 
@@ -655,13 +701,28 @@ Dibuat Oleh Fahrul Lamusu
 
 </div>
 
-<!-- POPUP LOGIN -->
+<!-- MODAL PENGATURAN -->
 
-<div id="popupPengaturan" class="popup hidden">
+<div id="modalPengaturan" class="modal">
 
-<div class="popup-box">
+<div class="modal-box">
 
-<h3>⚙️ Pengaturan</h3>
+<div class="close-modal" onclick="tutupPengaturan()">
+×
+</div>
+
+<div class="modal-title">
+⚙️ Pengaturan
+</div>
+
+<div class="login-info">
+
+<b>Status:</b>
+<span id="statusAdmin">
+Belum Login
+</span>
+
+</div>
 
 <div id="loginArea">
 
@@ -683,24 +744,16 @@ placeholder="Password Admin"
 
 </div>
 
-<div id="adminPanel" class="hidden">
-
-<div class="admin-badge">
-✅ Login Sebagai Admin
-</div>
-
-<button
-class="logout-btn"
-onclick="logoutAdmin()"
+<div
+id="adminArea"
+class="admin-panel hidden"
 >
+
+<button onclick="logoutAdmin()">
 🚪 Logout Admin
 </button>
 
 </div>
-
-<button onclick="tutupPengaturan()">
-Tutup
-</button>
 
 </div>
 
@@ -728,126 +781,108 @@ function darkMode(){
 document.body.classList.toggle("dark");
 }
 
-/* LOGIN SYSTEM */
-
-let isAdmin =
-localStorage.getItem("adminLogin") === "true";
-
-function updateAdminUI(){
-
-const adminArea =
-document.getElementById("adminArea");
-
-const hapusBtn =
-document.getElementById("hapusBtn");
-
-const downloadBtn =
-document.getElementById("downloadBtn");
-
-const statusAdmin =
-document.getElementById("statusAdmin");
-
-if(isAdmin){
-
-adminArea.classList.remove("hidden");
-
-hapusBtn.classList.remove("hidden");
-
-downloadBtn.classList.remove("hidden");
-
-statusAdmin.innerHTML = `
-<div class="admin-badge">
-👑 Admin Aktif
-</div>
-`;
-
-document.getElementById("loginArea")
-.classList.add("hidden");
-
-document.getElementById("adminPanel")
-.classList.remove("hidden");
-
-}else{
-
-adminArea.classList.add("hidden");
-
-hapusBtn.classList.add("hidden");
-
-downloadBtn.classList.add("hidden");
-
-statusAdmin.innerHTML = "";
-
-document.getElementById("loginArea")
-.classList.remove("hidden");
-
-document.getElementById("adminPanel")
-.classList.add("hidden");
-
-}
-
-}
-
-/* POPUP */
+/* MODAL */
 
 function bukaPengaturan(){
-document.getElementById("popupPengaturan")
-.classList.remove("hidden");
+document.getElementById("modalPengaturan").style.display = "flex";
 }
 
 function tutupPengaturan(){
-document.getElementById("popupPengaturan")
-.classList.add("hidden");
+document.getElementById("modalPengaturan").style.display = "none";
 }
 
-/* LOGIN */
+/* LOGIN ADMIN */
 
-function loginAdmin(){
+let isAdmin =
+localStorage.getItem("adminLogin") || "false";
 
-let username =
-document.getElementById("username").value;
+function cekAdmin(){
 
-let password =
-document.getElementById("password").value;
+if(isAdmin === "true"){
 
-if(
-username === "admin" &&
-password === "12345"
-){
+document.getElementById("fiturAdmin")
+.classList.remove("hidden");
 
-isAdmin = true;
+document.getElementById("hapusBtn")
+.classList.remove("hidden");
 
-localStorage.setItem(
-"adminLogin",
-"true"
-);
+document.getElementById("downloadBtn")
+.classList.remove("hidden");
 
-updateAdminUI();
+document.getElementById("statusAdmin")
+.innerHTML = "Admin Aktif";
 
-tutupPengaturan();
+document.getElementById("loginArea")
+.classList.add("hidden");
 
-alert("Login admin berhasil!");
+document.getElementById("adminArea")
+.classList.remove("hidden");
 
 }else{
 
-alert("Username atau password salah!");
+document.getElementById("fiturAdmin")
+.classList.add("hidden");
+
+document.getElementById("hapusBtn")
+.classList.add("hidden");
+
+document.getElementById("downloadBtn")
+.classList.add("hidden");
+
+document.getElementById("statusAdmin")
+.innerHTML = "Belum Login";
+
+document.getElementById("loginArea")
+.classList.remove("hidden");
+
+document.getElementById("adminArea")
+.classList.add("hidden");
 
 }
 
 }
 
-/* LOGOUT */
+function loginAdmin(){
 
-function logoutAdmin(){
+let user =
+document.getElementById("username").value;
 
-isAdmin = false;
+let pass =
+document.getElementById("password").value;
 
-localStorage.removeItem("adminLogin");
+if(user === "admin" && pass === "12345"){
 
-updateAdminUI();
+localStorage.setItem("adminLogin","true");
+
+isAdmin = "true";
+
+cekAdmin();
 
 tutupPengaturan();
 
-alert("Logout berhasil!");
+alert("Login Admin Berhasil");
+
+nextStep(1);
+
+}else{
+
+alert("Username atau Password salah!");
+
+}
+
+}
+
+function logoutAdmin(){
+
+localStorage.setItem("adminLogin","false");
+
+isAdmin = "false";
+
+cekAdmin();
+
+tutupPengaturan();
+
+alert("Logout berhasil");
 
 }
 
@@ -899,8 +934,6 @@ const dataSiswa = {
 
 let namaDipilih = "";
 
-/* LOAD NAMA */
-
 function loadNamaSiswa(){
 
 let kelas =
@@ -926,21 +959,11 @@ ${nama}
 
 });
 
-}else{
-
-dropdown.innerHTML = `
-<div class="dropdown-item">
-Belum ada daftar nama
-</div>
-`;
-
 }
 
 dropdown.classList.remove("hidden");
 
 }
-
-/* FILTER */
 
 function filterNama(){
 
@@ -963,20 +986,19 @@ item.innerText.toLowerCase()
 
 }
 
-/* PILIH */
-
 function pilihNama(nama){
 
 namaDipilih = nama;
 
-document.getElementById("searchNama").value = nama;
+document.getElementById("searchNama")
+.value = nama;
 
 document.getElementById("dropdownNama")
 .classList.add("hidden");
 
 }
 
-/* STEP SYSTEM */
+/* STEP */
 
 function nextStep(step){
 
@@ -994,12 +1016,11 @@ document
 
 }
 
-/* KONDISI */
-
 function checkKondisi(){
 
 let ok =
-document.getElementById("kondisiBuku").checked;
+document.getElementById("kondisiBuku")
+.checked;
 
 if(ok){
 
@@ -1013,8 +1034,6 @@ alert("Buku rusak!");
 
 }
 
-/* COVER */
-
 function tampilCover(){
 
 let buku =
@@ -1026,12 +1045,10 @@ document.getElementById("coverBuku").src =
 
 }
 
-/* STORAGE */
+/* RIWAYAT */
 
 let dataRiwayat =
 JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
-
-/* DASHBOARD */
 
 function updateDashboard(){
 
@@ -1060,8 +1077,6 @@ document.getElementById("totalTransaksi")
 
 }
 
-/* PINJAM */
-
 function prosesPinjam(){
 
 let kelas =
@@ -1073,14 +1088,10 @@ document.getElementById("cariBuku").value;
 let jumlah =
 document.getElementById("jumlahBuku").value;
 
-if(
-!kelas ||
-!namaDipilih ||
-!buku ||
-!jumlah
-){
+if(!kelas || !namaDipilih || !buku || !jumlah){
 
 alert("Lengkapi data!");
+
 return;
 
 }
@@ -1130,8 +1141,6 @@ nextStep(4);
 
 }
 
-/* TAMBAH */
-
 function tambahRiwayat(
 nama,
 kelas,
@@ -1164,11 +1173,7 @@ updateDashboard();
 
 }
 
-/* RIWAYAT */
-
-function tampilkanRiwayat(
-filter = "Semua"
-){
+function tampilkanRiwayat(filter="Semua"){
 
 let table =
 document.getElementById("riwayatTable");
@@ -1180,8 +1185,8 @@ let filteredData = dataRiwayat;
 if(filter !== "Semua"){
 
 filteredData =
-dataRiwayat.filter(
-item => item.status === filter
+dataRiwayat.filter(item =>
+item.status === filter
 );
 
 }
@@ -1251,22 +1256,14 @@ row.classList.add("selesai");
 
 }
 
-/* SELESAI */
-
 function tandaiSelesai(btn,index){
-
-if(!isAdmin){
-alert("Hanya admin!");
-return;
-}
 
 let row =
 btn.parentElement.parentElement;
 
 row.classList.toggle("selesai");
 
-dataRiwayat[index].status =
-"Selesai";
+dataRiwayat[index].status = "Selesai";
 
 localStorage.setItem(
 "riwayatPerpus",
@@ -1278,13 +1275,9 @@ row.querySelector(".status")
 
 }
 
-/* FILTER */
-
 function filterRiwayat(status){
 tampilkanRiwayat(status);
 }
-
-/* BARU */
 
 function peminjamanBaru(){
 
@@ -1296,25 +1289,20 @@ document.getElementById("cariBuku").value = "";
 
 document.getElementById("jumlahBuku").value = "";
 
-document.getElementById("dropdownNama").innerHTML = "";
+document.getElementById("dropdownNama")
+.innerHTML = "";
 
 document.getElementById("dropdownNama")
 .classList.add("hidden");
 
-document.getElementById("kondisiBuku").checked = false;
+document.getElementById("kondisiBuku")
+.checked = false;
 
 namaDipilih = "";
-
-/* PENTING:
-   KEMBALI KE STEP 1 SAJA
-   AGAR TIDAK MUNCUL SEMUA STEP SEKALIGUS
-*/
 
 nextStep(1);
 
 }
-
-/* HAPUS */
 
 function hapusSemua(){
 
@@ -1334,8 +1322,6 @@ updateDashboard();
 }
 
 }
-
-/* DOWNLOAD */
 
 function downloadExcel(){
 
@@ -1365,59 +1351,17 @@ isiTabel += `
 let html = `
 
 <html>
-
 <head>
-
 <meta charset="UTF-8">
-
-<style>
-
-body{
-font-family:Arial;
-padding:30px;
-}
-
-h1{
-text-align:center;
-font-size:34px;
-margin-bottom:30px;
-}
-
-table{
-border-collapse:collapse;
-width:100%;
-min-width:2400px;
-}
-
-th{
-background:black;
-color:white;
-border:4px solid black;
-padding:35px;
-text-align:center;
-font-size:26px;
-font-weight:bold;
-}
-
-td{
-border:4px solid black;
-padding:35px;
-text-align:center;
-font-size:24px;
-white-space:nowrap;
-}
-
-</style>
-
 </head>
 
 <body>
 
-<h1>
-Laporan Riwayat Peminjaman Buku
-</h1>
+<h2>
+Laporan Riwayat Peminjaman
+</h2>
 
-<table>
+<table border="1">
 
 <tr>
 
@@ -1437,7 +1381,6 @@ ${isiTabel}
 </table>
 
 </body>
-
 </html>
 
 `;
@@ -1470,26 +1413,15 @@ URL.revokeObjectURL(url);
 
 }
 
-/* LOAD */
-
-updateAdminUI();
+/* START */
 
 tampilkanRiwayat();
 
 updateDashboard();
 
-/* PENTING:
-   SAAT LOGIN ADMIN
-   HANYA STEP 1 YANG MUNCUL
-*/
+cekAdmin();
 
-if(isAdmin){
+</script>
 
-document.getElementById("step1")
-.classList.remove("hidden");
-
-document.getElementById("step2")
-.classList.add("hidden");
-
-document.getElementById("step3")
-.classList.add("hidden
+</body>
+    </html>
