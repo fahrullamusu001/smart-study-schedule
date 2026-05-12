@@ -453,13 +453,21 @@ footer{
 
 <header>
 
-<div class="setting-btn" onclick="toggleSetting()">
+<button
+type="button"
+class="setting-btn"
+onclick="toggleSetting()"
+>
 ⚙
-</div>
+</button>
 
 <div class="setting-panel" id="settingPanel">
 
-<button class="close-setting" onclick="toggleSetting()">
+<button
+type="button"
+class="close-setting"
+onclick="toggleSetting()"
+>
 ✕
 </button>
 
@@ -474,6 +482,7 @@ Masuk sebagai admin/guru untuk membuka fitur peminjaman buku.
 </p>
 
 <button
+type="button"
 class="setting-login-btn"
 id="loginBtn"
 onclick="bukaLogin()"
@@ -495,7 +504,11 @@ id="passwordAdmin"
 placeholder="Password Admin"
 >
 
-<button class="setting-login-btn" onclick="loginAdmin()">
+<button
+type="button"
+class="setting-login-btn"
+onclick="loginAdmin()"
+>
 Masuk
 </button>
 
@@ -506,6 +519,7 @@ Masuk
 </div>
 
 <button
+type="button"
 class="logout-btn"
 id="logoutBtn"
 onclick="logoutAdmin()"
@@ -523,7 +537,11 @@ onclick="logoutAdmin()"
 
 <p id="jam"></p>
 
-<button class="dark-btn" onclick="darkMode()">
+<button
+type="button"
+class="dark-btn"
+onclick="darkMode()"
+>
 🌙 Dark Mode
 </button>
 
@@ -595,7 +613,7 @@ id="coverBuku"
 src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
 >
 
-<button onclick="nextStep(2)">
+<button type="button" onclick="nextStep(2)">
 Cari & Ambil Buku
 </button>
 
@@ -617,7 +635,7 @@ style="width:auto;"
 
 </label>
 
-<button onclick="checkKondisi()">
+<button type="button" onclick="checkKondisi()">
 Lanjut ke Petugas
 </button>
 
@@ -660,7 +678,7 @@ class="dropdown-list hidden">
 
 </div>
 
-<button onclick="prosesPinjam()">
+<button type="button" onclick="prosesPinjam()">
 Konfirmasi Peminjaman
 </button>
 
@@ -672,7 +690,7 @@ Konfirmasi Peminjaman
 
 <div id="detailPinjam" class="status-box"></div>
 
-<button onclick="peminjamanBaru()">
+<button type="button" onclick="peminjamanBaru()">
 ➕ Buat Peminjaman Baru
 </button>
 
@@ -725,6 +743,7 @@ Belum ada riwayat peminjaman
 <div class="action-buttons">
 
 <button
+type="button"
 class="btn-filter"
 onclick="filterRiwayat('Dipinjam')"
 >
@@ -732,6 +751,7 @@ Dipinjam
 </button>
 
 <button
+type="button"
 class="btn-filter"
 onclick="filterRiwayat('Selesai')"
 >
@@ -739,6 +759,7 @@ Selesai
 </button>
 
 <button
+type="button"
 class="btn-filter"
 onclick="filterRiwayat('Semua')"
 >
@@ -746,6 +767,7 @@ Semua
 </button>
 
 <button
+type="button"
 id="hapusBtn"
 class="btn-hapus-semua hidden"
 onclick="hapusSemua()"
@@ -754,6 +776,7 @@ onclick="hapusSemua()"
 </button>
 
 <button
+type="button"
 id="downloadBtn"
 class="btn-download hidden"
 onclick="downloadExcel()"
@@ -1332,31 +1355,11 @@ row.innerHTML = `
 <td>
 
 <button
+type="button"
 class="btn-selesai"
 onclick="tandaiSelesai(this,${dataRiwayat.indexOf(item)})"
 >
 ✔
 </button>
 
-</td>
-
-`;
-
-if(item.status === "Selesai"){
-
-row.classList.add("selesai");
-
-}
-
-});
-
-}
-
-function tandaiSelesai(btn,index){
-
-let row =
-btn.parentElement.parentElement;
-
-row.classList.toggle("selesai");
-
-dataRiwayat[index].status = "Selesa
+    
