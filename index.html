@@ -157,6 +157,19 @@ header{
     display:none;
 }
 
+.logout-btn{
+    width:100%;
+    margin-top:10px;
+    padding:10px;
+    border:none;
+    border-radius:12px;
+    background:#dc3545;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    display:none;
+}
+
 /* ====================== */
 
 header h1{
@@ -460,7 +473,11 @@ footer{
 Masuk sebagai admin/guru untuk membuka fitur peminjaman buku.
 </p>
 
-<button class="setting-login-btn" onclick="bukaLogin()">
+<button
+class="setting-login-btn"
+id="loginBtn"
+onclick="bukaLogin()"
+>
 Login Admin
 </button>
 
@@ -487,6 +504,14 @@ Masuk
 <div class="admin-badge" id="adminBadge">
 ✅ Admin Sudah Login
 </div>
+
+<button
+class="logout-btn"
+id="logoutBtn"
+onclick="logoutAdmin()"
+>
+🚪 Logout Admin
+</button>
 
 </div>
 
@@ -758,7 +783,6 @@ function darkMode(){
 
 document.body.classList.toggle("dark");
 
-/* SIMPAN DARK MODE */
 if(document.body.classList.contains("dark")){
 localStorage.setItem("darkMode","true");
 }else{
@@ -827,7 +851,6 @@ password === "12345"
 
 isAdmin = true;
 
-/* SIMPAN LOGIN */
 localStorage.setItem("adminLogin","true");
 
 document.getElementById("step1")
@@ -842,6 +865,15 @@ document.getElementById("downloadBtn")
 document.getElementById("adminBadge")
 .style.display = "block";
 
+document.getElementById("logoutBtn")
+.style.display = "block";
+
+document.getElementById("loginBtn")
+.style.display = "none";
+
+document.getElementById("loginBox")
+.classList.remove("active");
+
 alert("Login Admin Berhasil!");
 
 toggleSetting();
@@ -855,12 +887,66 @@ alert("Username atau Password salah!");
 }
 
 /* ====================== */
+/* LOGOUT ADMIN */
+/* ====================== */
+
+function logoutAdmin(){
+
+let konfirmasi =
+confirm("Yakin ingin logout admin?");
+
+if(konfirmasi){
+
+isAdmin = false;
+
+localStorage.removeItem("adminLogin");
+
+document.getElementById("step1")
+.classList.add("hidden");
+
+document.getElementById("step2")
+.classList.add("hidden");
+
+document.getElementById("step3")
+.classList.add("hidden");
+
+document.getElementById("step4")
+.classList.add("hidden");
+
+document.getElementById("hapusBtn")
+.classList.add("hidden");
+
+document.getElementById("downloadBtn")
+.classList.add("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "none";
+
+document.getElementById("logoutBtn")
+.style.display = "none";
+
+document.getElementById("loginBtn")
+.style.display = "block";
+
+document.getElementById("loginBox")
+.classList.remove("active");
+
+document.getElementById("usernameAdmin").value = "";
+document.getElementById("passwordAdmin").value = "";
+
+alert("Logout berhasil!");
+
+toggleSetting();
+
+}
+
+}
+
+/* ====================== */
 /* AUTO LOGIN SETELAH REFRESH */
 /* ====================== */
 
 window.addEventListener("DOMContentLoaded", function(){
-
-/* AUTO LOGIN ADMIN */
 
 let savedLogin =
 localStorage.getItem("adminLogin");
@@ -881,9 +967,13 @@ document.getElementById("downloadBtn")
 document.getElementById("adminBadge")
 .style.display = "block";
 
-}
+document.getElementById("logoutBtn")
+.style.display = "block";
 
-/* AUTO DARK MODE */
+document.getElementById("loginBtn")
+.style.display = "none";
+
+}
 
 let savedDark =
 localStorage.getItem("darkMode");
@@ -1269,75 +1359,4 @@ btn.parentElement.parentElement;
 
 row.classList.toggle("selesai");
 
-dataRiwayat[index].status = "Selesai";
-
-localStorage.setItem(
-"riwayatPerpus",
-JSON.stringify(dataRiwayat)
-);
-
-row.querySelector(".status").innerHTML =
-"Selesai";
-
-}
-
-function filterRiwayat(status){
-tampilkanRiwayat(status);
-}
-
-function peminjamanBaru(){
-
-document.getElementById("kelasSiswa").value = "";
-
-document.getElementById("searchNama").value = "";
-
-document.getElementById("cariBuku").value = "";
-
-document.getElementById("jumlahBuku").value = "";
-
-document.getElementById("dropdownNama").innerHTML = "";
-
-document.getElementById("dropdownNama")
-.classList.add("hidden");
-
-document.getElementById("kondisiBuku").checked = false;
-
-namaDipilih = "";
-
-nextStep(1);
-
-}
-
-function hapusSemua(){
-
-let konfirmasi =
-confirm("Hapus semua riwayat?");
-
-if(konfirmasi){
-
-dataRiwayat = [];
-
-localStorage.removeItem("riwayatPerpus");
-
-tampilkanRiwayat();
-
-updateDashboard();
-
-}
-
-}
-
-function downloadExcel(){
-
-alert("Download berhasil!");
-
-}
-
-tampilkanRiwayat();
-
-updateDashboard();
-
-</script>
-
-</body>
-    </html>
+dataRiwayat[index].status = "Selesa
