@@ -77,7 +77,7 @@ header h1{
     border:2px solid var(--pink2);
     border-radius:22px;
     padding:18px;
-    margin-bottom:15px;
+    margin-bottom:20px;
 }
 
 h3{
@@ -86,38 +86,46 @@ h3{
     font-size:22px;
 }
 
+input,
+select{
+    width:100%;
+    padding:14px;
+    border:2px solid var(--pink2);
+    border-radius:16px;
+    margin-top:12px;
+    font-size:16px;
+    outline:none;
+}
+
 button{
+    width:100%;
+    padding:14px;
     border:none;
-    cursor:pointer;
-}
-
-.dashboard-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-
-.dashboard-box{
-    background:linear-gradient(135deg,#ff85a2,#ffb6c1);
-    padding:12px;
-    border-radius:18px;
-    text-align:center;
+    border-radius:16px;
+    background:var(--pink1);
     color:white;
-}
-
-.dashboard-icon{
-    font-size:22px;
-}
-
-.dashboard-number{
-    font-size:20px;
     font-weight:bold;
-    margin-top:4px;
+    margin-top:15px;
+    cursor:pointer;
+    font-size:16px;
 }
 
-.dashboard-text{
-    font-size:12px;
-    margin-top:3px;
+.hidden{
+    display:none;
+}
+
+.status-box{
+    background:#fff5f8;
+    padding:15px;
+    border-radius:18px;
+    line-height:2;
+}
+
+#coverBuku{
+    width:120px;
+    display:block;
+    margin:15px auto;
+    border-radius:12px;
 }
 
 .table-container{
@@ -134,17 +142,18 @@ table{
 th{
     background:var(--pink1);
     color:white;
-    padding:10px;
-    font-size:14px;
+    padding:12px;
+    font-size:15px;
     white-space:nowrap;
 }
 
 td{
     border:1px solid #ddd;
-    padding:8px 10px;
-    font-size:13px;
+    padding:8px 12px;
+    font-size:14px;
     text-align:center;
     white-space:nowrap;
+    line-height:1.2;
 }
 
 .nomor{
@@ -163,49 +172,48 @@ td{
 
 .btn-selesai{
     background:#28a745;
+    border:none;
     color:white;
-    padding:6px 10px;
-    border-radius:8px;
+    padding:5px 8px;
+    border-radius:7px;
+    cursor:pointer;
     font-size:12px;
+    margin:0;
+    width:auto;
 }
 
-.filter-container{
+.action-buttons{
     display:flex;
+    justify-content:flex-end;
     gap:8px;
+    margin-top:15px;
     flex-wrap:wrap;
-    margin-bottom:12px;
 }
 
-.filter-btn{
-    background:#ff85a2;
-    color:white;
-    padding:8px 12px;
+.btn-filter{
+    width:auto;
+    padding:8px 14px;
     border-radius:10px;
     font-size:12px;
+    margin:0;
 }
 
 .btn-hapus-semua{
     width:auto;
     background:#dc3545;
-    color:white;
-    padding:10px 14px;
-    font-size:13px;
-    border-radius:12px;
-    display:block;
-    margin-left:auto;
-    margin-top:15px;
+    padding:8px 14px;
+    border-radius:10px;
+    font-size:12px;
+    margin:0;
 }
 
 .btn-download{
     width:auto;
     background:#6f42c1;
-    color:white;
-    padding:10px 14px;
-    font-size:13px;
-    border-radius:12px;
-    display:block;
-    margin-left:auto;
-    margin-top:10px;
+    padding:8px 14px;
+    border-radius:10px;
+    font-size:12px;
+    margin:0;
 }
 
 footer{
@@ -213,6 +221,31 @@ footer{
     padding:30px;
     color:#999;
     font-size:15px;
+}
+
+.dropdown-container{
+    position:relative;
+}
+
+.dropdown-list{
+    position:absolute;
+    width:100%;
+    background:white;
+    border:2px solid var(--pink2);
+    border-radius:16px;
+    max-height:220px;
+    overflow-y:auto;
+    z-index:10;
+}
+
+.dropdown-item{
+    padding:14px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.dropdown-item:hover{
+    background:#fff0f5;
 }
 
 .dark{
@@ -226,6 +259,50 @@ footer{
 
 .dark .card{
     background:#333;
+}
+
+.dark input,
+.dark select{
+    background:#444;
+    color:white;
+}
+
+.dark .dropdown-list{
+    background:#444;
+}
+
+.dark .status-box{
+    background:#444;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.dashboard-box{
+    background:#fff0f5;
+    padding:10px;
+    border-radius:15px;
+    border:2px solid #fbb1bd;
+    text-align:center;
+}
+
+.dashboard-icon{
+    font-size:20px;
+}
+
+.dashboard-number{
+    font-size:18px;
+    font-weight:bold;
+    color:#d63384;
+    margin-top:5px;
+}
+
+.dashboard-label{
+    font-size:11px;
+    margin-top:3px;
 }
 
 </style>
@@ -256,51 +333,156 @@ footer{
 
 <div class="card">
 
-<h3>📊 Dashboard Premium</h3>
+<h3>📊 Dashboard Ringkasan</h3>
 
 <div class="dashboard-grid">
 
 <div class="dashboard-box">
-
 <div class="dashboard-icon">📚</div>
-
 <div id="totalBuku" class="dashboard-number">0</div>
-
-<div class="dashboard-text">Total Buku</div>
-
+<div class="dashboard-label">Total Buku</div>
 </div>
 
 <div class="dashboard-box">
-
 <div class="dashboard-icon">👨‍🎓</div>
-
 <div id="totalSiswa" class="dashboard-number">0</div>
-
-<div class="dashboard-text">Total Siswa</div>
-
+<div class="dashboard-label">Total Siswa</div>
 </div>
 
 <div class="dashboard-box">
-
 <div class="dashboard-icon">📝</div>
-
 <div id="totalTransaksi" class="dashboard-number">0</div>
-
-<div class="dashboard-text">Transaksi</div>
-
+<div class="dashboard-label">Transaksi</div>
 </div>
-
-<div class="dashboard-box">
-
-<div class="dashboard-icon">✅</div>
-
-<div id="totalSelesai" class="dashboard-number">0</div>
-
-<div class="dashboard-text">Selesai</div>
 
 </div>
 
 </div>
+
+<!-- STEP 1 -->
+
+<div id="step1" class="card">
+
+<h3>1. Cari Buku</h3>
+
+<select id="cariBuku" onchange="tampilCover()">
+
+<option value="">-- Pilih Buku --</option>
+
+<option>Pen. Agama Islam</option>
+<option>PKN</option>
+<option>Bahasa Indonesia</option>
+<option>Bahasa Inggris</option>
+<option>Seni Budaya</option>
+<option>PJOK</option>
+<option>Matematika</option>
+<option>Fisika</option>
+<option>Sejarah Indonesia</option>
+<option>Biologi</option>
+<option>Kimia</option>
+<option>Informatika</option>
+
+</select>
+
+<input
+type="number"
+id="jumlahBuku"
+placeholder="Jumlah Buku Dipinjam"
+min="1"
+max="10"
+>
+
+<img
+id="coverBuku"
+src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
+>
+
+<button onclick="nextStep(2)">
+Cari & Ambil Buku
+</button>
+
+</div>
+
+<!-- STEP 2 -->
+
+<div id="step2" class="card hidden">
+
+<h3>2. Cek Kondisi Buku</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="kondisiBuku"
+style="width:auto;"
+>
+
+ Buku dalam kondisi baik
+
+</label>
+
+<button onclick="checkKondisi()">
+Lanjut ke Petugas
+</button>
+
+</div>
+
+<!-- STEP 3 -->
+
+<div id="step3" class="card hidden">
+
+<h3>3. Data Peminjaman</h3>
+
+<select id="kelasSiswa" onchange="loadNamaSiswa()">
+
+<option value="">Pilih Kelas</option>
+
+<option>XI-1</option>
+<option>XI-2</option>
+<option>XI-3</option>
+<option>XI-4</option>
+<option>XI-5</option>
+<option>XI-6</option>
+<option>XI-7</option>
+<option>XI-8</option>
+<option>XI-9</option>
+<option>XI-10</option>
+
+</select>
+
+<div class="dropdown-container">
+
+<input
+type="text"
+id="searchNama"
+placeholder="🔍 Pilih atau cari nama siswa..."
+onkeyup="filterNama()"
+>
+
+<div
+id="dropdownNama"
+class="dropdown-list hidden">
+</div>
+
+</div>
+
+<button onclick="prosesPinjam()">
+Konfirmasi Peminjaman
+</button>
+
+</div>
+
+<!-- STEP 4 -->
+
+<div id="step4" class="card hidden">
+
+<h3>4. Status Peminjaman</h3>
+
+<div id="detailPinjam" class="status-box"></div>
+
+<button onclick="peminjamanBaru()">
+➕ Buat Peminjaman Baru
+</button>
 
 </div>
 
@@ -309,24 +491,6 @@ footer{
 <div class="card">
 
 <h3>📋 Riwayat Peminjaman</h3>
-
-<!-- TOMBOL FILTER -->
-
-<div class="filter-container">
-
-<button class="filter-btn" onclick="filterRiwayat('Semua')">
-📋 Semua
-</button>
-
-<button class="filter-btn" onclick="filterRiwayat('Dipinjam')">
-📚 Dipinjam
-</button>
-
-<button class="filter-btn" onclick="filterRiwayat('Selesai')">
-✅ Selesai
-</button>
-
-</div>
 
 <div class="table-container">
 
@@ -344,7 +508,7 @@ footer{
 <th>Tanggal</th>
 <th>Jam</th>
 <th>Status</th>
-<th>Aksi</th>
+<th>Selesai</th>
 
 </tr>
 
@@ -368,11 +532,34 @@ Belum ada riwayat peminjaman
 
 </div>
 
+<div class="action-buttons">
+
+<button
+class="btn-filter"
+onclick="filterRiwayat('Dipinjam')"
+>
+Dipinjam
+</button>
+
+<button
+class="btn-filter"
+onclick="filterRiwayat('Selesai')"
+>
+Selesai
+</button>
+
+<button
+class="btn-filter"
+onclick="filterRiwayat('Semua')"
+>
+Semua
+</button>
+
 <button
 class="btn-hapus-semua"
 onclick="hapusSemua()"
 >
-🗑 Hapus Semua Riwayat
+🗑 Hapus Semua
 </button>
 
 <button
@@ -386,6 +573,8 @@ onclick="downloadExcel()"
 
 </div>
 
+</div>
+
 <footer>
 Dibuat Oleh Fahrul Lamusu
 </footer>
@@ -393,8 +582,6 @@ Dibuat Oleh Fahrul Lamusu
 </div>
 
 <script>
-
-/* JAM */
 
 setInterval(()=>{
 
@@ -408,36 +595,179 @@ minute:'2-digit'
 
 },1000);
 
-/* DARK MODE */
-
 function darkMode(){
+
 document.body.classList.toggle("dark");
+
 }
 
-/* STORAGE */
+const dataSiswa = {
+
+"XI-2":[
+
+"Abdul Rizki Rafa Hiola",
+"Aira Mohi",
+"Almira Juniara Tilahunga",
+"Amelia H. Radzak",
+"Annisa Salsabila Badu",
+"Ardiansyah Ismail",
+"Artika Latiman",
+"Balqis Aurelia Susanto",
+"Chelsea Ishak",
+"Cholid Azzam Surantinojo",
+"Fadel Nur Rizki Wakid",
+"Fahrul Lamusu",
+"Fakhriansyah Eka Tabri",
+"Fatriyaningsih Putri Yasin",
+"Fauzan Fatih Tolinggilo",
+"Fauzia Nurazizah Rauf",
+"Indah Cahyaning Wulan",
+"Jenny Mulyani Hasan",
+"Jesika Jamalu",
+"Kanaya Gufranai Kai",
+"Khumaira Umar",
+"Moh. Adi Firdaus",
+"Moh. Farel Ali",
+"Moh. Ilyansyah Kaharu",
+"Moh. Rayhan Panggi",
+"Moh. Ridho Prasetyo Lasaleng",
+"Mutmainah Dali",
+"Nabila Putri Amara",
+"Navila Cahyani Masi",
+"Nazwa Kirana",
+"Nurain Nggadu",
+"Putri Nuraini Nento",
+"Sarah Zetira Alaydrus",
+"Shawwan Sobri I. Maunty",
+"Siti Aura Rivai"
+
+]
+
+};
+
+let namaDipilih = "";
+
+function loadNamaSiswa(){
+
+let kelas =
+document.getElementById("kelasSiswa").value;
+
+let dropdown =
+document.getElementById("dropdownNama");
+
+dropdown.innerHTML = "";
+
+if(dataSiswa[kelas]){
+
+dataSiswa[kelas].forEach(nama=>{
+
+dropdown.innerHTML += `
+<div
+class="dropdown-item"
+onclick="pilihNama('${nama}')"
+>
+${nama}
+</div>
+`;
+
+});
+
+}else{
+
+dropdown.innerHTML = `
+<div class="dropdown-item">
+Belum ada daftar nama
+</div>
+`;
+
+}
+
+dropdown.classList.remove("hidden");
+
+}
+
+function filterNama(){
+
+let input =
+document.getElementById("searchNama").value.toLowerCase();
+
+let items =
+document.querySelectorAll(".dropdown-item");
+
+items.forEach(item=>{
+
+item.style.display =
+item.innerText.toLowerCase().includes(input)
+? "block"
+: "none";
+
+});
+
+}
+
+function pilihNama(nama){
+
+namaDipilih = nama;
+
+document.getElementById("searchNama").value = nama;
+
+document.getElementById("dropdownNama")
+.classList.add("hidden");
+
+}
+
+function nextStep(step){
+
+document
+.querySelectorAll("#step1,#step2,#step3,#step4")
+.forEach(card=>{
+
+card.classList.add("hidden");
+
+});
+
+document
+.getElementById("step"+step)
+.classList.remove("hidden");
+
+}
+
+function checkKondisi(){
+
+let ok =
+document.getElementById("kondisiBuku").checked;
+
+if(ok){
+
+nextStep(3);
+
+}else{
+
+alert("Buku rusak!");
+
+}
+
+}
+
+function tampilCover(){
+
+let buku =
+document.getElementById("cariBuku").value;
+
+document.getElementById("coverBuku").src =
+"https://via.placeholder.com/120x170/ff85a2/ffffff?text="
++ encodeURIComponent(buku);
+
+}
 
 let dataRiwayat =
-JSON.parse(localStorage.getItem("riwayatPerpus")) || [
-
-{
-nama:"Fahrul Lamusu",
-kelas:"XI-2",
-buku:"Informatika",
-jumlah:"2",
-tanggal:"15/05/2026",
-jam:"08.30",
-status:"Dipinjam"
-}
-
-];
-
-/* DASHBOARD */
+JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
 
 function updateDashboard(){
 
 let totalBuku = 0;
+
 let siswaUnik = [];
-let selesai = 0;
 
 dataRiwayat.forEach(item=>{
 
@@ -445,10 +775,6 @@ totalBuku += Number(item.jumlah);
 
 if(!siswaUnik.includes(item.nama)){
 siswaUnik.push(item.nama);
-}
-
-if(item.status === "Selesai"){
-selesai++;
 }
 
 });
@@ -462,21 +788,117 @@ siswaUnik.length;
 document.getElementById("totalTransaksi").innerHTML =
 dataRiwayat.length;
 
-document.getElementById("totalSelesai").innerHTML =
-selesai;
+}
+
+function prosesPinjam(){
+
+let kelas =
+document.getElementById("kelasSiswa").value;
+
+let buku =
+document.getElementById("cariBuku").value;
+
+let jumlah =
+document.getElementById("jumlahBuku").value;
+
+if(!kelas || !namaDipilih || !buku || !jumlah){
+
+alert("Lengkapi data!");
+
+return;
 
 }
 
-/* TAMPILKAN RIWAYAT */
+let now = new Date();
 
-function tampilkanRiwayat(){
+let tanggal =
+now.toLocaleDateString('id-ID');
+
+let jam =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+let kembali = new Date();
+
+kembali.setDate(now.getDate()+7);
+
+document.getElementById("detailPinjam").innerHTML = `
+
+<b>Nama:</b> ${namaDipilih}<br>
+<b>Kelas:</b> ${kelas}<br>
+<b>Buku:</b> ${buku}<br>
+<b>Jumlah Buku:</b> ${jumlah}<br>
+<b>Tanggal Pinjam:</b> ${tanggal}<br>
+<b>Batas Pengembalian:</b>
+<span style="color:red;">
+${kembali.toLocaleDateString('id-ID')}
+</span>
+
+`;
+
+tambahRiwayat(
+namaDipilih,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam
+);
+
+alert("Peminjaman berhasil!");
+
+nextStep(4);
+
+}
+
+function tambahRiwayat(
+nama,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam
+){
+
+dataRiwayat.push({
+
+nama,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam,
+status:"Dipinjam"
+
+});
+
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
+
+tampilkanRiwayat();
+
+updateDashboard();
+
+}
+
+function tampilkanRiwayat(filter = "Semua"){
 
 let table =
 document.getElementById("riwayatTable");
 
 table.innerHTML = "";
 
-if(dataRiwayat.length === 0){
+let filteredData = dataRiwayat;
+
+if(filter !== "Semua"){
+filteredData = dataRiwayat.filter(item => item.status === filter);
+}
+
+if(filteredData.length === 0){
 
 table.innerHTML = `
 
@@ -496,7 +918,7 @@ return;
 
 }
 
-dataRiwayat.forEach((item,index)=>{
+filteredData.forEach((item,index)=>{
 
 let row = table.insertRow();
 
@@ -522,9 +944,9 @@ row.innerHTML = `
 
 <button
 class="btn-selesai"
-onclick="tandaiSelesai(${index})"
+onclick="tandaiSelesai(this,${dataRiwayat.indexOf(item)})"
 >
-✔ Selesai
+✔
 </button>
 
 </td>
@@ -532,16 +954,21 @@ onclick="tandaiSelesai(${index})"
 `;
 
 if(item.status === "Selesai"){
+
 row.classList.add("selesai");
+
 }
 
 });
 
 }
 
-/* PINDAH TOMBOL SELESAI */
+function tandaiSelesai(btn,index){
 
-function tandaiSelesai(index){
+let row =
+btn.parentElement.parentElement;
+
+row.classList.toggle("selesai");
 
 dataRiwayat[index].status = "Selesai";
 
@@ -550,41 +977,37 @@ localStorage.setItem(
 JSON.stringify(dataRiwayat)
 );
 
-tampilkanRiwayat();
-updateDashboard();
+row.querySelector(".status").innerHTML =
+"Selesai";
 
 }
-
-/* FILTER */
 
 function filterRiwayat(status){
-
-let rows =
-document.querySelectorAll("#riwayatTable tr");
-
-rows.forEach((row,index)=>{
-
-if(index===0)return;
-
-let statusCell =
-row.querySelector(".status");
-
-if(!statusCell)return;
-
-if(status === "Semua"){
-row.style.display = "";
-}else{
-row.style.display =
-statusCell.innerHTML === status
-? ""
-: "none";
+tampilkanRiwayat(status);
 }
 
-});
+function peminjamanBaru(){
+
+document.getElementById("kelasSiswa").value = "";
+
+document.getElementById("searchNama").value = "";
+
+document.getElementById("cariBuku").value = "";
+
+document.getElementById("jumlahBuku").value = "";
+
+document.getElementById("dropdownNama").innerHTML = "";
+
+document.getElementById("dropdownNama")
+.classList.add("hidden");
+
+document.getElementById("kondisiBuku").checked = false;
+
+namaDipilih = "";
+
+nextStep(1);
 
 }
-
-/* HAPUS */
 
 function hapusSemua(){
 
@@ -605,9 +1028,37 @@ updateDashboard();
 
 }
 
-/* DOWNLOAD */
-
 function downloadExcel(){
+
+let isiTabel = "";
+
+dataRiwayat.forEach((item,index)=>{
+
+isiTabel += `
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${item.nama}</td>
+
+<td>${item.kelas}</td>
+
+<td>${item.buku}</td>
+
+<td>${item.jumlah}</td>
+
+<td>${item.tanggal}</td>
+
+<td>${item.jam}</td>
+
+<td>${item.status}</td>
+
+</tr>
+
+`;
+
+});
 
 let html = `
 
@@ -620,33 +1071,38 @@ let html = `
 <style>
 
 body{
-font-family:Arial;
-padding:30px;
+    font-family:Arial;
+    padding:30px;
 }
 
 h1{
-text-align:center;
-font-size:30px;
-margin-bottom:30px;
-color:#d63384;
+    text-align:center;
+    font-size:34px;
+    margin-bottom:30px;
 }
 
 table{
-border-collapse:collapse;
-width:100%;
-font-size:22px;
-}
-
-th,td{
-border:3px solid black;
-padding:24px 45px;
-text-align:center;
-white-space:nowrap;
+    border-collapse:collapse;
+    width:100%;
+    min-width:2400px;
 }
 
 th{
-background:#ffb6c1;
-font-weight:bold;
+    background:black;
+    color:white;
+    border:4px solid black;
+    padding:35px;
+    text-align:center;
+    font-size:26px;
+    font-weight:bold;
+}
+
+td{
+    border:4px solid black;
+    padding:35px;
+    text-align:center;
+    font-size:24px;
+    white-space:nowrap;
 }
 
 </style>
@@ -659,7 +1115,24 @@ font-weight:bold;
 Laporan Riwayat Peminjaman Buku Perpustakaan
 </h1>
 
-${document.getElementById("tabelRiwayat").outerHTML}
+<table>
+
+<tr>
+
+<th style="width:140px;">No</th>
+<th style="width:700px;">Nama</th>
+<th style="width:280px;">Kelas</th>
+<th style="width:700px;">Buku</th>
+<th style="width:280px;">Jumlah</th>
+<th style="width:380px;">Tanggal</th>
+<th style="width:280px;">Jam</th>
+<th style="width:320px;">Status</th>
+
+</tr>
+
+${isiTabel}
+
+</table>
 
 </body>
 
@@ -683,7 +1156,7 @@ document.createElement("a");
 a.href = url;
 
 a.download =
-"Laporan_Riwayat_Perpustakaan.xls";
+"Laporan_Riwayat_Peminjaman.xls";
 
 document.body.appendChild(a);
 
@@ -695,9 +1168,8 @@ URL.revokeObjectURL(url);
 
 }
 
-/* LOAD */
-
 tampilkanRiwayat();
+
 updateDashboard();
 
 </script>
