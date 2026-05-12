@@ -45,6 +45,7 @@ header{
     padding:25px;
     border-bottom-left-radius:25px;
     border-bottom-right-radius:25px;
+    position:relative;
 }
 
 header h1{
@@ -56,14 +57,20 @@ header h1{
     font-size:20px;
 }
 
-.dark-btn{
+.top-buttons{
     margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+.dark-btn,
+.setting-btn{
+    flex:1;
     background:white;
     color:var(--pink4);
     border:none;
     padding:12px;
     border-radius:12px;
-    width:100%;
     font-weight:bold;
     cursor:pointer;
 }
@@ -216,14 +223,6 @@ td{
     margin:0;
 }
 
-.btn-login{
-    background:#ff4f87;
-}
-
-.btn-logout{
-    background:#ff4f87;
-}
-
 footer{
     text-align:center;
     padding:30px;
@@ -313,20 +312,62 @@ footer{
     margin-top:3px;
 }
 
-.login-box{
-    background:#fff0f5;
-    border:2px solid var(--pink2);
-    padding:18px;
-    border-radius:18px;
+/* POPUP PENGATURAN */
+
+.popup-bg{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.popup-box{
+    width:90%;
+    max-width:360px;
+    background:white;
+    border-radius:25px;
+    padding:25px;
+    animation:popup 0.3s ease;
+}
+
+@keyframes popup{
+    from{
+        transform:scale(0.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.popup-title{
+    font-size:24px;
+    color:var(--pink4);
+    text-align:center;
     margin-bottom:20px;
+    font-weight:bold;
 }
 
 .login-status{
-    margin-top:10px;
-    font-size:14px;
-    color:#d63384;
-    font-weight:bold;
     text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+    color:var(--pink4);
+}
+
+.close-popup{
+    background:#999;
+}
+
+.admin-only{
+    display:none;
 }
 
 </style>
@@ -345,51 +386,21 @@ footer{
 
 <p id="jam"></p>
 
+<div class="top-buttons">
+
 <button class="dark-btn" onclick="darkMode()">
 🌙 Dark Mode
 </button>
 
+<button class="setting-btn" onclick="bukaPengaturan()">
+⚙ Pengaturan
+</button>
+
+</div>
+
 </header>
 
 <div class="content">
-
-<!-- LOGIN ADMIN -->
-
-<div class="login-box">
-
-<h3>🔐 Login Admin / Guru</h3>
-
-<input
-type="text"
-id="username"
-placeholder="Username Admin"
->
-
-<input
-type="password"
-id="password"
-placeholder="Password"
->
-
-<button
-class="btn-login"
-onclick="loginAdmin()"
->
-Login Admin
-</button>
-
-<button
-class="btn-logout"
-onclick="logoutAdmin()"
->
-Logout
-</button>
-
-<div class="login-status" id="statusLogin">
-Belum Login
-</div>
-
-</div>
 
 <!-- DASHBOARD -->
 
@@ -423,7 +434,7 @@ Belum Login
 
 <!-- STEP 1 -->
 
-<div id="step1" class="card">
+<div id="step1" class="card admin-only">
 
 <h3>1. Cari Buku</h3>
 
@@ -459,7 +470,7 @@ id="coverBuku"
 src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
 >
 
-<button onclick="cekLoginStep()">
+<button onclick="nextStep(2)">
 Cari & Ambil Buku
 </button>
 
@@ -467,7 +478,7 @@ Cari & Ambil Buku
 
 <!-- STEP 2 -->
 
-<div id="step2" class="card hidden">
+<div id="step2" class="card hidden admin-only">
 
 <h3>2. Cek Kondisi Buku</h3>
 
@@ -491,7 +502,7 @@ Lanjut ke Petugas
 
 <!-- STEP 3 -->
 
-<div id="step3" class="card hidden">
+<div id="step3" class="card hidden admin-only">
 
 <h3>3. Data Peminjaman</h3>
 
@@ -536,7 +547,7 @@ Konfirmasi Peminjaman
 
 <!-- STEP 4 -->
 
-<div id="step4" class="card hidden">
+<div id="step4" class="card hidden admin-only">
 
 <h3>4. Status Peminjaman</h3>
 
@@ -618,14 +629,14 @@ Semua
 </button>
 
 <button
-class="btn-hapus-semua"
+class="btn-hapus-semua admin-only"
 onclick="hapusSemua()"
 >
 🗑 Hapus Semua
 </button>
 
 <button
-class="btn-download"
+class="btn-download admin-only"
 onclick="downloadExcel()"
 >
 📥 Download Riwayat
@@ -643,7 +654,54 @@ Dibuat Oleh Fahrul Lamusu
 
 </div>
 
+<!-- POPUP PENGATURAN -->
+
+<div class="popup-bg" id="popupPengaturan">
+
+<div class="popup-box">
+
+<div class="popup-title">
+⚙ Pengaturan
+</div>
+
+<input
+type="text"
+id="username"
+placeholder="Username Admin"
+>
+
+<input
+type="password"
+id="password"
+placeholder="Password Admin"
+>
+
+<button onclick="loginAdmin()">
+🔐 Login Admin
+</button>
+
+<button onclick="logoutAdmin()">
+🚪 Logout
+</button>
+
+<button
+class="close-popup"
+onclick="tutupPengaturan()"
+>
+Tutup
+</button>
+
+<div class="login-status" id="statusLogin">
+❌ Belum Login
+</div>
+
+</div>
+
+</div>
+
 <script>
+
+/* JAM */
 
 setInterval(()=>{
 
@@ -657,13 +715,53 @@ minute:'2-digit'
 
 },1000);
 
+/* DARK MODE */
+
 function darkMode(){
 document.body.classList.toggle("dark");
 }
 
-/* LOGIN ADMIN */
+/* PENGATURAN */
 
-let isLogin = false;
+function bukaPengaturan(){
+document.getElementById("popupPengaturan").style.display = "flex";
+}
+
+function tutupPengaturan(){
+document.getElementById("popupPengaturan").style.display = "none";
+}
+
+/* LOGIN */
+
+let isLogin =
+localStorage.getItem("adminLogin") || "false";
+
+function updateAdminView(){
+
+let adminElements =
+document.querySelectorAll(".admin-only");
+
+if(isLogin === "true"){
+
+adminElements.forEach(el=>{
+el.style.display = "block";
+});
+
+document.getElementById("statusLogin").innerHTML =
+"✅ Login Sebagai Admin";
+
+}else{
+
+adminElements.forEach(el=>{
+el.style.display = "none";
+});
+
+document.getElementById("statusLogin").innerHTML =
+"❌ Belum Login";
+
+}
+
+}
 
 function loginAdmin(){
 
@@ -679,12 +777,15 @@ username === "admin"
 password === "12345"
 ){
 
-isLogin = true;
+localStorage.setItem("adminLogin","true");
 
-document.getElementById("statusLogin").innerHTML =
-"✅ Login Berhasil Sebagai Admin";
+isLogin = "true";
 
-alert("Login berhasil!");
+updateAdminView();
+
+alert("Login admin berhasil!");
+
+tutupPengaturan();
 
 }else{
 
@@ -696,26 +797,13 @@ alert("Username atau password salah!");
 
 function logoutAdmin(){
 
-isLogin = false;
+localStorage.setItem("adminLogin","false");
 
-document.getElementById("statusLogin").innerHTML =
-"❌ Belum Login";
+isLogin = "false";
 
-alert("Logout berhasil");
+updateAdminView();
 
-}
-
-function cekLoginStep(){
-
-if(!isLogin){
-
-alert("Hanya admin/guru yang bisa meminjam buku!");
-
-return;
-
-}
-
-nextStep(2);
+alert("Logout berhasil!");
 
 }
 
@@ -1083,6 +1171,11 @@ row.classList.add("selesai");
 
 function tandaiSelesai(btn,index){
 
+if(isLogin !== "true"){
+alert("Login admin terlebih dahulu!");
+return;
+}
+
 let row =
 btn.parentElement.parentElement;
 
@@ -1279,6 +1372,8 @@ URL.revokeObjectURL(url);
 tampilkanRiwayat();
 
 updateDashboard();
+
+updateAdminView();
 
 </script>
 
