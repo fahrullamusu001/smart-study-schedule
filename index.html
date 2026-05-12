@@ -51,36 +51,93 @@ header{
 
 /* PENGATURAN BARU */
 
-.settings-btn{
+.setting-btn{
     position:absolute;
-    top:18px;
-    left:18px;
-    width:50px;
-    height:50px;
+    top:12px;
+    left:12px;
+    width:45px;
+    height:45px;
     border-radius:50%;
     border:none;
     background:white;
     color:var(--pink4);
-    font-size:24px;
+    font-size:22px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow:0 4px 12px rgba(0,0,0,0.2);
-    z-index:10;
+    cursor:pointer;
+    z-index:100;
+    padding:0;
 }
 
-.settings-menu{
+.setting-panel{
     position:absolute;
-    top:80px;
-    left:15px;
-    width:260px;
+    top:65px;
+    left:12px;
+    width:230px;
     background:white;
-    border-radius:22px;
-    padding:18px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
-    border:2px solid var(--pink2);
-    z-index:99;
+    border-radius:18px;
+    padding:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    z-index:200;
+    display:none;
     animation:fadeIn .2s ease;
+}
+
+.setting-panel h4{
+    color:var(--pink4);
+    margin-bottom:12px;
+    font-size:18px;
+}
+
+.setting-item{
+    background:#fff0f5;
+    border:2px solid var(--pink2);
+    border-radius:14px;
+    padding:12px;
+    margin-top:10px;
+}
+
+.setting-item p{
+    font-size:13px;
+    color:#666;
+    margin-top:4px;
+}
+
+.setting-login-btn{
+    margin-top:10px;
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--pink1),var(--pink4));
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-box{
+    display:none;
+    margin-top:10px;
+}
+
+.login-box input{
+    margin-top:8px;
+}
+
+.close-setting{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:#eee;
+    color:#333;
+    border:none;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:14px;
 }
 
 @keyframes fadeIn{
@@ -92,87 +149,6 @@ header{
         opacity:1;
         transform:translateY(0);
     }
-}
-
-.settings-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
-}
-
-.settings-title{
-    color:var(--pink4);
-    font-size:22px;
-    font-weight:bold;
-}
-
-.close-settings{
-    background:#f1f1f1;
-    border:none;
-    width:35px;
-    height:35px;
-    border-radius:12px;
-    color:#555;
-    font-size:18px;
-    margin:0;
-    padding:0;
-}
-
-.settings-card{
-    background:#fff0f5;
-    border:2px solid var(--pink2);
-    border-radius:18px;
-    padding:15px;
-}
-
-.settings-card h4{
-    color:var(--pink4);
-    font-size:20px;
-    margin-bottom:8px;
-}
-
-.settings-card p{
-    color:#666;
-    font-size:14px;
-    margin-bottom:15px;
-    line-height:1.5;
-}
-
-.login-btn{
-    background:linear-gradient(135deg,var(--pink1),var(--pink4));
-}
-
-/* LOGIN */
-
-.login-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.5);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:999;
-    padding:20px;
-}
-
-.login-box{
-    width:100%;
-    max-width:350px;
-    background:white;
-    border-radius:25px;
-    padding:25px;
-    animation:fadeIn .2s ease;
-}
-
-.login-box h2{
-    color:var(--pink4);
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.login-box button{
-    margin-top:20px;
 }
 
 header h1{
@@ -403,13 +379,8 @@ footer{
     background:#444;
 }
 
-.dark .settings-menu{
+.dark .setting-panel{
     background:#333;
-}
-
-.dark .login-box{
-    background:#333;
-    color:white;
 }
 
 .dashboard-grid{
@@ -452,39 +423,57 @@ footer{
 
 <header>
 
-<!-- TOMBOL PENGATURAN -->
+<!-- TOMBOL PENGATURAN BARU -->
 
-<button class="settings-btn" onclick="toggleSettings()">
+<button class="setting-btn" onclick="toggleSetting()">
 ⚙️
 </button>
 
-<!-- MENU PENGATURAN -->
+<div class="setting-panel" id="settingPanel">
 
-<div id="settingsMenu" class="settings-menu hidden">
-
-<div class="settings-header">
-
-<div class="settings-title">
-⚙️ Pengaturan
-</div>
-
-<button class="close-settings" onclick="toggleSettings()">
+<button class="close-setting" onclick="toggleSetting()">
 ✕
 </button>
 
-</div>
+<h4>⚙️ Pengaturan</h4>
 
-<div class="settings-card">
+<div class="setting-item">
 
-<h4>🔐 Login Admin</h4>
+<b>🔐 Login Admin</b>
 
 <p>
 Masuk sebagai admin/guru untuk membuka fitur peminjaman buku.
 </p>
 
-<button class="login-btn" onclick="bukaLogin()">
+<button
+class="setting-login-btn"
+onclick="bukaLogin()"
+>
 Login Admin
 </button>
+
+<div class="login-box" id="loginBox">
+
+<input
+type="text"
+id="usernameAdmin"
+placeholder="Username Admin"
+>
+
+<input
+type="password"
+id="passwordAdmin"
+placeholder="Password Admin"
+>
+
+<button
+class="setting-login-btn"
+onclick="loginAdmin()"
+>
+Masuk
+</button>
+
+</div>
 
 </div>
 
@@ -501,33 +490,6 @@ Login Admin
 </button>
 
 </header>
-
-<!-- LOGIN MODAL -->
-
-<div id="loginModal" class="login-modal hidden">
-
-<div class="login-box">
-
-<h2>🔐 Login Admin</h2>
-
-<input type="text" id="usernameAdmin" placeholder="Username Admin">
-
-<input type="password" id="passwordAdmin" placeholder="Password Admin">
-
-<button onclick="loginAdmin()">
-Masuk
-</button>
-
-<button
-style="background:#999;"
-onclick="tutupLogin()"
->
-Batal
-</button>
-
-</div>
-
-</div>
 
 <div class="content">
 
@@ -787,9 +749,70 @@ Dibuat Oleh Fahrul Lamusu
 
 <script>
 
-let adminLogin = false;
+let isAdmin = false;
 
-/* JAM */
+function toggleSetting(){
+
+let panel =
+document.getElementById("settingPanel");
+
+if(panel.style.display === "block"){
+panel.style.display = "none";
+}else{
+panel.style.display = "block";
+}
+
+}
+
+function bukaLogin(){
+
+let box =
+document.getElementById("loginBox");
+
+if(box.style.display === "block"){
+box.style.display = "none";
+}else{
+box.style.display = "block";
+}
+
+}
+
+function loginAdmin(){
+
+let username =
+document.getElementById("usernameAdmin").value;
+
+let password =
+document.getElementById("passwordAdmin").value;
+
+if(
+username === "admin"
+&&
+password === "12345"
+){
+
+isAdmin = true;
+
+alert("Login Admin Berhasil!");
+
+document.getElementById("step1")
+.classList.remove("hidden");
+
+document.getElementById("hapusBtn")
+.classList.remove("hidden");
+
+document.getElementById("downloadBtn")
+.classList.remove("hidden");
+
+toggleSetting();
+
+}else{
+
+alert("Username atau Password salah!");
+
+}
+
+}
 
 setInterval(()=>{
 
@@ -803,83 +826,9 @@ minute:'2-digit'
 
 },1000);
 
-/* DARK MODE */
-
 function darkMode(){
 
 document.body.classList.toggle("dark");
-
-}
-
-/* SETTINGS */
-
-function toggleSettings(){
-
-document
-.getElementById("settingsMenu")
-.classList.toggle("hidden");
-
-}
-
-/* LOGIN */
-
-function bukaLogin(){
-
-document
-.getElementById("loginModal")
-.classList.remove("hidden");
-
-}
-
-function tutupLogin(){
-
-document
-.getElementById("loginModal")
-.classList.add("hidden");
-
-}
-
-function loginAdmin(){
-
-let user =
-document.getElementById("usernameAdmin").value;
-
-let pass =
-document.getElementById("passwordAdmin").value;
-
-if(user === "admin" && pass === "12345"){
-
-adminLogin = true;
-
-alert("Login admin berhasil!");
-
-document
-.getElementById("loginModal")
-.classList.add("hidden");
-
-document
-.getElementById("settingsMenu")
-.classList.add("hidden");
-
-/* TAMPILKAN FITUR ADMIN */
-
-document
-.getElementById("step1")
-.classList.remove("hidden");
-
-document
-.getElementById("hapusBtn")
-.classList.remove("hidden");
-
-document
-.getElementById("downloadBtn")
-.classList.remove("hidden");
-
-}else{
-
-alert("Username atau password salah!");
-
-}
 
 }
 
@@ -1425,4 +1374,36 @@ ${isiTabel}
 let blob = new Blob(
 ['\ufeff', html],
 {
-type:'applicatio
+type:'application/vnd.ms-excel'
+}
+);
+
+let url =
+URL.createObjectURL(blob);
+
+let a =
+document.createElement("a");
+
+a.href = url;
+
+a.download =
+"Laporan_Riwayat_Peminjaman.xls";
+
+document.body.appendChild(a);
+
+a.click();
+
+document.body.removeChild(a);
+
+URL.revokeObjectURL(url);
+
+}
+
+tampilkanRiwayat();
+
+updateDashboard();
+
+</script>
+
+</body>
+    </html>
