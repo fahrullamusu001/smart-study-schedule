@@ -66,7 +66,7 @@ header{
     font-size:18px;
     font-weight:bold;
     cursor:pointer;
-    z-index:99999;
+    z-index:999999;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -82,7 +82,7 @@ header{
     border-radius:18px;
     padding:15px;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
-    z-index:99999;
+    z-index:999999;
     display:none;
 }
 
@@ -142,8 +142,6 @@ header{
     color:#333;
     font-size:12px;
     cursor:pointer;
-    padding:0;
-    margin:0;
 }
 
 .admin-badge{
@@ -191,8 +189,6 @@ header h1{
     width:100%;
     font-weight:bold;
     cursor:pointer;
-    position:relative;
-    z-index:9999;
 }
 
 .content{
@@ -455,21 +451,13 @@ footer{
 
 <header>
 
-<button
-type="button"
-class="setting-btn"
-onclick="toggleSetting()"
->
+<button type="button" class="setting-btn" onclick="toggleSetting()">
 ⚙
 </button>
 
 <div class="setting-panel" id="settingPanel">
 
-<button
-type="button"
-class="close-setting"
-onclick="toggleSetting()"
->
+<button type="button" class="close-setting" onclick="toggleSetting()">
 ✕
 </button>
 
@@ -539,16 +527,171 @@ onclick="logoutAdmin()"
 
 <p id="jam"></p>
 
-<button
-type="button"
-class="dark-btn"
-onclick="darkMode()"
->
+<button type="button" class="dark-btn" onclick="darkMode()">
 🌙 Dark Mode
 </button>
 
 </header>
 
+<script>
+
+function toggleSetting(){
+document.getElementById("settingPanel").classList.toggle("active");
+}
+
+function bukaLogin(){
+document.getElementById("loginBox").classList.toggle("active");
+}
+
+function darkMode(){
+
+document.body.classList.toggle("dark");
+
+if(document.body.classList.contains("dark")){
+localStorage.setItem("darkMode","true");
+}else{
+localStorage.setItem("darkMode","false");
+}
+
+}
+
+setInterval(()=>{
+
+let now = new Date();
+
+document.getElementById("jam").innerHTML =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+},1000);
+
+let isAdmin = false;
+
+function loginAdmin(){
+
+let username =
+document.getElementById("usernameAdmin").value;
+
+let password =
+document.getElementById("passwordAdmin").value;
+
+if(username === "admin" && password === "12345"){
+
+isAdmin = true;
+
+localStorage.setItem("adminLogin","true");
+
+document.getElementById("step1")
+.classList.remove("hidden");
+
+document.getElementById("hapusBtn")
+.classList.remove("hidden");
+
+document.getElementById("downloadBtn")
+.classList.remove("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "block";
+
+document.getElementById("logoutBtn")
+.style.display = "block";
+
+document.getElementById("loginBtn")
+.style.display = "none";
+
+document.getElementById("loginBox")
+.classList.remove("active");
+
+alert("Login Admin Berhasil!");
+
+toggleSetting();
+
+}else{
+
+alert("Username atau Password salah!");
+
+}
+
+}
+
+function logoutAdmin(){
+
+isAdmin = false;
+
+localStorage.removeItem("adminLogin");
+
+document.getElementById("step1")
+.classList.add("hidden");
+
+document.getElementById("step2")
+.classList.add("hidden");
+
+document.getElementById("step3")
+.classList.add("hidden");
+
+document.getElementById("step4")
+.classList.add("hidden");
+
+document.getElementById("hapusBtn")
+.classList.add("hidden");
+
+document.getElementById("downloadBtn")
+.classList.add("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "none";
+
+document.getElementById("logoutBtn")
+.style.display = "none";
+
+document.getElementById("loginBtn")
+.style.display = "block";
+
+alert("Logout berhasil!");
+
+}
+
+window.addEventListener("DOMContentLoaded",function(){
+
+let savedLogin =
+localStorage.getItem("adminLogin");
+
+if(savedLogin === "true"){
+
+isAdmin = true;
+
+document.getElementById("step1")
+.classList.remove("hidden");
+
+document.getElementById("hapusBtn")
+.classList.remove("hidden");
+
+document.getElementById("downloadBtn")
+.classList.remove("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "block";
+
+document.getElementById("logoutBtn")
+.style.display = "block";
+
+document.getElementById("loginBtn")
+.style.display = "none";
+
+}
+
+let savedDark =
+localStorage.getItem("darkMode");
+
+if(savedDark === "true"){
+document.body.classList.add("dark");
+}
+
+});
+
+</script>
 <div class="content">
 
 <div class="card">
@@ -578,6 +721,7 @@ onclick="darkMode()"
 </div>
 
 </div>
+
 <div id="step1" class="card hidden">
 
 <h3>1. Cari Buku</h3>
@@ -614,85 +758,8 @@ id="coverBuku"
 src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
 >
 
-<button type="button" onclick="nextStep(2)">
+<button onclick="nextStep(2)">
 Cari & Ambil Buku
-</button>
-
-</div>
-
-<div id="step2" class="card hidden">
-
-<h3>2. Cek Kondisi Buku</h3>
-
-<label>
-
-<input
-type="checkbox"
-id="kondisiBuku"
-style="width:auto;"
->
-
- Buku dalam kondisi baik
-
-</label>
-
-<button type="button" onclick="checkKondisi()">
-Lanjut ke Petugas
-</button>
-
-</div>
-
-<div id="step3" class="card hidden">
-
-<h3>3. Data Peminjaman</h3>
-
-<select id="kelasSiswa" onchange="loadNamaSiswa()">
-
-<option value="">Pilih Kelas</option>
-
-<option>XI-1</option>
-<option>XI-2</option>
-<option>XI-3</option>
-<option>XI-4</option>
-<option>XI-5</option>
-<option>XI-6</option>
-<option>XI-7</option>
-<option>XI-8</option>
-<option>XI-9</option>
-<option>XI-10</option>
-
-</select>
-
-<div class="dropdown-container">
-
-<input
-type="text"
-id="searchNama"
-placeholder="🔍 Pilih atau cari nama siswa..."
-onkeyup="filterNama()"
->
-
-<div
-id="dropdownNama"
-class="dropdown-list hidden">
-</div>
-
-</div>
-
-<button type="button" onclick="prosesPinjam()">
-Konfirmasi Peminjaman
-</button>
-
-</div>
-
-<div id="step4" class="card hidden">
-
-<h3>4. Status Peminjaman</h3>
-
-<div id="detailPinjam" class="status-box"></div>
-
-<button type="button" onclick="peminjamanBaru()">
-➕ Buat Peminjaman Baru
 </button>
 
 </div>
@@ -707,162 +774,77 @@ Dibuat Oleh Fahrul Lamusu
 
 <script>
 
-function darkMode(){
+const dataSiswa = {
+"XI-2":[
+"Abdul Rizki Rafa Hiola",
+"Aira Mohi",
+"Fahrul Lamusu",
+"Siti Aura Rivai"
+]
+};
 
-document.body.classList.toggle("dark");
+let namaDipilih = "";
 
-if(document.body.classList.contains("dark")){
-localStorage.setItem("darkMode","true");
-}else{
-localStorage.setItem("darkMode","false");
-}
+function loadNamaSiswa(){
 
-}
+let kelas =
+document.getElementById("kelasSiswa").value;
 
-setInterval(()=>{
+let dropdown =
+document.getElementById("dropdownNama");
 
-let now = new Date();
+dropdown.innerHTML = "";
 
-document.getElementById("jam").innerHTML =
-now.toLocaleTimeString('id-ID',{
-hour:'2-digit',
-minute:'2-digit'
-});
+if(dataSiswa[kelas]){
 
-},1000);
+dataSiswa[kelas].forEach(nama=>{
 
-function toggleSetting(){
-
-let panel =
-document.getElementById("settingPanel");
-
-panel.classList.toggle("active");
-
-}
-
-function bukaLogin(){
-
-let box =
-document.getElementById("loginBox");
-
-box.classList.toggle("active");
-
-}
-
-let isAdmin = false;
-
-function loginAdmin(){
-
-let username =
-document.getElementById("usernameAdmin").value;
-
-let password =
-document.getElementById("passwordAdmin").value;
-
-if(username === "admin" && password === "12345"){
-
-isAdmin = true;
-
-localStorage.setItem("adminLogin","true");
-
-document.getElementById("step1")
-.classList.remove("hidden");
-
-document.getElementById("adminBadge")
-.style.display = "block";
-
-document.getElementById("logoutBtn")
-.style.display = "block";
-
-document.getElementById("loginBtn")
-.style.display = "none";
-
-document.getElementById("loginBox")
-.classList.remove("active");
-
-alert("Login Admin Berhasil!");
-
-toggleSetting();
-
-}else{
-
-alert("Username atau Password salah!");
-
-}
-
-}
-
-function logoutAdmin(){
-
-let konfirmasi =
-confirm("Yakin ingin logout admin?");
-
-if(konfirmasi){
-
-isAdmin = false;
-
-localStorage.removeItem("adminLogin");
-
-document.getElementById("step1")
-.classList.add("hidden");
-
-document.getElementById("step2")
-.classList.add("hidden");
-
-document.getElementById("step3")
-.classList.add("hidden");
-
-document.getElementById("step4")
-.classList.add("hidden");
-
-document.getElementById("adminBadge")
-.style.display = "none";
-
-document.getElementById("logoutBtn")
-.style.display = "none";
-
-document.getElementById("loginBtn")
-.style.display = "block";
-
-alert("Logout berhasil!");
-
-toggleSetting();
-
-}
-
-}
-
-window.addEventListener("DOMContentLoaded", function(){
-
-let savedLogin =
-localStorage.getItem("adminLogin");
-
-if(savedLogin === "true"){
-
-isAdmin = true;
-
-document.getElementById("step1")
-.classList.remove("hidden");
-
-document.getElementById("adminBadge")
-.style.display = "block";
-
-document.getElementById("logoutBtn")
-.style.display = "block";
-
-document.getElementById("loginBtn")
-.style.display = "none";
-
-}
-
-let savedDark =
-localStorage.getItem("darkMode");
-
-if(savedDark === "true"){
-document.body.classList.add("dark");
-}
+dropdown.innerHTML += `
+<div
+class="dropdown-item"
+onclick="pilihNama('${nama}')"
+>
+${nama}
+</div>
+`;
 
 });
+
+}
+
+dropdown.classList.remove("hidden");
+
+}
+
+function filterNama(){
+
+let input =
+document.getElementById("searchNama").value.toLowerCase();
+
+let items =
+document.querySelectorAll(".dropdown-item");
+
+items.forEach(item=>{
+
+item.style.display =
+item.innerText.toLowerCase().includes(input)
+? "block"
+: "none";
+
+});
+
+}
+
+function pilihNama(nama){
+
+namaDipilih = nama;
+
+document.getElementById("searchNama").value = nama;
+
+document.getElementById("dropdownNama")
+.classList.add("hidden");
+
+}
 
 function nextStep(step){
 
@@ -880,19 +862,6 @@ document
 
 }
 
-function checkKondisi(){
-
-let ok =
-document.getElementById("kondisiBuku").checked;
-
-if(ok){
-nextStep(3);
-}else{
-alert("Buku rusak!");
-}
-
-}
-
 function tampilCover(){
 
 let buku =
@@ -904,27 +873,22 @@ document.getElementById("coverBuku").src =
 
 }
 
-function prosesPinjam(){
-
-alert("Peminjaman berhasil!");
-
-nextStep(4);
-
+function downloadExcel(){
+alert("Download berhasil!");
 }
 
-function peminjamanBaru(){
+function hapusSemua(){
 
-document.getElementById("kelasSiswa").value = "";
+let konfirmasi =
+confirm("Hapus semua riwayat?");
 
-document.getElementById("searchNama").value = "";
+if(konfirmasi){
 
-document.getElementById("cariBuku").value = "";
+localStorage.removeItem("riwayatPerpus");
 
-document.getElementById("jumlahBuku").value = "";
+alert("Riwayat berhasil dihapus!");
 
-document.getElementById("kondisiBuku").checked = false;
-
-nextStep(1);
+}
 
 }
 
