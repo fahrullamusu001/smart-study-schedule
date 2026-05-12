@@ -440,8 +440,6 @@ footer{
 
 <header>
 
-<!-- TOMBOL PENGATURAN -->
-
 <div class="setting-btn" onclick="toggleSetting()">
 ⚙
 </div>
@@ -508,8 +506,6 @@ Masuk
 
 <div class="content">
 
-<!-- DASHBOARD -->
-
 <div class="card">
 
 <h3>📊 Dashboard Ringkasan</h3>
@@ -537,8 +533,6 @@ Masuk
 </div>
 
 </div>
-
-<!-- STEP 1 -->
 
 <div id="step1" class="card hidden">
 
@@ -582,8 +576,6 @@ Cari & Ambil Buku
 
 </div>
 
-<!-- STEP 2 -->
-
 <div id="step2" class="card hidden">
 
 <h3>2. Cek Kondisi Buku</h3>
@@ -605,8 +597,6 @@ Lanjut ke Petugas
 </button>
 
 </div>
-
-<!-- STEP 3 -->
 
 <div id="step3" class="card hidden">
 
@@ -651,8 +641,6 @@ Konfirmasi Peminjaman
 
 </div>
 
-<!-- STEP 4 -->
-
 <div id="step4" class="card hidden">
 
 <h3>4. Status Peminjaman</h3>
@@ -664,8 +652,6 @@ Konfirmasi Peminjaman
 </button>
 
 </div>
-
-<!-- RIWAYAT -->
 
 <div class="card">
 
@@ -772,6 +758,13 @@ function darkMode(){
 
 document.body.classList.toggle("dark");
 
+/* SIMPAN DARK MODE */
+if(document.body.classList.contains("dark")){
+localStorage.setItem("darkMode","true");
+}else{
+localStorage.setItem("darkMode","false");
+}
+
 }
 
 /* ====================== */
@@ -865,7 +858,9 @@ alert("Username atau Password salah!");
 /* AUTO LOGIN SETELAH REFRESH */
 /* ====================== */
 
-window.addEventListener("load", function(){
+window.addEventListener("DOMContentLoaded", function(){
+
+/* AUTO LOGIN ADMIN */
 
 let savedLogin =
 localStorage.getItem("adminLogin");
@@ -885,6 +880,17 @@ document.getElementById("downloadBtn")
 
 document.getElementById("adminBadge")
 .style.display = "block";
+
+}
+
+/* AUTO DARK MODE */
+
+let savedDark =
+localStorage.getItem("darkMode");
+
+if(savedDark === "true"){
+
+document.body.classList.add("dark");
 
 }
 
