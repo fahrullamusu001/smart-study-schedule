@@ -49,27 +49,28 @@ header{
     position:relative;
 }
 
-/* PENGATURAN PREMIUM */
+/* ========================= */
+/* PENGATURAN PREMIUM BARU */
+/* ========================= */
 
 .setting-btn{
     position:absolute;
     top:8px;
     left:8px;
-    width:36px;
-    height:36px;
+    width:38px;
+    height:38px;
     border-radius:50%;
     border:none;
-    background:rgba(255,255,255,0.95);
+    background:white;
     color:var(--pink4);
-    font-size:16px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.15);
+    font-size:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    z-index:100;
+    z-index:9999;
     padding:0;
-    transition:0.2s;
 }
 
 .setting-btn:hover{
@@ -78,22 +79,26 @@ header{
 
 .setting-panel{
     position:absolute;
-    top:50px;
+    top:55px;
     left:8px;
-    width:210px;
+    width:220px;
     background:white;
     border-radius:18px;
     padding:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-    z-index:200;
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+    z-index:9999;
     display:none;
     animation:fadeIn .2s ease;
+}
+
+.setting-panel.active{
+    display:block;
 }
 
 .setting-panel h4{
     color:var(--pink4);
     margin-bottom:12px;
-    font-size:17px;
+    font-size:18px;
 }
 
 .setting-item{
@@ -107,7 +112,7 @@ header{
 .setting-item p{
     font-size:12px;
     color:#666;
-    margin-top:4px;
+    margin-top:5px;
     line-height:1.5;
 }
 
@@ -129,36 +134,38 @@ header{
     margin-top:10px;
 }
 
+.login-box.active{
+    display:block;
+}
+
 .login-box input{
     margin-top:8px;
-    padding:12px;
-    font-size:14px;
 }
 
 .close-setting{
     position:absolute;
-    top:8px;
-    right:8px;
+    top:10px;
+    right:10px;
     background:#eee;
     color:#333;
     border:none;
-    width:24px;
-    height:24px;
+    width:26px;
+    height:26px;
     border-radius:50%;
     cursor:pointer;
-    font-size:12px;
+    font-size:13px;
     margin:0;
     padding:0;
 }
 
 .admin-badge{
     margin-top:10px;
-    background:white;
-    color:var(--pink4);
-    border-radius:12px;
-    padding:10px;
+    background:#28a745;
+    color:white;
+    padding:8px;
+    border-radius:10px;
+    text-align:center;
     font-size:13px;
-    font-weight:bold;
     display:none;
 }
 
@@ -175,6 +182,7 @@ header{
 
 header h1{
     font-size:28px;
+    margin-top:5px;
 }
 
 #jam{
@@ -237,7 +245,7 @@ button{
 }
 
 .hidden{
-    display:none;
+    display:none !important;
 }
 
 .status-box{
@@ -374,6 +382,8 @@ footer{
     background:#fff0f5;
 }
 
+/* DARK MODE */
+
 .dark{
     background:#1e1e1e;
 }
@@ -403,6 +413,14 @@ footer{
 
 .dark .setting-panel{
     background:#333;
+}
+
+.dark .setting-item{
+    background:#444;
+}
+
+.dark .setting-item p{
+    color:#ddd;
 }
 
 .dashboard-grid{
@@ -445,13 +463,15 @@ footer{
 
 <header>
 
-<button class="setting-btn" onclick="toggleSetting()">
-⚙
+<!-- TOMBOL PENGATURAN -->
+
+<button type="button" class="setting-btn" id="settingBtn">
+⚙️
 </button>
 
 <div class="setting-panel" id="settingPanel">
 
-<button class="close-setting" onclick="toggleSetting()">
+<button type="button" class="close-setting" id="closeSetting">
 ✕
 </button>
 
@@ -465,15 +485,9 @@ footer{
 Masuk sebagai admin/guru untuk membuka fitur peminjaman buku.
 </p>
 
-<div id="adminBadge" class="admin-badge">
-✅ Admin Sudah Login
-</div>
-
-<button
-id="loginButton"
+<button type="button"
 class="setting-login-btn"
-onclick="bukaLogin()"
->
+id="openLoginBtn">
 Login Admin
 </button>
 
@@ -491,13 +505,16 @@ id="passwordAdmin"
 placeholder="Password Admin"
 >
 
-<button
+<button type="button"
 class="setting-login-btn"
-onclick="loginAdmin()"
->
+id="loginBtn">
 Masuk
 </button>
 
+</div>
+
+<div class="admin-badge" id="adminBadge">
+✅ Admin Sudah Login
 </div>
 
 </div>
@@ -510,13 +527,15 @@ Masuk
 
 <p id="jam"></p>
 
-<button class="dark-btn" onclick="darkMode()">
+<button type="button" class="dark-btn" id="darkModeBtn">
 🌙 Dark Mode
 </button>
 
 </header>
 
 <div class="content">
+
+<!-- DASHBOARD -->
 
 <div class="card">
 
@@ -584,7 +603,7 @@ id="coverBuku"
 src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
 >
 
-<button onclick="nextStep(2)">
+<button type="button" onclick="nextStep(2)">
 Cari & Ambil Buku
 </button>
 
@@ -608,7 +627,7 @@ style="width:auto;"
 
 </label>
 
-<button onclick="checkKondisi()">
+<button type="button" onclick="checkKondisi()">
 Lanjut ke Petugas
 </button>
 
@@ -653,7 +672,7 @@ class="dropdown-list hidden">
 
 </div>
 
-<button onclick="prosesPinjam()">
+<button type="button" onclick="prosesPinjam()">
 Konfirmasi Peminjaman
 </button>
 
@@ -667,7 +686,7 @@ Konfirmasi Peminjaman
 
 <div id="detailPinjam" class="status-box"></div>
 
-<button onclick="peminjamanBaru()">
+<button type="button" onclick="peminjamanBaru()">
 ➕ Buat Peminjaman Baru
 </button>
 
@@ -772,36 +791,94 @@ Dibuat Oleh Fahrul Lamusu
 
 <script>
 
+/* ========================= */
+/* JAM */
+/* ========================= */
+
+setInterval(()=>{
+
+let now = new Date();
+
+document.getElementById("jam").innerHTML =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+},1000);
+
+/* ========================= */
+/* DARK MODE */
+/* ========================= */
+
+document.getElementById("darkModeBtn")
+.addEventListener("click",function(){
+
+document.body.classList.toggle("dark");
+
+});
+
+/* ========================= */
+/* PENGATURAN */
+/* ========================= */
+
+const settingBtn =
+document.getElementById("settingBtn");
+
+const settingPanel =
+document.getElementById("settingPanel");
+
+const closeSetting =
+document.getElementById("closeSetting");
+
+settingBtn.addEventListener("click",function(e){
+
+e.stopPropagation();
+
+settingPanel.classList.toggle("active");
+
+});
+
+closeSetting.addEventListener("click",function(){
+
+settingPanel.classList.remove("active");
+
+});
+
+document.addEventListener("click",function(e){
+
+if(
+!settingPanel.contains(e.target)
+&&
+!settingBtn.contains(e.target)
+){
+settingPanel.classList.remove("active");
+}
+
+});
+
+/* ========================= */
+/* LOGIN BOX */
+/* ========================= */
+
+document.getElementById("openLoginBtn")
+.addEventListener("click",function(){
+
+document.getElementById("loginBox")
+.classList.toggle("active");
+
+});
+
+/* ========================= */
+/* LOGIN ADMIN */
+/* ========================= */
+
 let isAdmin =
 localStorage.getItem("adminLogin") === "true";
 
-function toggleSetting(){
+function cekAdmin(){
 
-let panel =
-document.getElementById("settingPanel");
-
-if(panel.style.display === "block"){
-panel.style.display = "none";
-}else{
-panel.style.display = "block";
-}
-
-}
-
-function bukaLogin(){
-
-let box =
-document.getElementById("loginBox");
-
-if(box.style.display === "block"){
-box.style.display = "none";
-}else{
-box.style.display = "block";
-}
-
-}
-
-function aktifkanAdmin(){
+if(isAdmin){
 
 document.getElementById("step1")
 .classList.remove("hidden");
@@ -815,12 +892,12 @@ document.getElementById("downloadBtn")
 document.getElementById("adminBadge")
 .style.display = "block";
 
-document.getElementById("loginButton")
-.innerHTML = "Admin Aktif";
+}
 
 }
 
-function loginAdmin(){
+document.getElementById("loginBtn")
+.addEventListener("click",function(){
 
 let username =
 document.getElementById("usernameAdmin").value;
@@ -836,16 +913,13 @@ password === "12345"
 
 isAdmin = true;
 
-localStorage.setItem(
-"adminLogin",
-"true"
-);
-
-aktifkanAdmin();
+localStorage.setItem("adminLogin","true");
 
 alert("Login Admin Berhasil!");
 
-toggleSetting();
+cekAdmin();
+
+settingPanel.classList.remove("active");
 
 }else{
 
@@ -853,29 +927,13 @@ alert("Username atau Password salah!");
 
 }
 
-}
-
-if(isAdmin){
-aktifkanAdmin();
-}
-
-setInterval(()=>{
-
-let now = new Date();
-
-document.getElementById("jam").innerHTML =
-now.toLocaleTimeString('id-ID',{
-hour:'2-digit',
-minute:'2-digit'
 });
 
-},1000);
+cekAdmin();
 
-function darkMode(){
-
-document.body.classList.toggle("dark");
-
-}
+/* ========================= */
+/* DATA SISWA */
+/* ========================= */
 
 const dataSiswa = {
 
@@ -1035,6 +1093,10 @@ document.getElementById("coverBuku").src =
 + encodeURIComponent(buku);
 
 }
+
+/* ========================= */
+/* RIWAYAT */
+/* ========================= */
 
 let dataRiwayat =
 JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
@@ -1314,116 +1376,4 @@ isiTabel += `
 
 <tr>
 
-<td>${index+1}</td>
-
-<td>${item.nama}</td>
-
-<td>${item.kelas}</td>
-
-<td>${item.buku}</td>
-
-<td>${item.jumlah}</td>
-
-<td>${item.tanggal}</td>
-
-<td>${item.jam}</td>
-
-<td>${item.status}</td>
-
-</tr>
-
-`;
-
-});
-
-let html = `
-
-<html>
-
-<head>
-
-<meta charset="UTF-8">
-
-<style>
-
-body{
-    font-family:Arial;
-    padding:30px;
-}
-
-h1{
-    text-align:center;
-    font-size:34px;
-    margin-bottom:30px;
-}
-
-table{
-    border-collapse:collapse;
-    width:100%;
-    min-width:2400px;
-}
-
-th{
-    background:black;
-    color:white;
-    border:4px solid black;
-    padding:35px;
-    text-align:center;
-    font-size:26px;
-    font-weight:bold;
-}
-
-td{
-    border:4px solid black;
-    padding:35px;
-    text-align:center;
-    font-size:24px;
-    white-space:nowrap;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>
-Laporan Riwayat Peminjaman Buku Perpustakaan
-</h1>
-
-<table>
-
-<tr>
-
-<th style="width:140px;">No</th>
-<th style="width:700px;">Nama</th>
-<th style="width:280px;">Kelas</th>
-<th style="width:700px;">Buku</th>
-<th style="width:280px;">Jumlah</th>
-<th style="width:380px;">Tanggal</th>
-<th style="width:280px;">Jam</th>
-<th style="width:320px;">Status</th>
-
-</tr>
-
-${isiTabel}
-
-</table>
-
-</body>
-
-</html>
-
-`;
-
-let blob = new Blob(
-['\ufeff', html],
-{
-type:'application/vnd.ms-excel'
-}
-);
-
-let url =
-URL.createObjectURL(blob);
-
-let
+<
