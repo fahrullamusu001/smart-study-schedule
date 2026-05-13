@@ -47,170 +47,133 @@ header{
     border-bottom-left-radius:25px;
     border-bottom-right-radius:25px;
     position:relative;
-    overflow:visible;
 }
 
 /* ====================== */
-/* MENU PENGATURAN STYLE CHROME */
+/* SIDEBAR PENGATURAN */
 /* ====================== */
 
 .setting-btn{
     position:absolute;
-    top:8px;
-    left:8px;
-    width:38px;
-    height:38px;
-    border-radius:50%;
+    top:12px;
+    left:12px;
+    width:42px;
+    height:42px;
     border:none;
+    border-radius:14px;
     background:white;
     color:var(--pink4);
-    font-size:18px;
+    font-size:20px;
     font-weight:bold;
     cursor:pointer;
-    z-index:99999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    z-index:1001;
     box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
 
-.setting-overlay{
+.sidebar-overlay{
     position:fixed;
-    inset:0;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     background:rgba(0,0,0,0.3);
-    z-index:99998;
+    z-index:999;
     display:none;
 }
 
-.setting-overlay.active{
+.sidebar-overlay.active{
     display:block;
 }
 
-.setting-panel{
-    position:absolute;
-    top:55px;
-    left:10px;
-    width:320px;
-    background:#2f2626;
-    border-radius:25px;
-    overflow:hidden;
-    box-shadow:0 15px 30px rgba(0,0,0,0.3);
-    z-index:99999;
-    display:none;
-    animation:muncul .2s ease;
+.setting-sidebar{
+    position:fixed;
+    top:0;
+    left:-280px;
+    width:260px;
+    height:100%;
+    background:white;
+    z-index:1000;
+    transition:0.3s;
+    overflow-y:auto;
+    box-shadow:4px 0 20px rgba(0,0,0,0.2);
 }
 
-@keyframes muncul{
-    from{
-        opacity:0;
-        transform:translateY(-10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.setting-sidebar.active{
+    left:0;
 }
 
-.setting-panel.active{
-    display:block;
-}
-
-.setting-header{
-    display:flex;
-    justify-content:flex-end;
-    padding:10px;
-    background:#3a2f2f;
-}
-
-.close-setting{
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:50%;
-    background:#4a3d3d;
+.sidebar-header{
+    background:linear-gradient(135deg,var(--pink1),var(--pink4));
     color:white;
-    font-size:20px;
-    cursor:pointer;
-}
-
-.setting-menu{
-    padding:10px 0;
-}
-
-.setting-item{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    color:white;
-    padding:16px 20px;
-    cursor:pointer;
-    transition:0.2s;
-    font-size:17px;
-}
-
-.setting-item:hover{
-    background:rgba(255,255,255,0.08);
-}
-
-.setting-icon{
+    padding:25px 20px;
     font-size:22px;
-    width:25px;
-    text-align:center;
-}
-
-.login-container{
-    padding:15px 20px 20px;
-    display:none;
-}
-
-.login-container.active{
-    display:block;
-}
-
-.login-title{
-    color:white;
-    margin-bottom:15px;
-    font-size:18px;
     font-weight:bold;
 }
 
-.login-container input{
-    margin-top:12px;
-    background:white;
+.sidebar-menu{
+    padding:15px;
 }
 
-.setting-login-btn{
+.sidebar-item{
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:10px;
+    background:#fff0f5;
+    border:2px solid #fbb1bd;
+}
+
+.sidebar-item h4{
+    color:var(--pink4);
+    margin-bottom:8px;
+}
+
+.sidebar-item p{
+    font-size:13px;
+    color:#666;
+    line-height:1.5;
+}
+
+.sidebar-btn{
     width:100%;
-    margin-top:15px;
-    padding:14px;
+    margin-top:12px;
+    padding:12px;
     border:none;
-    border-radius:14px;
+    border-radius:12px;
     background:linear-gradient(135deg,var(--pink1),var(--pink4));
     color:white;
     font-weight:bold;
     cursor:pointer;
-    font-size:16px;
 }
 
-.logout-btn{
-    background:#dc3545;
+.login-box{
+    display:none;
+    margin-top:10px;
+}
+
+.login-box.active{
+    display:block;
 }
 
 .admin-badge{
     margin-top:12px;
     background:#28a745;
     color:white;
-    padding:12px;
+    padding:10px;
     border-radius:12px;
     text-align:center;
-    font-size:14px;
+    font-size:13px;
     display:none;
+}
+
+.logout-btn{
+    background:#dc3545;
 }
 
 /* ====================== */
 
 header h1{
     font-size:28px;
+    margin-top:10px;
 }
 
 #jam{
@@ -283,7 +246,8 @@ button{
     line-height:2;
 }
 
-#coverBuku{
+#coverBuku,
+#coverKembali{
     width:120px;
     display:block;
     margin:15px auto;
@@ -297,7 +261,7 @@ button{
 
 table{
     border-collapse:collapse;
-    min-width:1100px;
+    min-width:950px;
     width:max-content;
 }
 
@@ -315,7 +279,6 @@ td{
     font-size:14px;
     text-align:center;
     white-space:nowrap;
-    line-height:1.2;
 }
 
 .nomor{
@@ -325,23 +288,6 @@ td{
 
 .kosong{
     color:#999;
-}
-
-.selesai{
-    text-decoration:line-through;
-    opacity:0.6;
-}
-
-.btn-selesai{
-    background:#28a745;
-    border:none;
-    color:white;
-    padding:5px 8px;
-    border-radius:7px;
-    cursor:pointer;
-    font-size:12px;
-    margin:0;
-    width:auto;
 }
 
 .action-buttons{
@@ -439,6 +385,18 @@ footer{
     background:#444;
 }
 
+.dark .setting-sidebar{
+    background:#2b2b2b;
+}
+
+.dark .sidebar-item{
+    background:#444;
+}
+
+.dark .sidebar-item p{
+    color:#ddd;
+}
+
 .dashboard-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -469,67 +427,70 @@ footer{
     margin-top:3px;
 }
 
+.menu-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.menu-box{
+    background:#fff0f5;
+    border:2px solid #fbb1bd;
+    border-radius:20px;
+    padding:25px 15px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.menu-box:hover{
+    transform:scale(1.03);
+}
+
+.menu-icon{
+    font-size:35px;
+}
+
+.menu-text{
+    margin-top:10px;
+    font-weight:bold;
+    color:var(--pink4);
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="setting-overlay" id="settingOverlay" onclick="toggleSetting()"></div>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<div class="mobile-container">
+<div class="setting-sidebar" id="sidebar">
 
-<header>
-
-<div class="setting-btn" onclick="toggleSetting()">
-⚙
+<div class="sidebar-header">
+⚙️ Pengaturan
 </div>
 
-<div class="setting-panel" id="settingPanel">
+<div class="sidebar-menu">
 
-<div class="setting-header">
+<div class="sidebar-item">
 
-<button class="close-setting" onclick="toggleSetting()">
-✕
+<h4>🔐 Login Admin</h4>
+
+<p>
+Masuk sebagai admin/guru untuk membuka fitur perpustakaan.
+</p>
+
+<button class="sidebar-btn" onclick="bukaLogin()">
+Login Admin
 </button>
 
-</div>
-
-<div class="setting-menu">
-
-<div class="setting-item" onclick="bukaLogin()">
-<div class="setting-icon">🔐</div>
-<div>Login Admin</div>
-</div>
-
-<div class="setting-item" onclick="darkMode()">
-<div class="setting-icon">🌙</div>
-<div>Dark Mode</div>
-</div>
-
-<div class="setting-item">
-<div class="setting-icon">📥</div>
-<div>Download</div>
-</div>
-
-<div class="setting-item">
-<div class="setting-icon">📚</div>
-<div>Tentang Aplikasi</div>
-</div>
-
-</div>
-
-<div class="login-container" id="loginContainer">
-
-<div class="login-title">
-🔐 Login Admin
-</div>
+<div class="login-box" id="loginBox">
 
 <input
 type="text"
 id="usernameAdmin"
 placeholder="Username Admin"
 autocomplete="off"
-spellcheck="false"
 >
 
 <input
@@ -539,9 +500,11 @@ placeholder="Password Admin"
 autocomplete="new-password"
 >
 
-<button class="setting-login-btn" onclick="loginAdmin()">
+<button class="sidebar-btn" onclick="loginAdmin()">
 Masuk
 </button>
+
+</div>
 
 <div class="admin-badge" id="adminBadge">
 ✅ Admin Sudah Login
@@ -549,7 +512,7 @@ Masuk
 
 <button
 id="logoutBtn"
-class="setting-login-btn logout-btn hidden"
+class="sidebar-btn logout-btn hidden"
 onclick="logoutAdmin()"
 >
 🚪 Logout Admin
@@ -558,6 +521,16 @@ onclick="logoutAdmin()"
 </div>
 
 </div>
+
+</div>
+
+<div class="mobile-container">
+
+<header>
+
+<button class="setting-btn" onclick="toggleSidebar()">
+☰
+</button>
 
 <h1>📚 E-Perpus Pinky</h1>
 
@@ -601,9 +574,29 @@ onclick="logoutAdmin()"
 
 </div>
 
+<div id="menuAdmin" class="card hidden">
+
+<h3>📚 Menu Perpustakaan</h3>
+
+<div class="menu-grid">
+
+<div class="menu-box" onclick="bukaPinjam()">
+<div class="menu-icon">📖</div>
+<div class="menu-text">Pinjam Buku</div>
+</div>
+
+<div class="menu-box" onclick="bukaKembali()">
+<div class="menu-icon">📦</div>
+<div class="menu-text">Kembalikan Buku</div>
+</div>
+
+</div>
+
+</div>
+
 <div id="step1" class="card hidden">
 
-<h3>1. Cari Buku</h3>
+<h3>📖 Pinjam Buku</h3>
 
 <select id="cariBuku" onchange="tampilCover()">
 
@@ -638,14 +631,14 @@ src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
 >
 
 <button onclick="nextStep(2)">
-Cari & Ambil Buku
+Lanjut
 </button>
 
 </div>
 
 <div id="step2" class="card hidden">
 
-<h3>2. Cek Kondisi Buku</h3>
+<h3>📘 Cek Kondisi Buku</h3>
 
 <label>
 
@@ -660,14 +653,14 @@ style="width:auto;"
 </label>
 
 <button onclick="checkKondisi()">
-Lanjut ke Petugas
+Lanjut
 </button>
 
 </div>
 
 <div id="step3" class="card hidden">
 
-<h3>3. Data Peminjaman</h3>
+<h3>👨‍🎓 Data Peminjaman</h3>
 
 <select id="kelasSiswa" onchange="loadNamaSiswa()">
 
@@ -675,14 +668,6 @@ Lanjut ke Petugas
 
 <option>XI-1</option>
 <option>XI-2</option>
-<option>XI-3</option>
-<option>XI-4</option>
-<option>XI-5</option>
-<option>XI-6</option>
-<option>XI-7</option>
-<option>XI-8</option>
-<option>XI-9</option>
-<option>XI-10</option>
 
 </select>
 
@@ -710,12 +695,87 @@ Konfirmasi Peminjaman
 
 <div id="step4" class="card hidden">
 
-<h3>4. Status Peminjaman</h3>
+<h3>✅ Status Peminjaman</h3>
 
 <div id="detailPinjam" class="status-box"></div>
 
-<button onclick="peminjamanBaru()">
-➕ Buat Peminjaman Baru
+<button onclick="kembaliMenu()">
+⬅ Kembali ke Menu
+</button>
+
+</div>
+
+<div id="pengembalianCard" class="card hidden">
+
+<h3>📦 Pengembalian Buku</h3>
+
+<select id="bukuKembali" onchange="tampilCoverKembali()">
+
+<option value="">-- Pilih Buku --</option>
+
+<option>Pen. Agama Islam</option>
+<option>PKN</option>
+<option>Bahasa Indonesia</option>
+<option>Bahasa Inggris</option>
+<option>Seni Budaya</option>
+<option>PJOK</option>
+<option>Matematika</option>
+<option>Fisika</option>
+<option>Sejarah Indonesia</option>
+<option>Biologi</option>
+<option>Kimia</option>
+<option>Informatika</option>
+
+</select>
+
+<input
+type="number"
+id="jumlahKembali"
+placeholder="Jumlah Buku Dikembalikan"
+min="1"
+max="10"
+>
+
+<img
+id="coverKembali"
+src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
+>
+
+<select id="kelasKembali" onchange="loadNamaKembali()">
+
+<option value="">Pilih Kelas</option>
+
+<option>XI-1</option>
+<option>XI-2</option>
+<option>XI-3</option>
+<option>XI-4</option>
+<option>XI-5</option>
+<option>XI-6</option>
+<option>XI-7</option>
+<option>XI-8</option>
+<option>XI-9</option>
+<option>XI-10</option>
+
+</select>
+
+<div class="dropdown-container">
+
+<input
+type="text"
+id="searchNamaKembali"
+placeholder="🔍 Cari nama siswa..."
+onkeyup="filterNamaKembali()"
+>
+
+<div
+id="dropdownNamaKembali"
+class="dropdown-list hidden">
+</div>
+
+</div>
+
+<button onclick="prosesKembali()">
+Konfirmasi Pengembalian
 </button>
 
 </div>
@@ -726,7 +786,7 @@ Konfirmasi Peminjaman
 
 <div class="table-container">
 
-<table id="tabelRiwayat">
+<table>
 
 <thead>
 
@@ -740,7 +800,6 @@ Konfirmasi Peminjaman
 <th>Tanggal</th>
 <th>Jam</th>
 <th>Status</th>
-<th>Selesai</th>
 
 </tr>
 
@@ -752,8 +811,8 @@ Konfirmasi Peminjaman
 
 <td class="nomor">1</td>
 
-<td colspan="8" class="kosong">
-Belum ada riwayat peminjaman
+<td colspan="7" class="kosong">
+Belum ada riwayat
 </td>
 
 </tr>
@@ -775,9 +834,9 @@ Dipinjam
 
 <button
 class="btn-filter"
-onclick="filterRiwayat('Selesai')"
+onclick="filterRiwayat('Dikembalikan')"
 >
-Selesai
+Dikembalikan
 </button>
 
 <button
@@ -800,7 +859,7 @@ id="downloadBtn"
 class="btn-download hidden"
 onclick="downloadExcel()"
 >
-📥 Download Riwayat
+📥 Download
 </button>
 
 </div>
@@ -816,6 +875,20 @@ Dibuat Oleh Fahrul Lamusu
 </div>
 
 <script>
+
+/* ====================== */
+/* SIDEBAR */
+/* ====================== */
+
+function toggleSidebar(){
+
+document.getElementById("sidebar")
+.classList.toggle("active");
+
+document.getElementById("overlay")
+.classList.toggle("active");
+
+}
 
 /* ====================== */
 /* DARK MODE */
@@ -850,35 +923,17 @@ minute:'2-digit'
 },1000);
 
 /* ====================== */
-/* MENU PENGATURAN */
-/* ====================== */
-
-function toggleSetting(){
-
-let panel =
-document.getElementById("settingPanel");
-
-let overlay =
-document.getElementById("settingOverlay");
-
-panel.classList.toggle("active");
-overlay.classList.toggle("active");
-
-}
-
-function bukaLogin(){
-
-document
-.getElementById("loginContainer")
-.classList.toggle("active");
-
-}
-
-/* ====================== */
 /* LOGIN ADMIN */
 /* ====================== */
 
 let isAdmin = false;
+
+function bukaLogin(){
+
+document.getElementById("loginBox")
+.classList.toggle("active");
+
+}
 
 function loginAdmin(){
 
@@ -898,7 +953,10 @@ isAdmin = true;
 
 localStorage.setItem("adminLogin","true");
 
-document.getElementById("step1")
+document.getElementById("usernameAdmin").value = "";
+document.getElementById("passwordAdmin").value = "";
+
+document.getElementById("menuAdmin")
 .classList.remove("hidden");
 
 document.getElementById("hapusBtn")
@@ -913,12 +971,9 @@ document.getElementById("adminBadge")
 document.getElementById("logoutBtn")
 .classList.remove("hidden");
 
-/* HAPUS ISI INPUT AGAR TIDAK TERSIMPAN */
-
-document.getElementById("usernameAdmin").value = "";
-document.getElementById("passwordAdmin").value = "";
-
 alert("Login Admin Berhasil!");
+
+toggleSidebar();
 
 }else{
 
@@ -939,6 +994,9 @@ isAdmin = false;
 
 localStorage.removeItem("adminLogin");
 
+document.getElementById("menuAdmin")
+.classList.add("hidden");
+
 document.getElementById("step1")
 .classList.add("hidden");
 
@@ -949,6 +1007,9 @@ document.getElementById("step3")
 .classList.add("hidden");
 
 document.getElementById("step4")
+.classList.add("hidden");
+
+document.getElementById("pengembalianCard")
 .classList.add("hidden");
 
 document.getElementById("hapusBtn")
@@ -963,10 +1024,9 @@ document.getElementById("adminBadge")
 document.getElementById("logoutBtn")
 .classList.add("hidden");
 
-document.getElementById("usernameAdmin").value = "";
-document.getElementById("passwordAdmin").value = "";
-
 alert("Logout berhasil!");
+
+toggleSidebar();
 
 }
 
@@ -985,7 +1045,7 @@ if(savedLogin === "true"){
 
 isAdmin = true;
 
-document.getElementById("step1")
+document.getElementById("menuAdmin")
 .classList.remove("hidden");
 
 document.getElementById("hapusBtn")
@@ -1002,16 +1062,13 @@ document.getElementById("logoutBtn")
 
 }
 
-/* PAKSA INPUT LOGIN KOSONG */
-
-document.getElementById("usernameAdmin").value = "";
-document.getElementById("passwordAdmin").value = "";
-
 let savedDark =
 localStorage.getItem("darkMode");
 
 if(savedDark === "true"){
+
 document.body.classList.add("dark");
+
 }
 
 });
@@ -1035,7 +1092,7 @@ const dataSiswa = {
 "Chelsea Ishak",
 "Cholid Azzam Surantinojo",
 "Fadel Nur Rizki Wakid",
-"Fahrul Lamusu",
+"Fahrul Lamusu"
 "Fakhriansyah Eka Tabri",
 "Fatriyaningsih Putri Yasin",
 "Fauzan Fatih Tolinggilo",
@@ -1058,13 +1115,14 @@ const dataSiswa = {
 "Putri Nuraini Nento",
 "Sarah Zetira Alaydrus",
 "Shawwan Sobri I. Maunty",
-"Siti Aura Rivai"
+"Siti Aura Rivai"    
 
 ]
 
 };
 
 let namaDipilih = "";
+let namaKembaliDipilih = "";
 
 function loadNamaSiswa(){
 
@@ -1089,16 +1147,6 @@ ${nama}
 </div>
 `;
 
-});
-
-}else{
-
-dropdown.innerHTML = `
-<div class="dropdown-item">
-Belum ada daftar nama
-</div>
-`;
-
 }
 
 dropdown.classList.remove("hidden");
@@ -1108,10 +1156,11 @@ dropdown.classList.remove("hidden");
 function filterNama(){
 
 let input =
-document.getElementById("searchNama").value.toLowerCase();
+document.getElementById("searchNama")
+.value.toLowerCase();
 
 let items =
-document.querySelectorAll(".dropdown-item");
+document.querySelectorAll("#dropdownNama .dropdown-item");
 
 items.forEach(item=>{
 
@@ -1134,6 +1183,61 @@ document.getElementById("dropdownNama")
 .classList.add("hidden");
 
 }
+
+/* ====================== */
+/* MENU */
+/* ====================== */
+
+function bukaPinjam(){
+
+document.getElementById("pengembalianCard")
+.classList.add("hidden");
+
+nextStep(1);
+
+}
+
+function bukaKembali(){
+
+document.getElementById("step1")
+.classList.add("hidden");
+
+document.getElementById("step2")
+.classList.add("hidden");
+
+document.getElementById("step3")
+.classList.add("hidden");
+
+document.getElementById("step4")
+.classList.add("hidden");
+
+document.getElementById("pengembalianCard")
+.classList.remove("hidden");
+
+}
+
+function kembaliMenu(){
+
+document.getElementById("step1")
+.classList.add("hidden");
+
+document.getElementById("step2")
+.classList.add("hidden");
+
+document.getElementById("step3")
+.classList.add("hidden");
+
+document.getElementById("step4")
+.classList.add("hidden");
+
+document.getElementById("pengembalianCard")
+.classList.add("hidden");
+
+}
+
+/* ====================== */
+/* PINJAM */
+/* ====================== */
 
 function nextStep(step){
 
@@ -1174,6 +1278,17 @@ let buku =
 document.getElementById("cariBuku").value;
 
 document.getElementById("coverBuku").src =
+"https://via.placeholder.com/120x170/ff85a2/ffffff?text="
++ encodeURIComponent(buku);
+
+}
+
+function tampilCoverKembali(){
+
+let buku =
+document.getElementById("bukuKembali").value;
+
+document.getElementById("coverKembali").src =
 "https://via.placeholder.com/120x170/ff85a2/ffffff?text="
 + encodeURIComponent(buku);
 
@@ -1257,33 +1372,9 @@ ${kembali.toLocaleDateString('id-ID')}
 
 `;
 
-tambahRiwayat(
-namaDipilih,
-kelas,
-buku,
-jumlah,
-tanggal,
-jam
-);
-
-alert("Peminjaman berhasil!");
-
-nextStep(4);
-
-}
-
-function tambahRiwayat(
-nama,
-kelas,
-buku,
-jumlah,
-tanggal,
-jam
-){
-
 dataRiwayat.push({
 
-nama,
+nama:namaDipilih,
 kelas,
 buku,
 jumlah,
@@ -1299,10 +1390,137 @@ JSON.stringify(dataRiwayat)
 );
 
 tampilkanRiwayat();
-
 updateDashboard();
 
+alert("Peminjaman berhasil!");
+
+nextStep(4);
+
 }
+
+/* ====================== */
+/* PENGEMBALIAN */
+/* ====================== */
+
+function loadNamaKembali(){
+
+let kelas =
+document.getElementById("kelasKembali").value;
+
+let dropdown =
+document.getElementById("dropdownNamaKembali");
+
+dropdown.innerHTML = "";
+
+if(dataSiswa[kelas]){
+
+dataSiswa[kelas].forEach(nama=>{
+
+dropdown.innerHTML += `
+<div
+class="dropdown-item"
+onclick="pilihNamaKembali('${nama}')"
+>
+${nama}
+</div>
+`;
+
+}
+
+dropdown.classList.remove("hidden");
+
+}
+
+function filterNamaKembali(){
+
+let input =
+document.getElementById("searchNamaKembali")
+.value.toLowerCase();
+
+let items =
+document.querySelectorAll("#dropdownNamaKembali .dropdown-item");
+
+items.forEach(item=>{
+
+item.style.display =
+item.innerText.toLowerCase().includes(input)
+? "block"
+: "none";
+
+});
+
+}
+
+function pilihNamaKembali(nama){
+
+namaKembaliDipilih = nama;
+
+document.getElementById("searchNamaKembali").value = nama;
+
+document.getElementById("dropdownNamaKembali")
+.classList.add("hidden");
+
+}
+
+function prosesKembali(){
+
+let kelas =
+document.getElementById("kelasKembali").value;
+
+let buku =
+document.getElementById("bukuKembali").value;
+
+let jumlah =
+document.getElementById("jumlahKembali").value;
+
+if(!kelas || !namaKembaliDipilih || !buku || !jumlah){
+
+alert("Lengkapi data pengembalian!");
+
+return;
+
+}
+
+let now = new Date();
+
+let tanggal =
+now.toLocaleDateString('id-ID');
+
+let jam =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+dataRiwayat.push({
+
+nama:namaKembaliDipilih,
+kelas,
+buku,
+jumlah,
+tanggal,
+jam,
+status:"Dikembalikan"
+
+});
+
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
+
+tampilkanRiwayat();
+updateDashboard();
+
+alert("Buku berhasil dikembalikan!");
+
+kembaliMenu();
+
+}
+
+/* ====================== */
+/* RIWAYAT */
+/* ====================== */
 
 function tampilkanRiwayat(filter = "Semua"){
 
@@ -1314,7 +1532,12 @@ table.innerHTML = "";
 let filteredData = dataRiwayat;
 
 if(filter !== "Semua"){
-filteredData = dataRiwayat.filter(item => item.status === filter);
+
+filteredData =
+dataRiwayat.filter(
+item => item.status === filter
+);
+
 }
 
 if(filteredData.length === 0){
@@ -1325,8 +1548,8 @@ table.innerHTML = `
 
 <td class="nomor">1</td>
 
-<td colspan="8" class="kosong">
-Belum ada riwayat peminjaman
+<td colspan="7" class="kosong">
+Belum ada riwayat
 </td>
 
 </tr>
@@ -1357,74 +1580,17 @@ row.innerHTML = `
 
 <td>${item.jam}</td>
 
-<td class="status">${item.status}</td>
-
-<td>
-
-<button
-class="btn-selesai"
-onclick="tandaiSelesai(this,${dataRiwayat.indexOf(item)})"
->
-✔
-</button>
-
-</td>
+<td>${item.status}</td>
 
 `;
-
-if(item.status === "Selesai"){
-
-row.classList.add("selesai");
-
-}
 
 });
 
 }
 
-function tandaiSelesai(btn,index){
-
-let row =
-btn.parentElement.parentElement;
-
-row.classList.toggle("selesai");
-
-dataRiwayat[index].status = "Selesai";
-
-localStorage.setItem(
-"riwayatPerpus",
-JSON.stringify(dataRiwayat)
-);
-
-row.querySelector(".status").innerHTML =
-"Selesai";
-
-}
-
 function filterRiwayat(status){
+
 tampilkanRiwayat(status);
-}
-
-function peminjamanBaru(){
-
-document.getElementById("kelasSiswa").value = "";
-
-document.getElementById("searchNama").value = "";
-
-document.getElementById("cariBuku").value = "";
-
-document.getElementById("jumlahBuku").value = "";
-
-document.getElementById("dropdownNama").innerHTML = "";
-
-document.getElementById("dropdownNama")
-.classList.add("hidden");
-
-document.getElementById("kondisiBuku").checked = false;
-
-namaDipilih = "";
-
-nextStep(1);
 
 }
 
@@ -1454,7 +1620,6 @@ alert("Download berhasil!");
 }
 
 tampilkanRiwayat();
-
 updateDashboard();
 
 </script>
