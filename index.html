@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>E-Perpus Pinky</title>
 
@@ -69,30 +69,30 @@ header p{
 
 .setting-btn{
     position:absolute;
-    top:12px;
-    left:12px;
-    width:42px;
-    height:42px;
-    border-radius:14px;
+    top:10px;
+    left:10px;
+    width:36px;
+    height:36px;
+    border-radius:12px;
     border:none;
     background:white;
     color:var(--pink4);
-    font-size:18px;
+    font-size:16px;
     cursor:pointer;
-    z-index:9999;
+    z-index:999999;
     box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
 
 .setting-menu{
     position:absolute;
-    top:60px;
-    left:12px;
+    top:55px;
+    left:10px;
     width:220px;
     background:#2d2328;
     border-radius:22px;
     overflow:hidden;
     display:none;
-    z-index:9999;
+    z-index:999999;
     box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
@@ -103,7 +103,7 @@ header p{
 .setting-item{
     padding:18px;
     color:white;
-    font-size:17px;
+    font-size:16px;
     cursor:pointer;
     border-bottom:1px solid rgba(255,255,255,0.08);
 }
@@ -124,6 +124,9 @@ header p{
     color:white;
     font-size:28px;
     cursor:pointer;
+    width:auto;
+    margin:0;
+    padding:0;
 }
 
 /* LOGIN */
@@ -135,7 +138,7 @@ header p{
     display:none;
     align-items:center;
     justify-content:center;
-    z-index:99999;
+    z-index:9999999;
 }
 
 .login-popup.active{
@@ -156,7 +159,8 @@ header p{
     text-align:center;
 }
 
-input,select{
+input,
+select{
     width:100%;
     padding:14px;
     border:2px solid var(--pink2);
@@ -252,10 +256,6 @@ h3{
     cursor:pointer;
 }
 
-.menu-box:hover{
-    transform:scale(1.02);
-}
-
 .menu-icon{
     font-size:55px;
 }
@@ -314,16 +314,16 @@ td{
 .action-buttons{
     display:flex;
     flex-wrap:wrap;
-    gap:8px;
+    gap:6px;
     margin-top:15px;
 }
 
 .action-buttons button{
     width:auto;
-    padding:10px 14px;
-    border-radius:12px;
+    padding:8px 11px;
+    border-radius:10px;
     margin:0;
-    font-size:13px;
+    font-size:11px;
 }
 
 .btn-download{
@@ -403,25 +403,43 @@ footer{
 
 <header>
 
-<button class="setting-btn" onclick="toggleSetting()">
+<button
+type="button"
+class="setting-btn"
+onclick="toggleSetting()"
+>
 ☰
 </button>
 
 <div class="setting-menu" id="settingMenu">
 
 <div class="close-menu">
-<button onclick="toggleSetting()">×</button>
+<button
+type="button"
+onclick="toggleSetting()"
+>
+×
+</button>
 </div>
 
-<div class="setting-item" onclick="bukaLogin()">
+<div
+class="setting-item"
+onclick="bukaLogin()"
+>
 🔐 Login Admin
 </div>
 
-<div class="setting-item" onclick="darkMode()">
+<div
+class="setting-item"
+onclick="darkMode()"
+>
 🌙 Dark Mode
 </div>
 
-<div class="setting-item" onclick="downloadExcel()">
+<div
+class="setting-item"
+onclick="downloadExcel()"
+>
 📥 Download Riwayat
 </div>
 
@@ -459,11 +477,15 @@ placeholder="Password Admin"
 autocomplete="new-password"
 >
 
-<button onclick="loginAdmin()">
+<button
+type="button"
+onclick="loginAdmin()"
+>
 Masuk
 </button>
 
 <button
+type="button"
 style="background:#dc3545;"
 onclick="tutupLogin()"
 >
@@ -542,6 +564,7 @@ onclick="logoutAdmin()"
 <h3>📖 Pinjam Buku - Pilih Buku</h3>
 
 <select id="cariBuku">
+
 <option value="">-- Pilih Buku --</option>
 
 <option>Pen. Agama Islam</option>
@@ -624,6 +647,7 @@ Konfirmasi Peminjaman
 <h3>📥 Kembalikan Buku - Pilih Buku</h3>
 
 <select id="bukuKembali">
+
 <option value="">-- Pilih Buku --</option>
 
 <option>Pen. Agama Islam</option>
@@ -816,6 +840,25 @@ minute:'2-digit'
 
 },1000);
 
+/* SETTING */
+
+function toggleSetting(){
+
+const menu =
+document.getElementById("settingMenu");
+
+if(menu.classList.contains("active")){
+
+menu.classList.remove("active");
+
+}else{
+
+menu.classList.add("active");
+
+}
+
+}
+
 /* DARK MODE */
 
 function darkMode(){
@@ -823,20 +866,14 @@ function darkMode(){
 document.body.classList.toggle("dark");
 
 if(document.body.classList.contains("dark")){
+
 localStorage.setItem("darkMode","true");
+
 }else{
+
 localStorage.setItem("darkMode","false");
-}
 
 }
-
-/* SETTING */
-
-function toggleSetting(){
-
-document
-.getElementById("settingMenu")
-.classList.toggle("active");
 
 }
 
@@ -847,6 +884,10 @@ function bukaLogin(){
 document
 .getElementById("loginPopup")
 .classList.add("active");
+
+document
+.getElementById("settingMenu")
+.classList.remove("active");
 
 }
 
@@ -995,11 +1036,11 @@ ${nama}
 </div>
 `;
 
-});
-
 }
 
 dropdown.classList.remove("hidden");
+
+}
 
 }
 
@@ -1060,9 +1101,9 @@ ${nama}
 
 });
 
-}
-
 dropdown.classList.remove("hidden");
+
+}
 
 }
 
@@ -1425,7 +1466,7 @@ dataRiwayat.forEach(item=>{
 
 totalBuku += Number(item.jumlah);
 
-if(!siswa.includes(item.nama')){
+if(!siswa.includes(item.nama)){
 siswa.push(item.nama);
 }
 
