@@ -36,6 +36,7 @@ body{
     background:white;
     box-shadow:0 0 20px rgba(0,0,0,0.1);
     position:relative;
+    overflow:hidden;
 }
 
 header{
@@ -50,7 +51,7 @@ header{
 }
 
 /* ====================== */
-/* PENGATURAN */
+/* MENU PENGATURAN STYLE CHROME */
 /* ====================== */
 
 .setting-btn{
@@ -73,102 +74,136 @@ header{
     box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
 
+.setting-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.3);
+    z-index:99998;
+    display:none;
+}
+
+.setting-overlay.active{
+    display:block;
+}
+
 .setting-panel{
     position:absolute;
     top:55px;
-    left:8px;
-    width:220px;
-    background:white;
-    border-radius:18px;
-    padding:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    left:10px;
+    width:320px;
+    background:#2f2626;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
     z-index:99999;
     display:none;
+    animation:muncul .2s ease;
+}
+
+@keyframes muncul{
+    from{
+        opacity:0;
+        transform:translateY(-10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 .setting-panel.active{
     display:block;
 }
 
-.setting-panel h4{
-    color:var(--pink4);
-    margin-bottom:12px;
+.setting-header{
+    display:flex;
+    justify-content:flex-end;
+    padding:10px;
+    background:#3a2f2f;
+}
+
+.close-setting{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    background:#4a3d3d;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.setting-menu{
+    padding:10px 0;
 }
 
 .setting-item{
-    background:#fff0f5;
-    border:2px solid var(--pink2);
-    border-radius:14px;
-    padding:12px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    color:white;
+    padding:16px 20px;
+    cursor:pointer;
+    transition:0.2s;
+    font-size:17px;
 }
 
-.setting-item p{
-    font-size:12px;
-    margin-top:5px;
-    color:#666;
-    line-height:1.5;
+.setting-item:hover{
+    background:rgba(255,255,255,0.08);
+}
+
+.setting-icon{
+    font-size:22px;
+    width:25px;
+    text-align:center;
+}
+
+.login-container{
+    padding:15px 20px 20px;
+    display:none;
+}
+
+.login-container.active{
+    display:block;
+}
+
+.login-title{
+    color:white;
+    margin-bottom:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.login-container input{
+    margin-top:12px;
+    background:white;
 }
 
 .setting-login-btn{
     width:100%;
-    margin-top:10px;
-    padding:10px;
+    margin-top:15px;
+    padding:14px;
     border:none;
-    border-radius:12px;
+    border-radius:14px;
     background:linear-gradient(135deg,var(--pink1),var(--pink4));
     color:white;
     font-weight:bold;
     cursor:pointer;
+    font-size:16px;
 }
 
-.login-box{
-    display:none;
-    margin-top:10px;
-}
-
-.login-box.active{
-    display:block;
-}
-
-.close-setting{
-    position:absolute;
-    top:8px;
-    right:8px;
-    width:24px;
-    height:24px;
-    border:none;
-    border-radius:50%;
-    background:#eee;
-    color:#333;
-    font-size:12px;
-    cursor:pointer;
-    padding:0;
-    margin:0;
+.logout-btn{
+    background:#dc3545;
 }
 
 .admin-badge{
-    margin-top:10px;
+    margin-top:12px;
     background:#28a745;
     color:white;
-    padding:8px;
-    border-radius:10px;
-    text-align:center;
-    font-size:12px;
-    display:none;
-}
-
-/* TOMBOL LOGOUT */
-
-.logout-btn{
-    width:100%;
-    margin-top:10px;
-    padding:10px;
-    border:none;
+    padding:12px;
     border-radius:12px;
-    background:#dc3545;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+    text-align:center;
+    font-size:14px;
     display:none;
 }
 
@@ -404,18 +439,6 @@ footer{
     background:#444;
 }
 
-.dark .setting-panel{
-    background:#333;
-}
-
-.dark .setting-item{
-    background:#444;
-}
-
-.dark .setting-item p{
-    color:#ddd;
-}
-
 .dashboard-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -451,6 +474,8 @@ footer{
 
 <body>
 
+<div class="setting-overlay" id="settingOverlay" onclick="toggleSetting()"></div>
+
 <div class="mobile-container">
 
 <header>
@@ -461,51 +486,70 @@ footer{
 
 <div class="setting-panel" id="settingPanel">
 
+<div class="setting-header">
+
 <button class="close-setting" onclick="toggleSetting()">
 ✕
 </button>
 
-<h4>⚙️ Pengaturan</h4>
+</div>
+
+<div class="setting-menu">
+
+<div class="setting-item" onclick="bukaLogin()">
+<div class="setting-icon">🔐</div>
+<div>Login Admin</div>
+</div>
+
+<div class="setting-item" onclick="darkMode()">
+<div class="setting-icon">🌙</div>
+<div>Dark Mode</div>
+</div>
 
 <div class="setting-item">
+<div class="setting-icon">📥</div>
+<div>Download</div>
+</div>
 
-<b>🔐 Login Admin</b>
+<div class="setting-item">
+<div class="setting-icon">📚</div>
+<div>Tentang Aplikasi</div>
+</div>
 
-<p>
-Masuk sebagai admin/guru untuk membuka fitur peminjaman buku.
-</p>
+</div>
 
-<button class="setting-login-btn" onclick="bukaLogin()">
-Login Admin
-</button>
+<div class="login-container" id="loginContainer">
 
-<div class="login-box" id="loginBox">
+<div class="login-title">
+🔐 Login Admin
+</div>
 
 <input
 type="text"
 id="usernameAdmin"
 placeholder="Username Admin"
+autocomplete="off"
+spellcheck="false"
 >
 
 <input
 type="password"
 id="passwordAdmin"
 placeholder="Password Admin"
+autocomplete="new-password"
 >
 
 <button class="setting-login-btn" onclick="loginAdmin()">
 Masuk
 </button>
 
-</div>
-
 <div class="admin-badge" id="adminBadge">
 ✅ Admin Sudah Login
 </div>
 
 <button
-class="logout-btn"
 id="logoutBtn"
+class="setting-login-btn logout-btn hidden"
 onclick="logoutAdmin()"
 >
 🚪 Logout Admin
@@ -781,7 +825,6 @@ function darkMode(){
 
 document.body.classList.toggle("dark");
 
-/* SIMPAN DARK MODE */
 if(document.body.classList.contains("dark")){
 localStorage.setItem("darkMode","true");
 }else{
@@ -807,7 +850,7 @@ minute:'2-digit'
 },1000);
 
 /* ====================== */
-/* PENGATURAN */
+/* MENU PENGATURAN */
 /* ====================== */
 
 function toggleSetting(){
@@ -815,16 +858,19 @@ function toggleSetting(){
 let panel =
 document.getElementById("settingPanel");
 
+let overlay =
+document.getElementById("settingOverlay");
+
 panel.classList.toggle("active");
+overlay.classList.toggle("active");
 
 }
 
 function bukaLogin(){
 
-let box =
-document.getElementById("loginBox");
-
-box.classList.toggle("active");
+document
+.getElementById("loginContainer")
+.classList.toggle("active");
 
 }
 
@@ -850,7 +896,6 @@ password === "12345"
 
 isAdmin = true;
 
-/* SIMPAN LOGIN */
 localStorage.setItem("adminLogin","true");
 
 document.getElementById("step1")
@@ -866,11 +911,14 @@ document.getElementById("adminBadge")
 .style.display = "block";
 
 document.getElementById("logoutBtn")
-.style.display = "block";
+.classList.remove("hidden");
+
+/* HAPUS ISI INPUT AGAR TIDAK TERSIMPAN */
+
+document.getElementById("usernameAdmin").value = "";
+document.getElementById("passwordAdmin").value = "";
 
 alert("Login Admin Berhasil!");
-
-toggleSetting();
 
 }else{
 
@@ -879,10 +927,6 @@ alert("Username atau Password salah!");
 }
 
 }
-
-/* ====================== */
-/* LOGOUT ADMIN */
-/* ====================== */
 
 function logoutAdmin(){
 
@@ -917,27 +961,22 @@ document.getElementById("adminBadge")
 .style.display = "none";
 
 document.getElementById("logoutBtn")
-.style.display = "none";
+.classList.add("hidden");
 
 document.getElementById("usernameAdmin").value = "";
-
 document.getElementById("passwordAdmin").value = "";
 
 alert("Logout berhasil!");
 
-toggleSetting();
-
 }
 
 }
 
 /* ====================== */
-/* AUTO LOGIN SETELAH REFRESH */
+/* AUTO LOGIN */
 /* ====================== */
 
 window.addEventListener("DOMContentLoaded", function(){
-
-/* AUTO LOGIN ADMIN */
 
 let savedLogin =
 localStorage.getItem("adminLogin");
@@ -959,19 +998,20 @@ document.getElementById("adminBadge")
 .style.display = "block";
 
 document.getElementById("logoutBtn")
-.style.display = "block";
+.classList.remove("hidden");
 
 }
 
-/* AUTO DARK MODE */
+/* PAKSA INPUT LOGIN KOSONG */
+
+document.getElementById("usernameAdmin").value = "";
+document.getElementById("passwordAdmin").value = "";
 
 let savedDark =
 localStorage.getItem("darkMode");
 
 if(savedDark === "true"){
-
 document.body.classList.add("dark");
-
 }
 
 });
