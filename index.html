@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>E-Perpus Pinky</title>
 
@@ -34,203 +34,129 @@ body{
     max-width:450px;
     min-height:100vh;
     background:white;
-    box-shadow:0 0 20px rgba(0,0,0,0.1);
     position:relative;
     overflow:hidden;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
 }
+
+/* HEADER */
 
 header{
     background:linear-gradient(135deg,var(--pink1),var(--pink4));
     color:white;
     text-align:center;
     padding:25px 20px 40px;
-    border-bottom-left-radius:30px;
-    border-bottom-right-radius:30px;
+    border-bottom-left-radius:35px;
+    border-bottom-right-radius:35px;
     position:relative;
-}
-
-.setting-btn{
-    position:absolute;
-    top:18px;
-    left:18px;
-    width:52px;
-    height:52px;
-    border-radius:18px;
-    border:none;
-    background:white;
-    color:var(--pink4);
-    font-size:24px;
-    cursor:pointer;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-    z-index:1000;
-}
-
-.setting-panel{
-    position:absolute;
-    top:80px;
-    left:15px;
-    width:240px;
-    background:#2c1f24;
-    border-radius:25px;
-    overflow:hidden;
-    display:none;
-    z-index:9999;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
-}
-
-.setting-panel.active{
-    display:block;
-}
-
-.setting-header{
-    height:70px;
-    background:rgba(255,255,255,0.05);
-    position:relative;
-}
-
-.close-setting{
-    position:absolute;
-    top:15px;
-    right:15px;
-    width:42px;
-    height:42px;
-    border:none;
-    border-radius:50%;
-    background:rgba(255,255,255,0.08);
-    color:white;
-    font-size:22px;
-    cursor:pointer;
-}
-
-.setting-menu{
-    padding:10px 0;
-}
-
-.setting-item{
-    padding:18px 22px;
-    color:white;
-    font-size:18px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-    cursor:pointer;
-    transition:0.2s;
-}
-
-.setting-item:hover{
-    background:rgba(255,255,255,0.08);
-}
-
-.login-panel{
-    display:none;
-    padding:15px;
-    background:#fff;
-}
-
-.login-panel.active{
-    display:block;
-}
-
-.login-panel input{
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border:2px solid var(--pink2);
-    border-radius:14px;
-    font-size:15px;
-}
-
-.login-panel button{
-    width:100%;
-    margin-top:12px;
-}
-
-.admin-info{
-    margin-top:12px;
-    background:#28a745;
-    color:white;
-    padding:12px;
-    border-radius:12px;
-    text-align:center;
-    font-size:14px;
-    display:none;
-}
-
-.logout-btn{
-    background:#dc3545;
 }
 
 header h1{
     font-size:28px;
-    margin-top:10px;
+    margin-top:8px;
 }
 
 header p{
     margin-top:5px;
 }
 
-.dark-btn{
-    margin-top:18px;
-    background:white;
-    color:var(--pink4);
-    border:none;
-    padding:14px;
-    border-radius:18px;
-    width:100%;
-    font-weight:bold;
-    cursor:pointer;
+#jam{
     font-size:18px;
+    margin-top:8px;
 }
 
-.content{
-    padding:18px;
-}
+/* SETTING */
 
-.card{
+.setting-btn{
+    position:absolute;
+    top:12px;
+    left:12px;
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    border:none;
     background:white;
-    border:2px solid var(--pink2);
-    border-radius:25px;
-    padding:18px;
-    margin-bottom:20px;
-}
-
-h3{
     color:var(--pink4);
-    margin-bottom:15px;
-    font-size:22px;
+    font-size:18px;
+    cursor:pointer;
+    z-index:9999;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
 
-.menu-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+.setting-menu{
+    position:absolute;
+    top:60px;
+    left:12px;
+    width:220px;
+    background:#2d2328;
+    border-radius:22px;
+    overflow:hidden;
+    display:none;
+    z-index:9999;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-.menu-box{
-    background:#fff0f5;
-    border:2px solid var(--pink2);
-    border-radius:20px;
-    padding:20px;
-    text-align:center;
+.setting-menu.active{
+    display:block;
+}
+
+.setting-item{
+    padding:18px;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.setting-item:hover{
+    background:rgba(255,255,255,0.08);
+}
+
+.close-menu{
+    text-align:right;
+    padding:10px 15px;
+    background:rgba(255,255,255,0.05);
+}
+
+.close-menu button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:28px;
     cursor:pointer;
 }
 
-.menu-box:hover{
-    transform:scale(1.02);
+/* LOGIN */
+
+.login-popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
 }
 
-.menu-box div{
-    font-size:40px;
+.login-popup.active{
+    display:flex;
 }
 
-.menu-box p{
-    margin-top:10px;
-    font-weight:bold;
+.login-box{
+    width:90%;
+    max-width:330px;
+    background:white;
+    border-radius:25px;
+    padding:25px;
+}
+
+.login-box h3{
     color:var(--pink4);
+    margin-bottom:20px;
+    text-align:center;
 }
 
-input,
-select{
+input,select{
     width:100%;
     padding:14px;
     border:2px solid var(--pink2);
@@ -247,43 +173,125 @@ button{
     border-radius:16px;
     background:var(--pink1);
     color:white;
-    font-weight:bold;
-    margin-top:15px;
-    cursor:pointer;
     font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:15px;
+}
+
+/* CONTENT */
+
+.content{
+    padding:18px;
+}
+
+.card{
+    background:white;
+    border:2px solid var(--pink2);
+    border-radius:28px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+h3{
+    color:var(--pink4);
+    margin-bottom:15px;
+    font-size:22px;
 }
 
 .hidden{
     display:none !important;
 }
 
+/* DASHBOARD */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.dashboard-box{
+    background:#fff0f5;
+    border:2px solid var(--pink2);
+    border-radius:20px;
+    padding:12px;
+    text-align:center;
+}
+
+.dashboard-icon{
+    font-size:26px;
+}
+
+.dashboard-number{
+    font-size:24px;
+    font-weight:bold;
+    color:var(--pink4);
+    margin-top:5px;
+}
+
+.dashboard-label{
+    margin-top:5px;
+    font-size:13px;
+}
+
+/* MENU ADMIN */
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.menu-box{
+    background:#fff0f5;
+    border:2px solid var(--pink2);
+    border-radius:25px;
+    padding:25px 10px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.menu-box:hover{
+    transform:scale(1.02);
+}
+
+.menu-icon{
+    font-size:55px;
+}
+
+.menu-text{
+    margin-top:15px;
+    font-size:20px;
+    font-weight:bold;
+    color:var(--pink4);
+}
+
+/* STATUS */
+
 .status-box{
     background:#fff5f8;
-    padding:15px;
-    border-radius:18px;
+    padding:18px;
+    border-radius:20px;
     line-height:2;
 }
 
-#coverBuku{
-    width:120px;
-    display:block;
-    margin:15px auto;
-    border-radius:12px;
-}
+/* TABLE */
 
 .table-container{
     overflow-x:auto;
 }
 
 table{
-    border-collapse:collapse;
+    width:max-content;
     min-width:1000px;
+    border-collapse:collapse;
 }
 
 th{
     background:var(--pink1);
     color:white;
-    padding:12px;
+    padding:14px;
     white-space:nowrap;
 }
 
@@ -299,34 +307,31 @@ td{
     font-weight:bold;
 }
 
-.dashboard-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
+.kosong{
+    color:#999;
 }
 
-.dashboard-box{
-    background:#fff0f5;
-    border:2px solid var(--pink2);
-    border-radius:18px;
-    text-align:center;
-    padding:12px;
+.action-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:15px;
 }
 
-.dashboard-icon{
-    font-size:25px;
+.action-buttons button{
+    width:auto;
+    padding:10px 14px;
+    border-radius:12px;
+    margin:0;
+    font-size:13px;
 }
 
-.dashboard-number{
-    color:var(--pink4);
-    font-size:20px;
-    font-weight:bold;
-    margin-top:5px;
+.btn-download{
+    background:#6f42c1;
 }
 
-.dashboard-label{
-    font-size:12px;
-    margin-top:5px;
+.btn-hapus{
+    background:#dc3545;
 }
 
 .dropdown-container{
@@ -339,13 +344,13 @@ td{
     background:white;
     border:2px solid var(--pink2);
     border-radius:16px;
-    max-height:220px;
+    max-height:200px;
     overflow-y:auto;
-    z-index:99;
+    z-index:999;
 }
 
 .dropdown-item{
-    padding:14px;
+    padding:12px;
     cursor:pointer;
     border-bottom:1px solid #eee;
 }
@@ -354,34 +359,7 @@ td{
     background:#fff0f5;
 }
 
-.action-buttons{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:15px;
-}
-
-.action-buttons button{
-    width:auto;
-    margin:0;
-    padding:10px 14px;
-    border-radius:10px;
-    font-size:13px;
-}
-
-.btn-download{
-    background:#6f42c1;
-}
-
-.btn-hapus{
-    background:#dc3545;
-}
-
-footer{
-    text-align:center;
-    padding:25px;
-    color:#999;
-}
+/* DARK */
 
 .dark{
     background:#1e1e1e;
@@ -402,12 +380,18 @@ footer{
     color:white;
 }
 
+.dark .status-box{
+    background:#444;
+}
+
 .dark .dropdown-list{
     background:#444;
 }
 
-.dark .status-box{
-    background:#444;
+footer{
+    text-align:center;
+    padding:30px;
+    color:#999;
 }
 
 </style>
@@ -420,22 +404,16 @@ footer{
 <header>
 
 <button class="setting-btn" onclick="toggleSetting()">
-⚙
+☰
 </button>
 
-<div class="setting-panel" id="settingPanel">
+<div class="setting-menu" id="settingMenu">
 
-<div class="setting-header">
-
-<button class="close-setting" onclick="toggleSetting()">
-✕
-</button>
-
+<div class="close-menu">
+<button onclick="toggleSetting()">×</button>
 </div>
 
-<div class="setting-menu">
-
-<div class="setting-item" onclick="toggleLoginPanel()">
+<div class="setting-item" onclick="bukaLogin()">
 🔐 Login Admin
 </div>
 
@@ -444,16 +422,28 @@ footer{
 </div>
 
 <div class="setting-item" onclick="downloadExcel()">
-📥 Download
+📥 Download Riwayat
 </div>
 
-<div class="setting-item" onclick="tentangAplikasi()">
+<div class="setting-item">
 📚 Tentang Aplikasi
 </div>
 
 </div>
 
-<div class="login-panel" id="loginPanel">
+<h1>📚 E-Perpus Pinky</h1>
+<p>Tugas Informatika Kelas 11</p>
+<p id="jam"></p>
+
+</header>
+
+<!-- LOGIN -->
+
+<div class="login-popup" id="loginPopup">
+
+<div class="login-box">
+
+<h3>🔐 Login Admin</h3>
 
 <input
 type="text"
@@ -473,35 +463,20 @@ autocomplete="new-password"
 Masuk
 </button>
 
-<div class="admin-info" id="adminInfo">
-✅ Admin Sudah Login
-</div>
-
 <button
-id="logoutBtn"
-class="logout-btn hidden"
-onclick="logoutAdmin()"
+style="background:#dc3545;"
+onclick="tutupLogin()"
 >
-Logout Admin
+Tutup
 </button>
 
 </div>
 
 </div>
-
-<h1>📚 E-Perpus Pinky</h1>
-
-<p>Tugas Informatika Kelas 11</p>
-
-<p id="jam"></p>
-
-<button class="dark-btn" onclick="darkMode()">
-🌙 Dark Mode
-</button>
-
-</header>
 
 <div class="content">
+
+<!-- DASHBOARD -->
 
 <div class="card">
 
@@ -531,6 +506,8 @@ Logout Admin
 
 </div>
 
+<!-- MENU ADMIN -->
+
 <div id="menuAdmin" class="card hidden">
 
 <h3>📚 Menu Admin</h3>
@@ -538,25 +515,33 @@ Logout Admin
 <div class="menu-grid">
 
 <div class="menu-box" onclick="bukaPinjam()">
-<div>📖</div>
-<p>Pinjam Buku</p>
+<div class="menu-icon">📖</div>
+<div class="menu-text">Pinjam Buku</div>
 </div>
 
-<div class="menu-box" onclick="bukaKembalikan()">
-<div>📥</div>
-<p>Kembalikan Buku</p>
+<div class="menu-box" onclick="bukaKembali()">
+<div class="menu-icon">📥</div>
+<div class="menu-text">Kembalikan Buku</div>
 </div>
 
 </div>
 
+<button
+style="background:#dc3545;margin-top:20px;"
+onclick="logoutAdmin()"
+>
+🚪 Logout Admin
+</button>
+
 </div>
 
-<div id="stepPinjam" class="card hidden">
+<!-- PINJAM STEP 1 -->
 
-<h3>📖 Pinjam Buku</h3>
+<div id="pinjam1" class="card hidden">
 
-<select id="cariBuku" onchange="tampilCover()">
+<h3>📖 Pinjam Buku - Pilih Buku</h3>
 
+<select id="cariBuku">
 <option value="">-- Pilih Buku --</option>
 
 <option>Pen. Agama Islam</option>
@@ -578,12 +563,20 @@ Logout Admin
 type="number"
 id="jumlahBuku"
 placeholder="Jumlah Buku Dipinjam"
+min="1"
 >
 
-<img
-id="coverBuku"
-src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
->
+<button onclick="nextPinjam(2)">
+Lanjut
+</button>
+
+</div>
+
+<!-- PINJAM STEP 2 -->
+
+<div id="pinjam2" class="card hidden">
+
+<h3>👨‍🎓 Pinjam Buku - Data Siswa</h3>
 
 <select id="kelasSiswa" onchange="loadNamaSiswa()">
 
@@ -624,19 +617,14 @@ Konfirmasi Peminjaman
 
 </div>
 
-<div id="stepKembali" class="card hidden">
+<!-- KEMBALI STEP 1 -->
 
-<h3>📥 Kembalikan Buku</h3>
+<div id="kembali1" class="card hidden">
 
-<input
-type="text"
-id="namaPengembali"
-placeholder="Nama Siswa"
->
+<h3>📥 Kembalikan Buku - Pilih Buku</h3>
 
 <select id="bukuKembali">
-
-<option value="">Pilih Buku</option>
+<option value="">-- Pilih Buku --</option>
 
 <option>Pen. Agama Islam</option>
 <option>PKN</option>
@@ -657,25 +645,75 @@ placeholder="Nama Siswa"
 type="number"
 id="jumlahKembali"
 placeholder="Jumlah Buku Dikembalikan"
+min="1"
 >
 
-<button onclick="prosesKembali()">
-Kembalikan Buku
+<button onclick="nextKembali(2)">
+Lanjut
 </button>
 
 </div>
 
-<div id="statusBox" class="card hidden">
+<!-- KEMBALI STEP 2 -->
+
+<div id="kembali2" class="card hidden">
+
+<h3>👨‍🎓 Kembalikan Buku - Data Siswa</h3>
+
+<select id="kelasKembali" onchange="loadNamaKembali()">
+
+<option value="">Pilih Kelas</option>
+
+<option>XI-1</option>
+<option>XI-2</option>
+<option>XI-3</option>
+<option>XI-4</option>
+<option>XI-5</option>
+<option>XI-6</option>
+<option>XI-7</option>
+<option>XI-8</option>
+<option>XI-9</option>
+<option>XI-10</option>
+
+</select>
+
+<div class="dropdown-container">
+
+<input
+type="text"
+id="searchNamaKembali"
+placeholder="🔍 Cari Nama Siswa"
+onkeyup="filterNamaKembali()"
+>
+
+<div
+id="dropdownNamaKembali"
+class="dropdown-list hidden">
+</div>
+
+</div>
+
+<button onclick="prosesKembali()">
+Konfirmasi Pengembalian
+</button>
+
+</div>
+
+<!-- STATUS -->
+
+<div id="statusCard" class="card hidden">
 
 <h3>📋 Status</h3>
 
 <div id="detailStatus" class="status-box"></div>
 
 <button onclick="resetMenu()">
-Kembali ke Menu
+⬅ Kembali ke Menu
 </button>
 
 </div>
+
+<!-- RIWAYAT -->
 
 <div class="card">
 
@@ -708,8 +746,8 @@ Kembali ke Menu
 
 <td class="nomor">1</td>
 
-<td colspan="7">
-Belum ada riwayat peminjaman
+<td colspan="7" class="kosong">
+Belum ada riwayat
 </td>
 
 </tr>
@@ -723,31 +761,31 @@ Belum ada riwayat peminjaman
 <div class="action-buttons">
 
 <button onclick="filterRiwayat('Dipinjam')">
-Dipinjam
+📖 Dipinjam
 </button>
 
 <button onclick="filterRiwayat('Dikembalikan')">
-Dikembalikan
+📥 Dikembalikan
 </button>
 
 <button onclick="filterRiwayat('Semua')">
-Semua
+📋 Semua
 </button>
 
 <button
-id="downloadBtn"
 class="btn-download hidden"
+id="downloadBtn"
 onclick="downloadExcel()"
 >
-Download
+📥 Download Riwayat
 </button>
 
 <button
-id="hapusBtn"
 class="btn-hapus hidden"
+id="hapusBtn"
 onclick="hapusSemua()"
 >
-Hapus
+🗑 Hapus Riwayat
 </button>
 
 </div>
@@ -764,31 +802,7 @@ Dibuat Oleh Fahrul Lamusu
 
 <script>
 
-function toggleSetting(){
-
-document.getElementById("settingPanel")
-.classList.toggle("active");
-
-}
-
-function toggleLoginPanel(){
-
-document.getElementById("loginPanel")
-.classList.toggle("active");
-
-}
-
-function darkMode(){
-
-document.body.classList.toggle("dark");
-
-if(document.body.classList.contains("dark")){
-localStorage.setItem("darkMode","true");
-}else{
-localStorage.setItem("darkMode","false");
-}
-
-}
+/* JAM */
 
 setInterval(()=>{
 
@@ -802,6 +816,50 @@ minute:'2-digit'
 
 },1000);
 
+/* DARK MODE */
+
+function darkMode(){
+
+document.body.classList.toggle("dark");
+
+if(document.body.classList.contains("dark")){
+localStorage.setItem("darkMode","true");
+}else{
+localStorage.setItem("darkMode","false");
+}
+
+}
+
+/* SETTING */
+
+function toggleSetting(){
+
+document
+.getElementById("settingMenu")
+.classList.toggle("active");
+
+}
+
+/* LOGIN */
+
+function bukaLogin(){
+
+document
+.getElementById("loginPopup")
+.classList.add("active");
+
+}
+
+function tutupLogin(){
+
+document
+.getElementById("loginPopup")
+.classList.remove("active");
+
+}
+
+/* ADMIN */
+
 let isAdmin = false;
 
 function loginAdmin(){
@@ -812,29 +870,32 @@ document.getElementById("usernameAdmin").value;
 let password =
 document.getElementById("passwordAdmin").value;
 
-if(username === "admin" && password === "12345"){
+if(
+username === "admin"
+&&
+password === "12345"
+){
 
 isAdmin = true;
 
 localStorage.setItem("adminLogin","true");
 
-document.getElementById("menuAdmin")
+document
+.getElementById("menuAdmin")
 .classList.remove("hidden");
 
-document.getElementById("downloadBtn")
+document
+.getElementById("downloadBtn")
 .classList.remove("hidden");
 
-document.getElementById("hapusBtn")
-.classList.remove("hidden");
-
-document.getElementById("adminInfo")
-.style.display = "block";
-
-document.getElementById("logoutBtn")
+document
+.getElementById("hapusBtn")
 .classList.remove("hidden");
 
 document.getElementById("usernameAdmin").value = "";
 document.getElementById("passwordAdmin").value = "";
+
+tutupLogin();
 
 alert("Login berhasil!");
 
@@ -848,66 +909,21 @@ alert("Username atau Password salah!");
 
 function logoutAdmin(){
 
-isAdmin = false;
-
 localStorage.removeItem("adminLogin");
 
-document.getElementById("menuAdmin")
+isAdmin = false;
+
+document
+.getElementById("menuAdmin")
 .classList.add("hidden");
 
-document.getElementById("stepPinjam")
-.classList.add("hidden");
-
-document.getElementById("stepKembali")
-.classList.add("hidden");
-
-document.getElementById("statusBox")
-.classList.add("hidden");
-
-document.getElementById("downloadBtn")
-.classList.add("hidden");
-
-document.getElementById("hapusBtn")
-.classList.add("hidden");
-
-document.getElementById("adminInfo")
-.style.display = "none";
-
-document.getElementById("logoutBtn")
-.classList.add("hidden");
+resetMenu();
 
 alert("Logout berhasil!");
 
 }
 
-window.addEventListener("DOMContentLoaded",()=>{
-
-if(localStorage.getItem("darkMode") === "true"){
-document.body.classList.add("dark");
-}
-
-if(localStorage.getItem("adminLogin") === "true"){
-
-isAdmin = true;
-
-document.getElementById("menuAdmin")
-.classList.remove("hidden");
-
-document.getElementById("downloadBtn")
-.classList.remove("hidden");
-
-document.getElementById("hapusBtn")
-.classList.remove("hidden");
-
-document.getElementById("adminInfo")
-.style.display = "block";
-
-document.getElementById("logoutBtn")
-.classList.remove("hidden");
-
-}
-
-});
+/* DATA SISWA */
 
 const dataSiswa = {
 
@@ -954,6 +970,9 @@ const dataSiswa = {
 };
 
 let namaDipilih = "";
+let namaKembaliDipilih = "";
+
+/* LOAD NAMA */
 
 function loadNamaSiswa(){
 
@@ -970,10 +989,8 @@ if(dataSiswa[kelas]){
 dataSiswa[kelas].forEach(nama=>{
 
 dropdown.innerHTML += `
-<div
-class="dropdown-item"
-onclick="pilihNama('${nama}')"
->
+<div class="dropdown-item"
+onclick="pilihNama('${nama}')">
 ${nama}
 </div>
 `;
@@ -992,7 +1009,8 @@ namaDipilih = nama;
 
 document.getElementById("searchNama").value = nama;
 
-document.getElementById("dropdownNama")
+document
+.getElementById("dropdownNama")
 .classList.add("hidden");
 
 }
@@ -1004,7 +1022,7 @@ document.getElementById("searchNama")
 .value.toLowerCase();
 
 let items =
-document.querySelectorAll(".dropdown-item");
+document.querySelectorAll("#dropdownNama .dropdown-item");
 
 items.forEach(item=>{
 
@@ -1017,42 +1035,166 @@ item.innerText.toLowerCase().includes(input)
 
 }
 
-function tampilCover(){
+/* KEMBALI */
 
-let buku =
-document.getElementById("cariBuku").value;
+function loadNamaKembali(){
 
-document.getElementById("coverBuku").src =
-"https://via.placeholder.com/120x170/ff85a2/ffffff?text="
-+ encodeURIComponent(buku);
+let kelas =
+document.getElementById("kelasKembali").value;
+
+let dropdown =
+document.getElementById("dropdownNamaKembali");
+
+dropdown.innerHTML = "";
+
+if(dataSiswa[kelas]){
+
+dataSiswa[kelas].forEach(nama=>{
+
+dropdown.innerHTML += `
+<div class="dropdown-item"
+onclick="pilihNamaKembali('${nama}')">
+${nama}
+</div>
+`;
+
+});
+
+}
+
+dropdown.classList.remove("hidden");
+
+}
+
+function pilihNamaKembali(nama){
+
+namaKembaliDipilih = nama;
+
+document.getElementById("searchNamaKembali").value = nama;
+
+document
+.getElementById("dropdownNamaKembali")
+.classList.add("hidden");
+
+}
+
+function filterNamaKembali(){
+
+let input =
+document.getElementById("searchNamaKembali")
+.value.toLowerCase();
+
+let items =
+document.querySelectorAll("#dropdownNamaKembali .dropdown-item");
+
+items.forEach(item=>{
+
+item.style.display =
+item.innerText.toLowerCase().includes(input)
+? "block"
+: "none";
+
+});
+
+}
+
+/* MENU */
+
+function resetMenu(){
+
+document
+.querySelectorAll(
+"#pinjam1,#pinjam2,#kembali1,#kembali2,#statusCard"
+)
+.forEach(el=>{
+
+el.classList.add("hidden");
+
+});
 
 }
 
 function bukaPinjam(){
 
-document.getElementById("stepPinjam")
+resetMenu();
+
+document
+.getElementById("pinjam1")
 .classList.remove("hidden");
-
-document.getElementById("stepKembali")
-.classList.add("hidden");
-
-document.getElementById("statusBox")
-.classList.add("hidden");
 
 }
 
-function bukaKembalikan(){
+function bukaKembali(){
 
-document.getElementById("stepKembali")
+resetMenu();
+
+document
+.getElementById("kembali1")
 .classList.remove("hidden");
 
-document.getElementById("stepPinjam")
-.classList.add("hidden");
+}
 
-document.getElementById("statusBox")
-.classList.add("hidden");
+function nextPinjam(step){
+
+if(step === 2){
+
+let buku =
+document.getElementById("cariBuku").value;
+
+let jumlah =
+document.getElementById("jumlahBuku").value;
+
+if(!buku || !jumlah){
+
+alert("Lengkapi data!");
+
+return;
 
 }
+
+document
+.getElementById("pinjam1")
+.classList.add("hidden");
+
+document
+.getElementById("pinjam2")
+.classList.remove("hidden");
+
+}
+
+}
+
+function nextKembali(step){
+
+if(step === 2){
+
+let buku =
+document.getElementById("bukuKembali").value;
+
+let jumlah =
+document.getElementById("jumlahKembali").value;
+
+if(!buku || !jumlah){
+
+alert("Lengkapi data!");
+
+return;
+
+}
+
+document
+.getElementById("kembali1")
+.classList.add("hidden");
+
+document
+.getElementById("kembali2")
+.classList.remove("hidden");
+
+}
+
+}
+
+/* RIWAYAT */
 
 let dataRiwayat =
 JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
@@ -1068,7 +1210,7 @@ document.getElementById("cariBuku").value;
 let jumlah =
 document.getElementById("jumlahBuku").value;
 
-if(!kelas || !namaDipilih || !buku || !jumlah){
+if(!kelas || !namaDipilih){
 
 alert("Lengkapi data!");
 
@@ -1107,27 +1249,28 @@ JSON.stringify(dataRiwayat)
 document.getElementById("detailStatus").innerHTML = `
 
 <b>Nama:</b> ${namaDipilih}<br>
+<b>Kelas:</b> ${kelas}<br>
 <b>Buku:</b> ${buku}<br>
 <b>Jumlah:</b> ${jumlah}<br>
 <b>Status:</b> Dipinjam
 
 `;
 
-document.getElementById("statusBox")
+resetMenu();
+
+document
+.getElementById("statusCard")
 .classList.remove("hidden");
 
 tampilkanRiwayat();
-
 updateDashboard();
-
-alert("Peminjaman berhasil!");
 
 }
 
 function prosesKembali(){
 
-let nama =
-document.getElementById("namaPengembali").value;
+let kelas =
+document.getElementById("kelasKembali").value;
 
 let buku =
 document.getElementById("bukuKembali").value;
@@ -1135,7 +1278,7 @@ document.getElementById("bukuKembali").value;
 let jumlah =
 document.getElementById("jumlahKembali").value;
 
-if(!nama || !buku || !jumlah){
+if(!kelas || !namaKembaliDipilih){
 
 alert("Lengkapi data!");
 
@@ -1156,8 +1299,8 @@ minute:'2-digit'
 
 dataRiwayat.push({
 
-nama,
-kelas:"-",
+nama:namaKembaliDipilih,
+kelas,
 buku,
 jumlah,
 tanggal,
@@ -1173,25 +1316,26 @@ JSON.stringify(dataRiwayat)
 
 document.getElementById("detailStatus").innerHTML = `
 
-<b>Nama:</b> ${nama}<br>
+<b>Nama:</b> ${namaKembaliDipilih}<br>
+<b>Kelas:</b> ${kelas}<br>
 <b>Buku:</b> ${buku}<br>
 <b>Jumlah:</b> ${jumlah}<br>
 <b>Status:</b> Dikembalikan
 
 `;
 
-document.getElementById("statusBox")
+resetMenu();
+
+document
+.getElementById("statusCard")
 .classList.remove("hidden");
 
 tampilkanRiwayat();
-
 updateDashboard();
-
-alert("Pengembalian berhasil!");
 
 }
 
-function tampilkanRiwayat(filter = "Semua"){
+function tampilkanRiwayat(filter="Semua"){
 
 let table =
 document.getElementById("riwayatTable");
@@ -1202,26 +1346,20 @@ let data = dataRiwayat;
 
 if(filter !== "Semua"){
 
-data = dataRiwayat.filter(
-item => item.status === filter
-);
+data =
+dataRiwayat.filter(item=>item.status===filter);
 
 }
 
-if(data.length === 0){
+if(data.length===0){
 
 table.innerHTML = `
-
 <tr>
-
 <td class="nomor">1</td>
-
-<td colspan="7">
-Belum ada riwayat peminjaman
+<td colspan="7" class="kosong">
+Belum ada riwayat
 </td>
-
 </tr>
-
 `;
 
 return;
@@ -1255,33 +1393,6 @@ function filterRiwayat(status){
 tampilkanRiwayat(status);
 }
 
-function updateDashboard(){
-
-let totalBuku = 0;
-
-let siswa = [];
-
-dataRiwayat.forEach(item=>{
-
-totalBuku += Number(item.jumlah);
-
-if(!siswa.includes(item.nama)){
-siswa.push(item.nama);
-}
-
-});
-
-document.getElementById("totalBuku").innerHTML =
-totalBuku;
-
-document.getElementById("totalSiswa").innerHTML =
-siswa.length;
-
-document.getElementById("totalTransaksi").innerHTML =
-dataRiwayat.length;
-
-}
-
 function hapusSemua(){
 
 if(confirm("Hapus semua riwayat?")){
@@ -1300,26 +1411,60 @@ updateDashboard();
 
 function downloadExcel(){
 
-alert("Download berhasil!");
+alert("Download Riwayat Berhasil!");
 
 }
 
-function resetMenu(){
+function updateDashboard(){
 
-document.getElementById("stepPinjam")
-.classList.add("hidden");
+let totalBuku = 0;
 
-document.getElementById("stepKembali")
-.classList.add("hidden");
+let siswa = [];
 
-document.getElementById("statusBox")
-.classList.add("hidden");
+dataRiwayat.forEach(item=>{
+
+totalBuku += Number(item.jumlah);
+
+if(!siswa.includes(item.nama')){
+siswa.push(item.nama);
+}
+
+});
+
+document.getElementById("totalBuku").innerHTML =
+totalBuku;
+
+document.getElementById("totalSiswa").innerHTML =
+siswa.length;
+
+document.getElementById("totalTransaksi").innerHTML =
+dataRiwayat.length;
 
 }
 
-function tentangAplikasi(){
+/* AUTO */
 
-alert("E-Perpus Pinky dibuat oleh Fahrul Lamusu");
+window.addEventListener("DOMContentLoaded",()=>{
+
+if(localStorage.getItem("darkMode")==="true"){
+document.body.classList.add("dark");
+}
+
+if(localStorage.getItem("adminLogin")==="true"){
+
+isAdmin = true;
+
+document
+.getElementById("menuAdmin")
+.classList.remove("hidden");
+
+document
+.getElementById("downloadBtn")
+.classList.remove("hidden");
+
+document
+.getElementById("hapusBtn")
+.classList.remove("hidden");
 
 }
 
@@ -1327,7 +1472,9 @@ tampilkanRiwayat();
 
 updateDashboard();
 
+});
+
 </script>
 
 </body>
-    </html>
+</html>
