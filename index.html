@@ -20,6 +20,7 @@
     padding:0;
     box-sizing:border-box;
     font-family:Segoe UI,sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body{
@@ -43,7 +44,7 @@ header{
     background:linear-gradient(135deg,var(--pink1),var(--pink4));
     color:white;
     text-align:center;
-    padding:25px;
+    padding:20px;
     border-bottom-left-radius:25px;
     border-bottom-right-radius:25px;
     position:relative;
@@ -57,33 +58,34 @@ header{
     position:absolute;
     top:10px;
     left:10px;
-    width:32px;
-    height:32px;
-    border-radius:50%;
+    width:34px;
+    height:34px;
     border:none;
+    border-radius:50%;
     background:white;
     color:var(--pink4);
     font-size:16px;
+    font-weight:bold;
     cursor:pointer;
-    z-index:99999;
+    z-index:9999;
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
 }
 
 .sidebar-setting{
     position:fixed;
     top:0;
-    left:-270px;
-    width:250px;
+    left:-260px;
+    width:240px;
     height:100%;
     background:white;
     z-index:999999;
     transition:0.3s;
+    box-shadow:5px 0 20px rgba(0,0,0,0.2);
     padding:20px;
     overflow-y:auto;
-    box-shadow:4px 0 15px rgba(0,0,0,0.2);
 }
 
 .sidebar-setting.active{
@@ -92,7 +94,10 @@ header{
 
 .overlay{
     position:fixed;
-    inset:0;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     background:rgba(0,0,0,0.4);
     z-index:999998;
     display:none;
@@ -102,48 +107,56 @@ header{
     display:block;
 }
 
-.close-sidebar{
-    width:35px;
-    height:35px;
-    border:none;
-    border-radius:50%;
-    background:#eee;
-    color:#333;
-    font-size:16px;
-    margin-bottom:20px;
-    cursor:pointer;
-}
-
-.sidebar-setting h3{
+.setting-title{
+    font-size:20px;
     color:var(--pink4);
     margin-bottom:20px;
+    font-weight:bold;
 }
 
-.setting-card{
+.setting-menu{
     background:#fff0f5;
     border:2px solid var(--pink2);
-    border-radius:18px;
-    padding:15px;
-    margin-bottom:15px;
+    border-radius:15px;
+    padding:14px;
+    margin-bottom:12px;
 }
 
-.setting-card p{
-    font-size:13px;
-    margin-top:6px;
-    color:#555;
+.setting-menu h4{
+    color:var(--pink4);
+    margin-bottom:5px;
+    font-size:15px;
+}
+
+.setting-menu p{
+    font-size:12px;
+    color:#666;
     line-height:1.5;
 }
 
-.setting-card button{
+.setting-input{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:2px solid var(--pink2);
     margin-top:10px;
+    outline:none;
 }
 
-.login-box{
-    display:none;
+.setting-login-btn{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--pink1),var(--pink4));
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.login-box.active{
-    display:block;
+.logout-btn{
+    background:#dc3545;
 }
 
 .admin-badge{
@@ -157,14 +170,23 @@ header{
     display:none;
 }
 
-.logout-btn{
-    background:#dc3545;
+.close-sidebar{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:#eee;
+    cursor:pointer;
 }
 
 /* ====================== */
 
 header h1{
     font-size:28px;
+    margin-top:10px;
 }
 
 #jam{
@@ -252,7 +274,7 @@ button{
 
 table{
     border-collapse:collapse;
-    min-width:1100px;
+    min-width:1000px;
     width:max-content;
 }
 
@@ -283,20 +305,17 @@ td{
 
 .action-buttons{
     display:flex;
-    justify-content:flex-end;
+    flex-wrap:wrap;
     gap:8px;
     margin-top:15px;
-    flex-wrap:wrap;
 }
 
-.btn-filter,
-.btn-download,
-.btn-hapus{
+.action-buttons button{
     width:auto;
-    padding:10px 14px;
-    border-radius:12px;
-    font-size:12px;
     margin:0;
+    padding:10px 14px;
+    font-size:12px;
+    border-radius:10px;
 }
 
 .btn-download{
@@ -306,6 +325,48 @@ td{
 .btn-hapus{
     background:#dc3545;
 }
+
+.btn-pinjam{
+    background:#ff85a2;
+}
+
+.btn-kembali{
+    background:#28a745;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#999;
+    font-size:15px;
+}
+
+.dropdown-container{
+    position:relative;
+}
+
+.dropdown-list{
+    position:absolute;
+    width:100%;
+    background:white;
+    border:2px solid var(--pink2);
+    border-radius:16px;
+    max-height:220px;
+    overflow-y:auto;
+    z-index:999;
+}
+
+.dropdown-item{
+    padding:14px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.dropdown-item:hover{
+    background:#fff0f5;
+}
+
+/* DASHBOARD */
 
 .dashboard-grid{
     display:grid;
@@ -337,53 +398,26 @@ td{
     margin-top:3px;
 }
 
+/* MENU */
+
 .menu-admin{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:12px;
+    gap:10px;
 }
 
 .menu-btn{
     background:#fff0f5;
     border:2px solid var(--pink2);
-    color:var(--pink4);
+    border-radius:18px;
     padding:20px;
-    border-radius:20px;
     text-align:center;
-    font-weight:bold;
     cursor:pointer;
 }
 
-.dropdown-container{
-    position:relative;
-}
-
-.dropdown-list{
-    position:absolute;
-    width:100%;
-    background:white;
-    border:2px solid var(--pink2);
-    border-radius:16px;
-    max-height:220px;
-    overflow-y:auto;
-    z-index:9999;
-}
-
-.dropdown-item{
-    padding:14px;
-    border-bottom:1px solid #eee;
-    cursor:pointer;
-}
-
-.dropdown-item:hover{
-    background:#fff0f5;
-}
-
-footer{
-    text-align:center;
-    padding:30px;
-    color:#999;
-    font-size:15px;
+.menu-btn h4{
+    color:var(--pink4);
+    margin-top:10px;
 }
 
 /* DARK MODE */
@@ -407,21 +441,24 @@ footer{
     color:white;
 }
 
+.dark .dropdown-list{
+    background:#444;
+}
+
 .dark .status-box{
     background:#444;
 }
 
 .dark .sidebar-setting{
     background:#2b2b2b;
-    color:white;
 }
 
-.dark .setting-card{
+.dark .setting-menu{
     background:#444;
 }
 
-.dark .dropdown-list{
-    background:#444;
+.dark .setting-menu p{
+    color:#ddd;
 }
 
 </style>
@@ -429,61 +466,60 @@ footer{
 
 <body>
 
-<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<div class="overlay" id="overlay"></div>
 
-<div class="sidebar-setting" id="sidebar">
+<div class="sidebar-setting" id="sidebarSetting">
 
-<button class="close-sidebar" onclick="toggleSidebar()">
+<button class="close-sidebar" onclick="toggleSetting()">
 ✕
 </button>
 
-<h3>⚙️ Pengaturan</h3>
+<div class="setting-title">
+⚙️ Pengaturan
+</div>
 
-<div class="setting-card">
+<div class="setting-menu">
 
-<b>🔐 Login Admin</b>
+<h4>🔐 Login Admin</h4>
 
 <p>
 Masuk sebagai admin untuk membuka fitur perpustakaan.
 </p>
 
-<button onclick="bukaLogin()">
-Login Admin
-</button>
-
-<div class="login-box" id="loginBox">
-
 <input
 type="text"
 id="usernameAdmin"
-placeholder="Username"
+class="setting-input"
+placeholder="Username Admin"
 autocomplete="off"
 >
 
 <input
 type="password"
 id="passwordAdmin"
-placeholder="Password"
+class="setting-input"
+placeholder="Password Admin"
 autocomplete="new-password"
 >
 
-<button onclick="loginAdmin()">
-Masuk
+<button
+class="setting-login-btn"
+onclick="loginAdmin()"
+>
+Login Admin
 </button>
 
-</div>
+<button
+id="logoutBtn"
+class="setting-login-btn logout-btn hidden"
+onclick="logoutAdmin()"
+>
+Logout Admin
+</button>
 
 <div class="admin-badge" id="adminBadge">
 ✅ Admin Sudah Login
 </div>
-
-<button
-id="logoutBtn"
-class="logout-btn hidden"
-onclick="logoutAdmin()"
->
-🚪 Logout Admin
-</button>
 
 </div>
 
@@ -493,7 +529,7 @@ onclick="logoutAdmin()"
 
 <header>
 
-<button class="setting-btn" onclick="toggleSidebar()">
+<button class="setting-btn" onclick="toggleSetting()">
 ⚙
 </button>
 
@@ -541,23 +577,27 @@ onclick="logoutAdmin()"
 
 <div id="menuAdmin" class="card hidden">
 
-<h3>📚 Menu Admin</h3>
+<h3>📚 Menu Perpustakaan</h3>
 
 <div class="menu-admin">
 
 <div class="menu-btn" onclick="bukaPinjam()">
-📖<br><br>Pinjam Buku
+📖
+<h4>Pinjam Buku</h4>
 </div>
 
-<div class="menu-btn" onclick="bukaKembali()">
-📦<br><br>Kembalikan Buku
+<div class="menu-btn" onclick="bukaKembalikan()">
+📦
+<h4>Kembalikan Buku</h4>
 </div>
 
 </div>
 
 </div>
 
-<!-- PINJAM -->
+<!-- ==================== -->
+<!-- PINJAM BUKU -->
+<!-- ==================== -->
 
 <div id="step1" class="card hidden">
 
@@ -585,7 +625,7 @@ onclick="logoutAdmin()"
 <input
 type="number"
 id="jumlahBuku"
-placeholder="Jumlah Buku"
+placeholder="Jumlah Buku Dipinjam"
 min="1"
 max="10"
 >
@@ -603,7 +643,29 @@ Lanjut
 
 <div id="step2" class="card hidden">
 
-<h3>2. Pilih Siswa</h3>
+<h3>2. Kondisi Buku</h3>
+
+<label>
+
+<input
+type="checkbox"
+id="kondisiBuku"
+style="width:auto;"
+>
+
+ Buku dalam kondisi baik
+
+</label>
+
+<button onclick="checkKondisi()">
+Lanjut
+</button>
+
+</div>
+
+<div id="step3" class="card hidden">
+
+<h3>3. Data Siswa</h3>
 
 <select id="kelasSiswa" onchange="loadNamaSiswa()">
 
@@ -627,7 +689,7 @@ Lanjut
 <input
 type="text"
 id="searchNama"
-placeholder="Cari Nama Siswa..."
+placeholder="🔍 Cari nama siswa..."
 onkeyup="filterNama()"
 >
 
@@ -639,16 +701,30 @@ class="dropdown-list hidden">
 </div>
 
 <button onclick="prosesPinjam()">
-Konfirmasi Pinjam
+Konfirmasi Peminjaman
 </button>
 
 </div>
 
-<!-- KEMBALI -->
+<div id="step4" class="card hidden">
+
+<h3>✅ Status Peminjaman</h3>
+
+<div id="detailPinjam" class="status-box"></div>
+
+<button onclick="resetMenu()">
+Kembali ke Menu
+</button>
+
+</div>
+
+<!-- ==================== -->
+<!-- KEMBALIKAN -->
+<!-- ==================== -->
 
 <div id="kembali1" class="card hidden">
 
-<h3>1. Buku Dikembalikan</h3>
+<h3>1. Pilih Buku Dikembalikan</h3>
 
 <select id="bukuKembali" onchange="tampilCoverKembali()">
 
@@ -672,14 +748,14 @@ Konfirmasi Pinjam
 <input
 type="number"
 id="jumlahKembali"
-placeholder="Jumlah Buku"
+placeholder="Jumlah Buku Dikembalikan"
 min="1"
 max="10"
 >
 
 <img
 id="coverKembali"
-src="https://via.placeholder.com/120x170/ff85a2/ffffff?text=Buku"
+src="https://via.placeholder.com/120x170/28a745/ffffff?text=Kembali"
 >
 
 <button onclick="nextKembali(2)">
@@ -690,7 +766,7 @@ Lanjut
 
 <div id="kembali2" class="card hidden">
 
-<h3>2. Data Pengembali</h3>
+<h3>2. Data Pengembalian</h3>
 
 <select id="kelasKembali" onchange="loadNamaKembali()">
 
@@ -714,7 +790,7 @@ Lanjut
 <input
 type="text"
 id="searchNamaKembali"
-placeholder="Cari Nama Siswa..."
+placeholder="🔍 Cari nama siswa..."
 onkeyup="filterNamaKembali()"
 >
 
@@ -731,14 +807,14 @@ Konfirmasi Pengembalian
 
 </div>
 
-<div id="statusBox" class="card hidden">
+<div id="kembali3" class="card hidden">
 
-<h3>✅ Status</h3>
+<h3>✅ Buku Berhasil Dikembalikan</h3>
 
-<div id="detailStatus" class="status-box"></div>
+<div id="detailKembali" class="status-box"></div>
 
-<button onclick="kembaliMenu()">
-⬅ Kembali ke Menu
+<button onclick="resetMenu()">
+Kembali ke Menu
 </button>
 
 </div>
@@ -771,10 +847,13 @@ Konfirmasi Pengembalian
 <tbody id="riwayatTable">
 
 <tr>
+
 <td class="nomor">1</td>
+
 <td colspan="7" class="kosong">
 Belum ada riwayat
 </td>
+
 </tr>
 
 </tbody>
@@ -786,38 +865,37 @@ Belum ada riwayat
 <div class="action-buttons">
 
 <button
-class="btn-filter"
+class="btn-pinjam"
 onclick="filterRiwayat('Dipinjam')"
 >
 📖 Dipinjam
 </button>
 
 <button
-class="btn-filter"
+class="btn-kembali"
 onclick="filterRiwayat('Dikembalikan')"
 >
 📦 Dikembalikan
 </button>
 
 <button
-class="btn-filter"
 onclick="filterRiwayat('Semua')"
 >
 📋 Semua
 </button>
 
 <button
-class="btn-download hidden"
 id="downloadBtn"
-onclick="downloadRiwayat()"
+class="btn-download hidden"
+onclick="downloadExcel()"
 >
 📥 Download Riwayat
 </button>
 
 <button
-class="btn-hapus hidden"
 id="hapusBtn"
-onclick="hapusRiwayat()"
+class="btn-hapus hidden"
+onclick="hapusSemua()"
 >
 🗑 Hapus Riwayat
 </button>
@@ -840,7 +918,7 @@ Dibuat Oleh Fahrul Lamusu
 /* JAM */
 /* ====================== */
 
-setInterval(()=>{
+setInterval(function(){
 
 let now = new Date();
 
@@ -869,28 +947,30 @@ localStorage.setItem("darkMode","false");
 }
 
 /* ====================== */
-/* SIDEBAR */
+/* PENGATURAN */
 /* ====================== */
 
-function toggleSidebar(){
+function toggleSetting(){
 
-document.getElementById("sidebar")
-.classList.toggle("active");
+let sidebar =
+document.getElementById("sidebarSetting");
 
-document.getElementById("overlay")
-.classList.toggle("active");
+let overlay =
+document.getElementById("overlay");
+
+sidebar.classList.toggle("active");
+overlay.classList.toggle("active");
 
 }
 
-function bukaLogin(){
+document.getElementById("overlay").onclick = function(){
 
-document.getElementById("loginBox")
-.classList.toggle("active");
+toggleSetting();
 
-}
+};
 
 /* ====================== */
-/* LOGIN */
+/* LOGIN ADMIN */
 /* ====================== */
 
 let isAdmin = false;
@@ -903,7 +983,11 @@ document.getElementById("usernameAdmin").value;
 let password =
 document.getElementById("passwordAdmin").value;
 
-if(username === "admin" && password === "12345"){
+if(
+username === "admin"
+&&
+password === "12345"
+){
 
 isAdmin = true;
 
@@ -912,24 +996,24 @@ localStorage.setItem("adminLogin","true");
 document.getElementById("menuAdmin")
 .classList.remove("hidden");
 
-document.getElementById("adminBadge")
-.style.display = "block";
-
-document.getElementById("logoutBtn")
-.classList.remove("hidden");
-
 document.getElementById("downloadBtn")
 .classList.remove("hidden");
 
 document.getElementById("hapusBtn")
 .classList.remove("hidden");
 
+document.getElementById("adminBadge")
+.style.display = "block";
+
+document.getElementById("logoutBtn")
+.classList.remove("hidden");
+
 document.getElementById("usernameAdmin").value = "";
 document.getElementById("passwordAdmin").value = "";
 
-alert("Login berhasil!");
+toggleSetting();
 
-toggleSidebar();
+alert("Login admin berhasil!");
 
 }else{
 
@@ -941,17 +1025,11 @@ alert("Username atau password salah!");
 
 function logoutAdmin(){
 
-localStorage.removeItem("adminLogin");
-
 isAdmin = false;
 
+localStorage.removeItem("adminLogin");
+
 document.getElementById("menuAdmin")
-.classList.add("hidden");
-
-document.getElementById("adminBadge")
-.style.display = "none";
-
-document.getElementById("logoutBtn")
 .classList.add("hidden");
 
 document.getElementById("downloadBtn")
@@ -960,7 +1038,15 @@ document.getElementById("downloadBtn")
 document.getElementById("hapusBtn")
 .classList.add("hidden");
 
-semuaHidden();
+document.getElementById("adminBadge")
+.style.display = "none";
+
+document.getElementById("logoutBtn")
+.classList.add("hidden");
+
+resetMenu();
+
+toggleSetting();
 
 alert("Logout berhasil!");
 
@@ -983,16 +1069,16 @@ isAdmin = true;
 document.getElementById("menuAdmin")
 .classList.remove("hidden");
 
-document.getElementById("adminBadge")
-.style.display = "block";
-
-document.getElementById("logoutBtn")
-.classList.remove("hidden");
-
 document.getElementById("downloadBtn")
 .classList.remove("hidden");
 
 document.getElementById("hapusBtn")
+.classList.remove("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "block";
+
+document.getElementById("logoutBtn")
 .classList.remove("hidden");
 
 }
@@ -1000,7 +1086,7 @@ document.getElementById("hapusBtn")
 tampilkanRiwayat();
 updateDashboard();
 
-}
+};
 
 /* ====================== */
 /* DATA SISWA */
@@ -1052,8 +1138,64 @@ let namaDipilih = "";
 let namaKembaliDipilih = "";
 
 /* ====================== */
-/* DROPDOWN */
+/* PINJAM */
 /* ====================== */
+
+function bukaPinjam(){
+
+resetMenu();
+
+document.getElementById("step1")
+.classList.remove("hidden");
+
+}
+
+function nextStep(step){
+
+document.getElementById("step1")
+.classList.add("hidden");
+
+document.getElementById("step2")
+.classList.add("hidden");
+
+document.getElementById("step3")
+.classList.add("hidden");
+
+document.getElementById("step4")
+.classList.add("hidden");
+
+document.getElementById("step"+step)
+.classList.remove("hidden");
+
+}
+
+function tampilCover(){
+
+let buku =
+document.getElementById("cariBuku").value;
+
+document.getElementById("coverBuku").src =
+"https://via.placeholder.com/120x170/ff85a2/ffffff?text="
++ encodeURIComponent(buku);
+
+}
+
+function checkKondisi(){
+
+let kondisi =
+document.getElementById("kondisiBuku").checked;
+
+if(!kondisi){
+
+alert("Pastikan kondisi buku baik!");
+
+return;
+
+}
+
+nextStep(3);
+
+}
 
 function loadNamaSiswa(){
 
@@ -1067,16 +1209,16 @@ dropdown.innerHTML = "";
 
 if(dataSiswa[kelas]){
 
-dataSiswa[kelas].forEach(nama=>{
+dataSiswa[kelas].forEach(function(nama){
 
 dropdown.innerHTML += `
-<div
-class="dropdown-item"
-onclick="pilihNama('${nama}')"
->
+<div class="dropdown-item"
+onclick="pilihNama('${nama}')">
 ${nama}
 </div>
 `;
+
+});
 
 }
 
@@ -1104,7 +1246,7 @@ document.getElementById("searchNama")
 let items =
 document.querySelectorAll("#dropdownNama .dropdown-item");
 
-items.forEach(item=>{
+items.forEach(function(item){
 
 item.style.display =
 item.innerText.toLowerCase().includes(input)
@@ -1114,154 +1256,6 @@ item.innerText.toLowerCase().includes(input)
 });
 
 }
-
-/* ====================== */
-/* KEMBALI */
-/* ====================== */
-
-function loadNamaKembali(){
-
-let kelas =
-document.getElementById("kelasKembali").value;
-
-let dropdown =
-document.getElementById("dropdownNamaKembali");
-
-dropdown.innerHTML = "";
-
-if(dataSiswa[kelas]){
-
-dataSiswa[kelas].forEach(nama=>{
-
-dropdown.innerHTML += `
-<div
-class="dropdown-item"
-onclick="pilihNamaKembali('${nama}')"
->
-${nama}
-</div>
-`;
-
-}
-
-dropdown.classList.remove("hidden");
-
-}
-
-function pilihNamaKembali(nama){
-
-namaKembaliDipilih = nama;
-
-document.getElementById("searchNamaKembali").value = nama;
-
-document.getElementById("dropdownNamaKembali")
-.classList.add("hidden");
-
-}
-
-function filterNamaKembali(){
-
-let input =
-document.getElementById("searchNamaKembali")
-.value.toLowerCase();
-
-let items =
-document.querySelectorAll("#dropdownNamaKembali .dropdown-item");
-
-items.forEach(item=>{
-
-item.style.display =
-item.innerText.toLowerCase().includes(input)
-? "block"
-: "none";
-
-});
-
-}
-
-/* ====================== */
-/* STEP */
-/* ====================== */
-
-function semuaHidden(){
-
-document.querySelectorAll(
-"#step1,#step2,#kembali1,#kembali2,#statusBox"
-).forEach(el=>{
-
-el.classList.add("hidden");
-
-});
-
-}
-
-function bukaPinjam(){
-
-semuaHidden();
-
-document.getElementById("step1")
-.classList.remove("hidden");
-
-}
-
-function bukaKembali(){
-
-semuaHidden();
-
-document.getElementById("kembali1")
-.classList.remove("hidden");
-
-}
-
-function nextStep(step){
-
-document.getElementById("step1")
-.classList.add("hidden");
-
-document.getElementById("step2")
-.classList.remove("hidden");
-
-}
-
-function nextKembali(step){
-
-document.getElementById("kembali1")
-.classList.add("hidden");
-
-document.getElementById("kembali2")
-.classList.remove("hidden");
-
-}
-
-/* ====================== */
-/* COVER */
-/* ====================== */
-
-function tampilCover(){
-
-let buku =
-document.getElementById("cariBuku").value;
-
-document.getElementById("coverBuku").src =
-"https://via.placeholder.com/120x170/ff85a2/ffffff?text="
-+ encodeURIComponent(buku);
-
-}
-
-function tampilCoverKembali(){
-
-let buku =
-document.getElementById("bukuKembali").value;
-
-document.getElementById("coverKembali").src =
-"https://via.placeholder.com/120x170/ff85a2/ffffff?text="
-+ encodeURIComponent(buku);
-
-}
-
-/* ====================== */
-/* RIWAYAT */
-/* ====================== */
 
 let dataRiwayat =
 JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
@@ -1291,16 +1285,29 @@ let tanggal =
 now.toLocaleDateString("id-ID");
 
 let jam =
-now.toLocaleTimeString("id-ID");
+now.toLocaleTimeString("id-ID",{
+hour:"2-digit",
+minute:"2-digit"
+});
+
+document.getElementById("detailPinjam").innerHTML = `
+
+<b>Nama:</b> ${namaDipilih}<br>
+<b>Kelas:</b> ${kelas}<br>
+<b>Buku:</b> ${buku}<br>
+<b>Jumlah:</b> ${jumlah}<br>
+<b>Status:</b> Dipinjam
+
+`;
 
 dataRiwayat.push({
 
 nama:namaDipilih,
-kelas,
-buku,
-jumlah,
-tanggal,
-jam,
+kelas:kelas,
+buku:buku,
+jumlah:jumlah,
+tanggal:tanggal,
+jam:jam,
 status:"Dipinjam"
 
 });
@@ -1310,24 +1317,182 @@ localStorage.setItem(
 JSON.stringify(dataRiwayat)
 );
 
-document.getElementById("detailStatus").innerHTML = `
+tampilkanRiwayat();
+updateDashboard();
+
+nextStep(4);
+
+}
+
+/* ====================== */
+/* KEMBALI */
+/* ====================== */
+
+function bukaKembalikan(){
+
+resetMenu();
+
+document.getElementById("kembali1")
+.classList.remove("hidden");
+
+}
+
+function nextKembali(step){
+
+document.getElementById("kembali1")
+.classList.add("hidden");
+
+document.getElementById("kembali2")
+.classList.add("hidden");
+
+document.getElementById("kembali3")
+.classList.add("hidden");
+
+document.getElementById("kembali"+step)
+.classList.remove("hidden");
+
+}
+
+function tampilCoverKembali(){
+
+let buku =
+document.getElementById("bukuKembali").value;
+
+document.getElementById("coverKembali").src =
+"https://via.placeholder.com/120x170/28a745/ffffff?text="
++ encodeURIComponent(buku);
+
+}
+
+function loadNamaKembali(){
+
+let kelas =
+document.getElementById("kelasKembali").value;
+
+let dropdown =
+document.getElementById("dropdownNamaKembali");
+
+dropdown.innerHTML = "";
+
+if(dataSiswa[kelas]){
+
+dataSiswa[kelas].forEach(function(nama){
+
+dropdown.innerHTML += `
+<div class="dropdown-item"
+onclick="pilihNamaKembali('${nama}')">
+${nama}
+</div>
+`;
+
+});
+
+}
+
+dropdown.classList.remove("hidden");
+
+}
+
+function pilihNamaKembali(nama){
+
+namaKembaliDipilih = nama;
+
+document.getElementById("searchNamaKembali").value = nama;
+
+document.getElementById("dropdownNamaKembali")
+.classList.add("hidden");
+
+}
+
+function filterNamaKembali(){
+
+let input =
+document.getElementById("searchNamaKembali")
+.value.toLowerCase();
+
+let items =
+document.querySelectorAll("#dropdownNamaKembali .dropdown-item");
+
+items.forEach(function(item){
+
+item.style.display =
+item.innerText.toLowerCase().includes(input)
+? "block"
+: "none";
+
+});
+
+}
+
+function prosesKembali(){
+
+let kelas =
+document.getElementById("kelasKembali").value;
+
+let buku =
+document.getElementById("bukuKembali").value;
+
+let jumlah =
+document.getElementById("jumlahKembali").value;
+
+if(!kelas || !namaKembaliDipilih || !buku || !jumlah){
+
+alert("Lengkapi data!");
+
+return;
+
+}
+
+let now = new Date();
+
+let tanggal =
+now.toLocaleDateString("id-ID");
+
+let jam =
+now.toLocaleTimeString("id-ID",{
+hour:"2-digit",
+minute:"2-digit"
+});
+
+document.getElementById("detailKembali").innerHTML = `
+
 <b>Nama:</b> ${namaKembaliDipilih}<br>
+<b>Kelas:</b> ${kelas}<br>
 <b>Buku:</b> ${buku}<br>
 <b>Jumlah:</b> ${jumlah}<br>
 <b>Status:</b> Dikembalikan
+
 `;
 
-semuaHidden();
+dataRiwayat.push({
 
-document.getElementById("statusBox")
-.classList.remove("hidden");
+nama:namaKembaliDipilih,
+kelas:kelas,
+buku:buku,
+jumlah:jumlah,
+tanggal:tanggal,
+jam:jam,
+status:"Dikembalikan"
+
+});
+
+localStorage.setItem(
+"riwayatPerpus",
+JSON.stringify(dataRiwayat)
+);
 
 tampilkanRiwayat();
 updateDashboard();
 
+nextKembali(3);
+
 }
 
-function tampilkanRiwayat(filter="Semua"){
+/* ====================== */
+/* RIWAYAT */
+/* ====================== */
+
+function tampilkanRiwayat(filter = "Semua"){
 
 let table =
 document.getElementById("riwayatTable");
@@ -1338,31 +1503,37 @@ let data = dataRiwayat;
 
 if(filter !== "Semua"){
 
-data = dataRiwayat.filter(
-item => item.status === filter
-);
+data = dataRiwayat.filter(function(item){
+
+return item.status === filter;
+
+});
 
 }
 
 if(data.length === 0){
 
 table.innerHTML = `
+
 <tr>
 <td class="nomor">1</td>
 <td colspan="7" class="kosong">
 Belum ada riwayat
 </td>
 </tr>
+
 `;
 
 return;
 
 }
 
-data.forEach((item,index)=>{
+data.forEach(function(item,index){
 
 table.innerHTML += `
+
 <tr>
+
 <td class="nomor">${index+1}</td>
 <td>${item.nama}</td>
 <td>${item.kelas}</td>
@@ -1371,7 +1542,9 @@ table.innerHTML += `
 <td>${item.tanggal}</td>
 <td>${item.jam}</td>
 <td>${item.status}</td>
+
 </tr>
+
 `;
 
 });
@@ -1384,17 +1557,21 @@ tampilkanRiwayat(status);
 
 }
 
+/* ====================== */
+/* DASHBOARD */
+/* ====================== */
+
 function updateDashboard(){
 
 let totalBuku = 0;
 
 let siswa = [];
 
-dataRiwayat.forEach(item=>{
+dataRiwayat.forEach(function(item){
 
 totalBuku += Number(item.jumlah);
 
-if(!siswa.includes(item.nama")){
+if(!siswa.includes(item.nama)){
 siswa.push(item.nama);
 }
 
@@ -1411,18 +1588,33 @@ dataRiwayat.length;
 
 }
 
-function kembaliMenu(){
+/* ====================== */
+/* RESET */
+/* ====================== */
 
-semuaHidden();
+function resetMenu(){
 
-document.getElementById("menuAdmin")
-.classList.remove("hidden");
+document.getElementById("step1").classList.add("hidden");
+document.getElementById("step2").classList.add("hidden");
+document.getElementById("step3").classList.add("hidden");
+document.getElementById("step4").classList.add("hidden");
+
+document.getElementById("kembali1").classList.add("hidden");
+document.getElementById("kembali2").classList.add("hidden");
+document.getElementById("kembali3").classList.add("hidden");
 
 }
 
-function hapusRiwayat(){
+/* ====================== */
+/* HAPUS */
+/* ====================== */
 
-if(confirm("Hapus semua riwayat?")){
+function hapusSemua(){
+
+let konfirmasi =
+confirm("Hapus semua riwayat?");
+
+if(konfirmasi){
 
 dataRiwayat = [];
 
@@ -1436,9 +1628,13 @@ updateDashboard();
 
 }
 
-function downloadRiwayat(){
+/* ====================== */
+/* DOWNLOAD */
+/* ====================== */
 
-alert("Fitur download berhasil!");
+function downloadExcel(){
+
+alert("Fitur download berhasil dijalankan!");
 
 }
 
