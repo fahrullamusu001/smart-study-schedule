@@ -20,6 +20,7 @@
     padding:0;
     box-sizing:border-box;
     font-family:Segoe UI,sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body{
@@ -34,6 +35,7 @@ body{
     max-width:450px;
     min-height:100vh;
     background:white;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
     position:relative;
     overflow:hidden;
 }
@@ -42,78 +44,60 @@ header{
     background:linear-gradient(135deg,var(--pink1),var(--pink4));
     color:white;
     text-align:center;
-    padding:25px 20px 40px;
-    border-bottom-left-radius:35px;
-    border-bottom-right-radius:35px;
+    padding:20px;
+    border-bottom-left-radius:25px;
+    border-bottom-right-radius:25px;
     position:relative;
 }
 
+/* PENGATURAN */
+
 .setting-btn{
     position:absolute;
-    top:12px;
-    left:12px;
-    width:42px;
-    height:42px;
+    top:10px;
+    left:10px;
+    width:34px;
+    height:34px;
     border:none;
     border-radius:50%;
     background:white;
     color:var(--pink4);
-    font-size:18px;
+    font-size:16px;
+    font-weight:bold;
     cursor:pointer;
-    z-index:999;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
 }
 
-.side-menu{
+.sidebar-setting{
     position:fixed;
     top:0;
     left:-260px;
     width:240px;
     height:100%;
-    background:#2b1f24;
-    z-index:99999;
+    background:white;
+    z-index:999999;
     transition:0.3s;
-    padding-top:60px;
+    box-shadow:5px 0 20px rgba(0,0,0,0.2);
+    padding:20px;
+    overflow-y:auto;
 }
 
-.side-menu.active{
+.sidebar-setting.active{
     left:0;
-}
-
-.side-menu button{
-    width:100%;
-    background:none;
-    border:none;
-    color:white;
-    text-align:left;
-    padding:18px 25px;
-    font-size:17px;
-    cursor:pointer;
-}
-
-.side-menu button:hover{
-    background:rgba(255,255,255,0.1);
-}
-
-.close-menu{
-    position:absolute;
-    top:10px;
-    right:10px;
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    border:none;
-    background:rgba(255,255,255,0.1);
-    color:white;
-    font-size:22px;
-    cursor:pointer;
 }
 
 .overlay{
     position:fixed;
-    inset:0;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     background:rgba(0,0,0,0.4);
-    z-index:9999;
+    z-index:999998;
     display:none;
 }
 
@@ -121,26 +105,101 @@ header{
     display:block;
 }
 
+.setting-title{
+    font-size:20px;
+    color:var(--pink4);
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+.setting-menu{
+    background:#fff0f5;
+    border:2px solid var(--pink2);
+    border-radius:15px;
+    padding:14px;
+    margin-bottom:12px;
+}
+
+.setting-menu h4{
+    color:var(--pink4);
+    margin-bottom:5px;
+    font-size:15px;
+}
+
+.setting-menu p{
+    font-size:12px;
+    color:#666;
+    line-height:1.5;
+}
+
+.setting-input{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:2px solid var(--pink2);
+    margin-top:10px;
+    outline:none;
+}
+
+.setting-login-btn{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--pink1),var(--pink4));
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.logout-btn{
+    background:#dc3545;
+}
+
+.admin-badge{
+    margin-top:10px;
+    background:#28a745;
+    color:white;
+    padding:10px;
+    border-radius:12px;
+    text-align:center;
+    font-size:13px;
+    display:none;
+}
+
+.close-sidebar{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:#eee;
+    cursor:pointer;
+}
+
 header h1{
     font-size:28px;
     margin-top:10px;
 }
 
-header p{
-    margin-top:5px;
+#jam{
+    margin-top:10px;
+    font-size:20px;
 }
 
 .dark-btn{
-    width:100%;
-    border:none;
+    margin-top:15px;
     background:white;
     color:var(--pink4);
-    padding:14px;
-    border-radius:18px;
-    margin-top:20px;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    width:100%;
     font-weight:bold;
     cursor:pointer;
-    font-size:18px;
 }
 
 .content{
@@ -150,136 +209,69 @@ header p{
 .card{
     background:white;
     border:2px solid var(--pink2);
-    border-radius:28px;
+    border-radius:22px;
     padding:18px;
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 h3{
     color:var(--pink4);
-    margin-bottom:18px;
-    font-size:24px;
-}
-
-.dashboard-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-}
-
-.dashboard-box{
-    background:#fff0f5;
-    border:2px solid var(--pink2);
-    border-radius:20px;
-    text-align:center;
-    padding:15px 10px;
-}
-
-.dashboard-box div:first-child{
-    font-size:28px;
-}
-
-.dashboard-number{
-    font-size:20px;
-    color:var(--pink4);
-    font-weight:bold;
-    margin-top:8px;
-}
-
-.dashboard-label{
-    margin-top:5px;
-    font-size:13px;
-}
-
-.menu-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-
-.menu-box{
-    background:#fff0f5;
-    border:2px solid var(--pink2);
-    border-radius:25px;
-    padding:30px 10px;
-    text-align:center;
-    cursor:pointer;
-}
-
-.menu-box div:first-child{
-    font-size:35px;
-}
-
-.menu-box h4{
-    margin-top:15px;
-    color:var(--pink4);
-    font-size:20px;
+    margin-bottom:15px;
+    font-size:22px;
 }
 
 input,
 select{
     width:100%;
-    padding:15px;
-    border-radius:18px;
+    padding:14px;
     border:2px solid var(--pink2);
-    margin-top:14px;
+    border-radius:16px;
+    margin-top:12px;
     font-size:16px;
     outline:none;
 }
 
 button{
-    cursor:pointer;
-}
-
-.main-btn{
     width:100%;
+    padding:14px;
     border:none;
-    padding:15px;
-    border-radius:18px;
+    border-radius:16px;
     background:var(--pink1);
     color:white;
-    font-size:18px;
     font-weight:bold;
-    margin-top:18px;
+    margin-top:15px;
+    cursor:pointer;
+    font-size:16px;
 }
 
 .hidden{
-    display:none;
-}
-
-.dropdown-list{
-    border:2px solid var(--pink2);
-    border-radius:18px;
-    max-height:180px;
-    overflow-y:auto;
-    margin-top:10px;
-}
-
-.dropdown-item{
-    padding:14px;
-    border-bottom:1px solid #eee;
-    cursor:pointer;
-}
-
-.dropdown-item:hover{
-    background:#fff0f5;
+    display:none !important;
 }
 
 .status-box{
-    background:#fff0f5;
-    border-radius:20px;
-    padding:18px;
+    background:#fff5f8;
+    padding:15px;
+    border-radius:18px;
     line-height:2;
+}
+
+#coverBuku,
+#coverKembali{
+    width:120px;
+    display:block;
+    margin:15px auto;
+    border-radius:12px;
 }
 
 .table-container{
     overflow-x:auto;
+    width:100%;
 }
 
 table{
     border-collapse:collapse;
-    width:100%;
-    min-width:900px;
+    min-width:1000px;
+    width:max-content;
 }
 
 th{
@@ -287,17 +279,24 @@ th{
     color:white;
     padding:12px;
     font-size:15px;
+    white-space:nowrap;
 }
 
 td{
     border:1px solid #ddd;
-    padding:10px;
+    padding:8px 12px;
+    font-size:14px;
     text-align:center;
+    white-space:nowrap;
 }
 
-.selesai{
-    text-decoration:line-through;
-    opacity:0.6;
+.nomor{
+    color:var(--pink4);
+    font-weight:bold;
+}
+
+.kosong{
+    color:#999;
 }
 
 .action-buttons{
@@ -305,20 +304,19 @@ td{
     flex-wrap:wrap;
     gap:8px;
     margin-top:15px;
+    justify-content:center;
 }
 
 .action-buttons button{
-    flex:1;
-    min-width:120px;
-    border:none;
-    padding:10px;
-    border-radius:14px;
-    color:white;
-    font-size:13px;
-    font-weight:bold;
+    width:auto;
+    margin:0;
+    padding:9px 12px;
+    font-size:11px;
+    border-radius:10px;
+    min-width:110px;
 }
 
-.btn-dipinjam{
+.btn-pinjam{
     background:#ff85a2;
 }
 
@@ -338,11 +336,99 @@ td{
     background:#dc3545;
 }
 
+.status-kembali{
+    text-decoration:line-through;
+    opacity:0.7;
+    color:#777;
+}
+
 footer{
     text-align:center;
-    padding:35px;
+    padding:30px;
     color:#999;
+    font-size:15px;
 }
+
+.dropdown-container{
+    position:relative;
+}
+
+.dropdown-list{
+    position:absolute;
+    width:100%;
+    background:white;
+    border:2px solid var(--pink2);
+    border-radius:16px;
+    max-height:220px;
+    overflow-y:auto;
+    z-index:999;
+}
+
+.dropdown-item{
+    padding:14px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.dropdown-item:hover{
+    background:#fff0f5;
+}
+
+/* DASHBOARD */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.dashboard-box{
+    background:#fff0f5;
+    padding:10px;
+    border-radius:15px;
+    border:2px solid #fbb1bd;
+    text-align:center;
+}
+
+.dashboard-icon{
+    font-size:20px;
+}
+
+.dashboard-number{
+    font-size:18px;
+    font-weight:bold;
+    color:#d63384;
+    margin-top:5px;
+}
+
+.dashboard-label{
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* MENU */
+
+.menu-admin{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.menu-btn{
+    background:#fff0f5;
+    border:2px solid var(--pink2);
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.menu-btn h4{
+    color:var(--pink4);
+    margin-top:10px;
+}
+
+/* DARK MODE */
 
 .dark{
     background:#1e1e1e;
@@ -363,16 +449,24 @@ footer{
     color:white;
 }
 
+.dark .dropdown-list{
+    background:#444;
+}
+
 .dark .status-box{
     background:#444;
 }
 
-.dark .menu-box{
+.dark .sidebar-setting{
+    background:#2b2b2b;
+}
+
+.dark .setting-menu{
     background:#444;
 }
 
-.dark .dashboard-box{
-    background:#444;
+.dark .setting-menu p{
+    color:#ddd;
 }
 
 </style>
@@ -380,19 +474,62 @@ footer{
 
 <body>
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="overlay" id="overlay"></div>
 
-<div class="side-menu" id="sideMenu">
+<div class="sidebar-setting" id="sidebarSetting">
 
-<button class="close-menu" onclick="toggleMenu()">✕</button>
+<button class="close-sidebar" onclick="toggleSetting()">
+✕
+</button>
 
-<button onclick="toggleLogin()">🔐 Login Admin</button>
+<div class="setting-title">
+⚙️ Pengaturan
+</div>
 
-<button onclick="darkMode()">🌙 Dark Mode</button>
+<div class="setting-menu">
 
-<button onclick="downloadExcel()">📥 Download Riwayat</button>
+<h4>🔐 Login Admin</h4>
 
-<button onclick="alert('E-Perpus Pinky')">📚 Tentang Aplikasi</button>
+<p>
+Masuk sebagai admin untuk membuka fitur perpustakaan.
+</p>
+
+<input
+type="text"
+id="usernameAdmin"
+class="setting-input"
+placeholder="Username Admin"
+autocomplete="off"
+>
+
+<input
+type="password"
+id="passwordAdmin"
+class="setting-input"
+placeholder="Password Admin"
+autocomplete="new-password"
+>
+
+<button
+class="setting-login-btn"
+onclick="loginAdmin()"
+>
+Login Admin
+</button>
+
+<button
+id="logoutBtn"
+class="setting-login-btn logout-btn hidden"
+onclick="logoutAdmin()"
+>
+Logout Admin
+</button>
+
+<div class="admin-badge" id="adminBadge">
+✅ Admin Sudah Login
+</div>
+
+</div>
 
 </div>
 
@@ -400,11 +537,15 @@ footer{
 
 <header>
 
-<button class="setting-btn" onclick="toggleMenu()">⚙</button>
+<button class="setting-btn" onclick="toggleSetting()">
+⚙
+</button>
 
 <h1>📚 E-Perpus Pinky</h1>
 
 <p>Tugas Informatika Kelas 11</p>
+
+<p id="jam"></p>
 
 <button class="dark-btn" onclick="darkMode()">
 🌙 Dark Mode
@@ -414,18 +555,6 @@ footer{
 
 <div class="content">
 
-<div id="loginBox" class="card hidden">
-
-<h3>🔐 Login Admin</h3>
-
-<input type="text" id="usernameAdmin" placeholder="Username">
-
-<input type="password" id="passwordAdmin" placeholder="Password">
-
-<button class="main-btn" onclick="loginAdmin()">Masuk</button>
-
-</div>
-
 <div class="card">
 
 <h3>📊 Dashboard Ringkasan</h3>
@@ -433,20 +562,20 @@ footer{
 <div class="dashboard-grid">
 
 <div class="dashboard-box">
-<div>📚</div>
-<div class="dashboard-number" id="totalBuku">0</div>
+<div class="dashboard-icon">📚</div>
+<div id="totalBuku" class="dashboard-number">0</div>
 <div class="dashboard-label">Total Buku</div>
 </div>
 
 <div class="dashboard-box">
-<div>👨‍🎓</div>
-<div class="dashboard-number" id="totalSiswa">0</div>
+<div class="dashboard-icon">👨‍🎓</div>
+<div id="totalSiswa" class="dashboard-number">0</div>
 <div class="dashboard-label">Total Siswa</div>
 </div>
 
 <div class="dashboard-box">
-<div>📝</div>
-<div class="dashboard-number" id="totalTransaksi">0</div>
+<div class="dashboard-icon">📝</div>
+<div id="totalTransaksi" class="dashboard-number">0</div>
 <div class="dashboard-label">Transaksi</div>
 </div>
 
@@ -458,147 +587,19 @@ footer{
 
 <h3>📚 Menu Perpustakaan</h3>
 
-<div class="menu-grid">
+<div class="menu-admin">
 
-<div class="menu-box" onclick="bukaPinjam()">
-<div>📖</div>
+<div class="menu-btn" onclick="bukaPinjam()">
+📖
 <h4>Pinjam Buku</h4>
 </div>
 
-<div class="menu-box" onclick="bukaKembali()">
-<div>📦</div>
+<div class="menu-btn" onclick="bukaKembalikan()">
+📦
 <h4>Kembalikan Buku</h4>
 </div>
 
 </div>
-
-</div>
-
-<!-- PINJAM -->
-
-<div id="pinjam1" class="card hidden">
-
-<h3>📖 Pilih Buku</h3>
-
-<select id="cariBuku">
-
-<option value="">-- Pilih Buku --</option>
-
-<option>Pen. Agama Islam</option>
-<option>PKN</option>
-<option>Bahasa Indonesia</option>
-<option>Bahasa Inggris</option>
-<option>Seni Budaya</option>
-<option>PJOK</option>
-<option>Matematika</option>
-<option>Fisika</option>
-<option>Sejarah Indonesia</option>
-<option>Biologi</option>
-<option>Kimia</option>
-<option>Informatika</option>
-
-</select>
-
-<input type="number" id="jumlahBuku" placeholder="Jumlah Buku Dipinjam">
-
-<button class="main-btn" onclick="nextPinjam2()">
-Lanjut
-</button>
-
-</div>
-
-<div id="pinjam2" class="card hidden">
-
-<h3>👨‍🎓 Data Siswa</h3>
-
-<select id="kelasSiswa" onchange="loadNama()">
-
-<option value="">Pilih Kelas</option>
-
-<option>XI-1</option>
-<option>XI-2</option>
-<option>XI-3</option>
-<option>XI-4</option>
-<option>XI-5</option>
-<option>XI-6</option>
-<option>XI-7</option>
-<option>XI-8</option>
-<option>XI-9</option>
-<option>XI-10</option>
-
-</select>
-
-<input type="text" id="searchNama" placeholder="🔍 Cari Nama">
-
-<div id="dropdownNama" class="dropdown-list hidden"></div>
-
-<button class="main-btn" onclick="prosesPinjam()">
-Konfirmasi Peminjaman
-</button>
-
-</div>
-
-<!-- KEMBALIKAN -->
-
-<div id="kembali1" class="card hidden">
-
-<h3>📦 Kembalikan Buku</h3>
-
-<select id="kelasKembali" onchange="loadNamaKembali()">
-
-<option value="">Pilih Kelas</option>
-
-<option>XI-1</option>
-<option>XI-2</option>
-<option>XI-3</option>
-<option>XI-4</option>
-<option>XI-5</option>
-<option>XI-6</option>
-<option>XI-7</option>
-<option>XI-8</option>
-<option>XI-9</option>
-<option>XI-10</option>
-
-</select>
-
-<input type="text" id="searchNamaKembali" placeholder="🔍 Cari Nama">
-
-<div id="dropdownNamaKembali" class="dropdown-list hidden"></div>
-
-<button class="main-btn" onclick="cekDataPengembalian()">
-Lanjut
-</button>
-
-</div>
-
-<div id="kembali2" class="card hidden">
-
-<h3>📚 Detail Pengembalian</h3>
-
-<select id="bukuKembali">
-
-<option value="">-- Pilih Buku --</option>
-
-<option>Pen. Agama Islam</option>
-<option>PKN</option>
-<option>Bahasa Indonesia</option>
-<option>Bahasa Inggris</option>
-<option>Seni Budaya</option>
-<option>PJOK</option>
-<option>Matematika</option>
-<option>Fisika</option>
-<option>Sejarah Indonesia</option>
-<option>Biologi</option>
-<option>Kimia</option>
-<option>Informatika</option>
-
-</select>
-
-<input type="number" id="jumlahKembali" placeholder="Jumlah Buku Dikembalikan">
-
-<button class="main-btn" onclick="prosesKembali()">
-Konfirmasi Pengembalian
-</button>
 
 </div>
 
@@ -613,13 +614,16 @@ Konfirmasi Pengembalian
 <thead>
 
 <tr>
+
 <th>No</th>
 <th>Nama</th>
 <th>Kelas</th>
 <th>Buku</th>
 <th>Jumlah</th>
 <th>Tanggal</th>
+<th>Jam</th>
 <th>Status</th>
+
 </tr>
 
 </thead>
@@ -627,8 +631,13 @@ Konfirmasi Pengembalian
 <tbody id="riwayatTable">
 
 <tr>
-<td>1</td>
-<td colspan="6">Belum ada riwayat peminjaman</td>
+
+<td class="nomor">1</td>
+
+<td colspan="7" class="kosong">
+Belum ada riwayat
+</td>
+
 </tr>
 
 </tbody>
@@ -639,23 +648,40 @@ Konfirmasi Pengembalian
 
 <div class="action-buttons">
 
-<button class="btn-dipinjam" onclick="filterRiwayat('Dipinjam')">
+<button
+class="btn-pinjam"
+onclick="filterRiwayat('Dipinjam')"
+>
 📖 Dipinjam
 </button>
 
-<button class="btn-kembali" onclick="filterRiwayat('Dikembalikan')">
+<button
+class="btn-kembali"
+onclick="filterRiwayat('Dikembalikan')"
+>
 📦 Dikembalikan
 </button>
 
-<button class="btn-semua" onclick="filterRiwayat('Semua')">
+<button
+class="btn-semua"
+onclick="filterRiwayat('Semua')"
+>
 📋 Semua
 </button>
 
-<button class="btn-download" onclick="downloadExcel()">
+<button
+id="downloadBtn"
+class="btn-download hidden"
+onclick="downloadExcel()"
+>
 📥 Download Riwayat
 </button>
 
-<button class="btn-hapus" onclick="hapusRiwayat()">
+<button
+id="hapusBtn"
+class="btn-hapus hidden"
+onclick="hapusSemua()"
+>
 🗑 Hapus Riwayat
 </button>
 
@@ -673,392 +699,194 @@ Dibuat Oleh Fahrul Lamusu
 
 <script>
 
-let isAdmin = false;
+setInterval(function(){
 
-let dataRiwayat =
-JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
+let now = new Date();
 
-const dataSiswa = {
+document.getElementById("jam").innerHTML =
+now.toLocaleTimeString('id-ID',{
+hour:'2-digit',
+minute:'2-digit'
+});
 
-"XI-2":[
-"Abdul Rizki Rafa Hiola",
-"Aira Mohi",
-"Almira Juniara Tilahunga",
-"Amelia H. Radzak",
-"Annisa Salsabila Badu",
-"Ardiansyah Ismail",
-"Artika Latiman",
-"Balqis Aurelia Susanto",
-"Chelsea Ishak",
-"Cholid Azzam Surantinojo",
-"Fadel Nur Rizki Wakid",
-"Fahrul Lamusu",
-"Fakhriansyah Eka Tabri",
-"Fatriyaningsih Putri Yasin",
-"Fauzan Fatih Tolinggilo",
-"Fauzia Nurazizah Rauf",
-"Indah Cahyaning Wulan",
-"Jenny Mulyani Hasan",
-"Jesika Jamalu",
-"Kanaya Gufranai Kai",
-"Khumaira Umar",
-"Moh. Adi Firdaus",
-"Moh. Farel Ali",
-"Moh. Ilyansyah Kaharu",
-"Moh. Rayhan Panggi",
-"Moh. Ridho Prasetyo Lasaleng",
-"Mutmainah Dali",
-"Nabila Putri Amara",
-"Navila Cahyani Masi",
-"Nazwa Kirana",
-"Nurain Nggadu",
-"Putri Nuraini Nento",
-"Sarah Zetira Alaydrus",
-"Shawwan Sobri I. Maunty",
-"Siti Aura Rivai"
-]
-
-};
-
-let namaDipilih = "";
-let namaKembali = "";
-
-function toggleMenu(){
-
-document.getElementById("sideMenu")
-.classList.toggle("active");
-
-document.getElementById("overlay")
-.classList.toggle("active");
-
-}
-
-function toggleLogin(){
-
-document.getElementById("loginBox")
-.classList.toggle("hidden");
-
-toggleMenu();
-
-}
+},1000);
 
 function darkMode(){
 
 document.body.classList.toggle("dark");
 
+if(document.body.classList.contains("dark")){
+localStorage.setItem("darkMode","true");
+}else{
+localStorage.setItem("darkMode","false");
 }
+
+}
+
+function toggleSetting(){
+
+let sidebar =
+document.getElementById("sidebarSetting");
+
+let overlay =
+document.getElementById("overlay");
+
+sidebar.classList.toggle("active");
+overlay.classList.toggle("active");
+
+}
+
+document.getElementById("overlay").onclick = function(){
+
+toggleSetting();
+
+};
+
+let isAdmin = false;
 
 function loginAdmin(){
 
-let user =
+let username =
 document.getElementById("usernameAdmin").value;
 
-let pass =
+let password =
 document.getElementById("passwordAdmin").value;
 
-if(user==="admin" && pass==="12345"){
+if(
+username === "admin"
+&&
+password === "12345"
+){
 
 isAdmin = true;
+
+localStorage.setItem("adminLogin","true");
 
 document.getElementById("menuAdmin")
 .classList.remove("hidden");
 
-document.getElementById("loginBox")
-.classList.add("hidden");
+document.getElementById("downloadBtn")
+.classList.remove("hidden");
 
-document.getElementById("usernameAdmin").value="";
-document.getElementById("passwordAdmin").value="";
+document.getElementById("hapusBtn")
+.classList.remove("hidden");
 
-alert("Login berhasil");
+document.getElementById("adminBadge")
+.style.display = "block";
+
+document.getElementById("logoutBtn")
+.classList.remove("hidden");
+
+toggleSetting();
+
+alert("Login admin berhasil!");
 
 }else{
 
-alert("Username atau password salah");
+alert("Username atau password salah!");
 
 }
 
 }
 
-function bukaPinjam(){
+function logoutAdmin(){
 
-hideAll();
+localStorage.removeItem("adminLogin");
 
-document.getElementById("pinjam1")
+location.reload();
+
+}
+
+window.onload = function(){
+
+if(localStorage.getItem("darkMode") === "true"){
+document.body.classList.add("dark");
+}
+
+if(localStorage.getItem("adminLogin") === "true"){
+
+document.getElementById("menuAdmin")
+.classList.remove("hidden");
+
+document.getElementById("downloadBtn")
+.classList.remove("hidden");
+
+document.getElementById("hapusBtn")
+.classList.remove("hidden");
+
+document.getElementById("adminBadge")
+.style.display = "block";
+
+document.getElementById("logoutBtn")
 .classList.remove("hidden");
 
 }
-
-function nextPinjam2(){
-
-let buku =
-document.getElementById("cariBuku").value;
-
-let jumlah =
-document.getElementById("jumlahBuku").value;
-
-if(!buku || !jumlah){
-
-alert("Lengkapi data");
-
-return;
-
-}
-
-hideAll();
-
-document.getElementById("pinjam2")
-.classList.remove("hidden");
-
-}
-
-function bukaKembali(){
-
-hideAll();
-
-document.getElementById("kembali1")
-.classList.remove("hidden");
-
-}
-
-function loadNama(){
-
-let kelas =
-document.getElementById("kelasSiswa").value;
-
-let box =
-document.getElementById("dropdownNama");
-
-box.innerHTML="";
-
-if(dataSiswa[kelas]){
-
-dataSiswa[kelas].forEach(nama=>{
-
-box.innerHTML += `
-<div class="dropdown-item"
-onclick="pilihNama('${nama}')">
-${nama}
-</div>
-`;
-
-});
-
-}
-
-box.classList.remove("hidden");
-
-}
-
-function pilihNama(nama){
-
-namaDipilih = nama;
-
-document.getElementById("searchNama").value = nama;
-
-document.getElementById("dropdownNama")
-.classList.add("hidden");
-
-}
-
-function prosesPinjam(){
-
-let kelas =
-document.getElementById("kelasSiswa").value;
-
-let buku =
-document.getElementById("cariBuku").value;
-
-let jumlah =
-document.getElementById("jumlahBuku").value;
-
-if(!kelas || !namaDipilih){
-
-alert("Lengkapi data");
-
-return;
-
-}
-
-dataRiwayat.push({
-
-nama:namaDipilih,
-kelas,
-buku,
-jumlah,
-tanggal:new Date().toLocaleDateString("id-ID"),
-status:"Dipinjam"
-
-});
-
-localStorage.setItem(
-"riwayatPerpus",
-JSON.stringify(dataRiwayat)
-);
 
 tampilkanRiwayat();
 
-updateDashboard();
+};
 
-alert("Peminjaman berhasil");
+let dataRiwayat =
+JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
 
-hideAll();
-
-}
-
-function loadNamaKembali(){
-
-let kelas =
-document.getElementById("kelasKembali").value;
-
-let box =
-document.getElementById("dropdownNamaKembali");
-
-box.innerHTML="";
-
-if(dataSiswa[kelas]){
-
-dataSiswa[kelas].forEach(nama=>{
-
-box.innerHTML += `
-<div class="dropdown-item"
-onclick="pilihNamaKembali('${nama}')">
-${nama}
-</div>
-`;
-
-});
-
-}
-
-box.classList.remove("hidden");
-
-}
-
-function pilihNamaKembali(nama){
-
-namaKembali = nama;
-
-document.getElementById("searchNamaKembali").value = nama;
-
-document.getElementById("dropdownNamaKembali")
-.classList.add("hidden");
-
-}
-
-function cekDataPengembalian(){
-
-let kelas =
-document.getElementById("kelasKembali").value;
-
-let ditemukan =
-dataRiwayat.find(item=>
-item.nama===namaKembali &&
-item.kelas===kelas &&
-item.status==="Dipinjam"
-);
-
-if(!ditemukan){
-
-alert("Data peminjaman tidak ditemukan");
-
-return;
-
-}
-
-hideAll();
-
-document.getElementById("kembali2")
-.classList.remove("hidden");
-
-}
-
-function prosesKembali(){
-
-let buku =
-document.getElementById("bukuKembali").value;
-
-let jumlah =
-document.getElementById("jumlahKembali").value;
-
-if(!buku || !jumlah){
-
-alert("Lengkapi data");
-
-return;
-
-}
-
-let data =
-dataRiwayat.find(item=>
-item.nama===namaKembali &&
-item.buku===buku &&
-item.status==="Dipinjam"
-);
-
-if(!data){
-
-alert("Data buku tidak ditemukan");
-
-return;
-
-}
-
-data.status = "Dikembalikan";
-
-localStorage.setItem(
-"riwayatPerpus",
-JSON.stringify(dataRiwayat)
-);
-
-tampilkanRiwayat();
-
-alert("Buku berhasil dikembalikan");
-
-hideAll();
-
-}
-
-function tampilkanRiwayat(filter="Semua"){
+function tampilkanRiwayat(filter = "Semua"){
 
 let table =
 document.getElementById("riwayatTable");
 
-table.innerHTML="";
+table.innerHTML = "";
 
-let hasil = dataRiwayat;
+let data = dataRiwayat;
 
-if(filter!=="Semua"){
+if(filter !== "Semua"){
 
-hasil =
-dataRiwayat.filter(item=>item.status===filter);
+data = dataRiwayat.filter(function(item){
+
+return item.status === filter;
+
+});
 
 }
 
-if(hasil.length===0){
+if(data.length === 0){
 
-table.innerHTML=`
+table.innerHTML = `
+
 <tr>
-<td>1</td>
-<td colspan="6">Belum ada riwayat peminjaman</td>
+<td class="nomor">1</td>
+<td colspan="7" class="kosong">
+Belum ada riwayat
+</td>
 </tr>
+
 `;
 
 return;
 
 }
 
-hasil.forEach((item,index)=>{
+data.forEach(function(item,index){
+
+let rowClass =
+item.status === "Dikembalikan"
+? "status-kembali"
+: "";
 
 table.innerHTML += `
-<tr class="${item.status==="Dikembalikan" ? "selesai" : ""}">
-<td>${index+1}</td>
+
+<tr class="${rowClass}">
+
+<td class="nomor">${index+1}</td>
 <td>${item.nama}</td>
 <td>${item.kelas}</td>
 <td>${item.buku}</td>
 <td>${item.jumlah}</td>
 <td>${item.tanggal}</td>
+<td>${item.jam}</td>
 <td>${item.status}</td>
+
 </tr>
+
 `;
 
 });
@@ -1071,90 +899,69 @@ tampilkanRiwayat(status);
 
 }
 
-function hapusRiwayat(){
+function hapusSemua(){
 
-if(confirm("Hapus semua riwayat?")){
+let konfirmasi =
+confirm("Hapus semua riwayat?");
 
-dataRiwayat=[];
+if(konfirmasi){
+
+dataRiwayat = [];
 
 localStorage.removeItem("riwayatPerpus");
 
 tampilkanRiwayat();
 
-updateDashboard();
-
 }
-
-}
-
-function updateDashboard(){
-
-let total=0;
-
-let siswa=[];
-
-dataRiwayat.forEach(item=>{
-
-total += Number(item.jumlah);
-
-if(!siswa.includes(item.nama)){
-
-siswa.push(item.nama);
-
-}
-
-});
-
-document.getElementById("totalBuku").innerHTML =
-total;
-
-document.getElementById("totalSiswa").innerHTML =
-siswa.length;
-
-document.getElementById("totalTransaksi").innerHTML =
-dataRiwayat.length;
-
-}
-
-function hideAll(){
-
-document.querySelectorAll(
-"#pinjam1,#pinjam2,#kembali1,#kembali2"
-).forEach(el=>{
-
-el.classList.add("hidden");
-
-});
 
 }
 
 function downloadExcel(){
 
+if(dataRiwayat.length === 0){
+
+alert("Belum ada data riwayat!");
+
+return;
+
+}
+
 let html = `
+
 <table border="1">
-<tr>
+
+<tr style="background:#ff85a2;color:white;font-weight:bold;">
+
 <th>No</th>
 <th>Nama</th>
 <th>Kelas</th>
 <th>Buku</th>
 <th>Jumlah</th>
 <th>Tanggal</th>
+<th>Jam</th>
 <th>Status</th>
+
 </tr>
+
 `;
 
-dataRiwayat.forEach((item,index)=>{
+dataRiwayat.forEach(function(item,index){
 
 html += `
+
 <tr>
+
 <td>${index+1}</td>
 <td>${item.nama}</td>
 <td>${item.kelas}</td>
 <td>${item.buku}</td>
 <td>${item.jumlah}</td>
 <td>${item.tanggal}</td>
+<td>${item.jam}</td>
 <td>${item.status}</td>
+
 </tr>
+
 `;
 
 });
@@ -1162,23 +969,33 @@ html += `
 html += `</table>`;
 
 let blob = new Blob(
-[html],
-{type:"application/vnd.ms-excel"}
+[
+'\ufeff' + html
+],
+{
+type:
+'application/vnd.ms-excel'
+}
 );
 
-let a = document.createElement("a");
+let url =
+URL.createObjectURL(blob);
 
-a.href = URL.createObjectURL(blob);
+let a =
+document.createElement("a");
 
-a.download = "Riwayat_Peminjaman.xls";
+a.href = url;
+
+a.download =
+"Riwayat_Peminjaman.xls";
+
+document.body.appendChild(a);
 
 a.click();
 
+document.body.removeChild(a);
+
 }
-
-tampilkanRiwayat();
-
-updateDashboard();
 
 </script>
 
