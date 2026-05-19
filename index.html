@@ -50,9 +50,7 @@ header{
     position:relative;
 }
 
-/* ====================== */
 /* PENGATURAN */
-/* ====================== */
 
 .setting-btn{
     position:absolute;
@@ -65,7 +63,6 @@ header{
     background:white;
     color:var(--pink4);
     font-size:16px;
-    font-weight:bold;
     cursor:pointer;
     z-index:9999;
     display:flex;
@@ -181,8 +178,6 @@ header{
     background:#eee;
     cursor:pointer;
 }
-
-/* ====================== */
 
 header h1{
     font-size:28px;
@@ -313,7 +308,7 @@ td{
 .action-buttons button{
     width:auto;
     margin:0;
-    padding:9px 12px;
+    padding:8px 12px;
     font-size:11px;
     border-radius:10px;
 }
@@ -326,14 +321,8 @@ td{
     background:#dc3545;
 }
 
-.btn-pinjam{
-    background:#ff85a2;
-}
-
-.btn-kembali{
-    background:#ff85a2;
-}
-
+.btn-pinjam,
+.btn-kembali,
 .btn-semua{
     background:#ff85a2;
 }
@@ -370,8 +359,6 @@ footer{
     background:#fff0f5;
 }
 
-/* DASHBOARD */
-
 .dashboard-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -402,8 +389,6 @@ footer{
     margin-top:3px;
 }
 
-/* MENU */
-
 .menu-admin{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -424,7 +409,11 @@ footer{
     margin-top:10px;
 }
 
-/* DARK MODE */
+.selesai{
+    text-decoration:line-through;
+    opacity:0.7;
+    background:#f5f5f5;
+}
 
 .dark{
     background:#1e1e1e;
@@ -474,9 +463,7 @@ footer{
 
 <div class="sidebar-setting" id="sidebarSetting">
 
-<button class="close-sidebar" onclick="toggleSetting()">
-✕
-</button>
+<button class="close-sidebar" onclick="toggleSetting()">✕</button>
 
 <div class="setting-title">
 ⚙️ Pengaturan
@@ -486,9 +473,7 @@ footer{
 
 <h4>🔐 Login Admin</h4>
 
-<p>
-Masuk sebagai admin untuk membuka fitur perpustakaan.
-</p>
+<p>Masuk sebagai admin untuk membuka fitur perpustakaan.</p>
 
 <input
 type="text"
@@ -531,9 +516,7 @@ Logout Admin
 
 <h4>📥 Download Riwayat</h4>
 
-<p>
-Download semua data riwayat peminjaman dalam file excel.
-</p>
+<p>Download semua riwayat peminjaman dalam file Excel.</p>
 
 <button
 class="setting-login-btn"
@@ -616,6 +599,8 @@ Download Riwayat
 
 </div>
 
+<!-- PINJAM -->
+
 <div id="step1" class="card hidden">
 
 <h3>1. Pilih Buku</h3>
@@ -644,7 +629,7 @@ type="number"
 id="jumlahBuku"
 placeholder="Jumlah Buku Dipinjam"
 min="1"
-max="10"
+max="100"
 >
 
 <img
@@ -735,51 +720,11 @@ Kembali ke Menu
 
 </div>
 
+<!-- KEMBALIKAN -->
+
 <div id="kembali1" class="card hidden">
 
-<h3>1. Pilih Buku Dikembalikan</h3>
-
-<select id="bukuKembali" onchange="tampilCoverKembali()">
-
-<option value="">-- Pilih Buku --</option>
-
-<option>Pen. Agama Islam</option>
-<option>PKN</option>
-<option>Bahasa Indonesia</option>
-<option>Bahasa Inggris</option>
-<option>Seni Budaya</option>
-<option>PJOK</option>
-<option>Matematika</option>
-<option>Fisika</option>
-<option>Sejarah Indonesia</option>
-<option>Biologi</option>
-<option>Kimia</option>
-<option>Informatika</option>
-
-</select>
-
-<input
-type="number"
-id="jumlahKembali"
-placeholder="Jumlah Buku Dikembalikan"
-min="1"
-max="10"
->
-
-<img
-id="coverKembali"
-src="https://via.placeholder.com/120x170/28a745/ffffff?text=Kembali"
->
-
-<button onclick="cekJumlahKembali()">
-Lanjut
-</button>
-
-</div>
-
-<div id="kembali2" class="card hidden">
-
-<h3>2. Data Pengembalian</h3>
+<h3>1. Data Pengembalian</h3>
 
 <select id="kelasKembali" onchange="loadNamaKembali()">
 
@@ -814,6 +759,32 @@ class="dropdown-list hidden">
 
 </div>
 
+<button onclick="cekDataPengembalian()">
+Lanjut
+</button>
+
+</div>
+
+<div id="kembali2" class="card hidden">
+
+<h3>2. Buku Yang Dipinjam</h3>
+
+<select id="bukuKembali" onchange="isiJumlahOtomatis()">
+<option value="">-- Pilih Buku --</option>
+</select>
+
+<input
+type="number"
+id="jumlahKembali"
+readonly
+placeholder="Jumlah otomatis"
+>
+
+<img
+id="coverKembali"
+src="https://via.placeholder.com/120x170/28a745/ffffff?text=Kembali"
+>
+
 <button onclick="prosesKembali()">
 Konfirmasi Pengembalian
 </button>
@@ -831,6 +802,8 @@ Kembali ke Menu
 </button>
 
 </div>
+
+<!-- RIWAYAT -->
 
 <div class="card">
 
@@ -878,6 +851,22 @@ Belum ada riwayat
 <div class="action-buttons">
 
 <button
+id="downloadBtn"
+class="btn-download hidden"
+onclick="downloadExcel()"
+>
+📥 Download Riwayat
+</button>
+
+<button
+id="hapusBtn"
+class="btn-hapus hidden"
+onclick="hapusSemua()"
+>
+🗑 Hapus Riwayat
+</button>
+
+<button
 class="btn-pinjam"
 onclick="filterRiwayat('Dipinjam')"
 >
@@ -896,22 +885,6 @@ class="btn-semua"
 onclick="filterRiwayat('Semua')"
 >
 📋 Semua
-</button>
-
-<button
-id="downloadBtn"
-class="btn-download hidden"
-onclick="downloadExcel()"
->
-📥 Download Riwayat
-</button>
-
-<button
-id="hapusBtn"
-class="btn-hapus hidden"
-onclick="hapusSemua()"
->
-🗑 Hapus Riwayat
 </button>
 
 </div>
@@ -954,21 +927,16 @@ localStorage.setItem("darkMode","false");
 
 function toggleSetting(){
 
-let sidebar =
-document.getElementById("sidebarSetting");
+document.getElementById("sidebarSetting")
+.classList.toggle("active");
 
-let overlay =
-document.getElementById("overlay");
-
-sidebar.classList.toggle("active");
-overlay.classList.toggle("active");
+document.getElementById("overlay")
+.classList.toggle("active");
 
 }
 
 document.getElementById("overlay").onclick = function(){
-
 toggleSetting();
-
 };
 
 let isAdmin = false;
@@ -981,11 +949,7 @@ document.getElementById("usernameAdmin").value;
 let password =
 document.getElementById("passwordAdmin").value;
 
-if(
-username === "admin"
-&&
-password === "12345"
-){
+if(username === "admin" && password === "12345"){
 
 isAdmin = true;
 
@@ -1041,8 +1005,6 @@ document.getElementById("logoutBtn")
 
 resetMenu();
 
-toggleSetting();
-
 alert("Logout berhasil!");
 
 }
@@ -1096,30 +1058,7 @@ const dataSiswa = {
 "Chelsea Ishak",
 "Cholid Azzam Surantinojo",
 "Fadel Nur Rizki Wakid",
-"Fahrul Lamusu",
-"Fakhriansyah Eka Tabri",
-"Fatriyaningsih Putri Yasin",
-"Fauzan Fatih Tolinggilo",
-"Fauzia Nurazizah Rauf",
-"Indah Cahyaning Wulan",
-"Jenny Mulyani Hasan",
-"Jesika Jamalu",
-"Kanaya Gufranai Kai",
-"Khumaira Umar",
-"Moh. Adi Firdaus",
-"Moh. Farel Ali",
-"Moh. Ilyansyah Kaharu",
-"Moh. Rayhan Panggi",
-"Moh. Ridho Prasetyo Lasaleng",
-"Mutmainah Dali",
-"Nabila Putri Amara",
-"Navila Cahyani Masi",
-"Nazwa Kirana",
-"Nurain Nggadu",
-"Putri Nuraini Nento",
-"Sarah Zetira Alaydrus",
-"Shawwan Sobri I. Maunty",
-"Siti Aura Rivai"
+"Fahrul Lamusu"
 ]
 
 };
@@ -1127,12 +1066,31 @@ const dataSiswa = {
 let namaDipilih = "";
 let namaKembaliDipilih = "";
 
+let dataRiwayat =
+JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
+
+/* PINJAM */
+
 function bukaPinjam(){
 
 resetMenu();
 
+bersihkanFormPinjam();
+
 document.getElementById("step1")
 .classList.remove("hidden");
+
+}
+
+function bersihkanFormPinjam(){
+
+document.getElementById("cariBuku").value = "";
+document.getElementById("jumlahBuku").value = "";
+document.getElementById("kelasSiswa").value = "";
+document.getElementById("searchNama").value = "";
+document.getElementById("kondisiBuku").checked = false;
+
+namaDipilih = "";
 
 }
 
@@ -1168,10 +1126,7 @@ document.getElementById("coverBuku").src =
 
 function checkKondisi(){
 
-let kondisi =
-document.getElementById("kondisiBuku").checked;
-
-if(!kondisi){
+if(!document.getElementById("kondisiBuku").checked){
 
 alert("Pastikan kondisi buku baik!");
 
@@ -1243,9 +1198,6 @@ item.innerText.toLowerCase().includes(input)
 
 }
 
-let dataRiwayat =
-JSON.parse(localStorage.getItem("riwayatPerpus")) || [];
-
 function prosesPinjam(){
 
 let kelas =
@@ -1304,65 +1256,30 @@ document.getElementById("detailPinjam").innerHTML = `
 `;
 
 tampilkanRiwayat();
+
 updateDashboard();
 
 nextStep(4);
 
 }
 
+/* KEMBALI */
+
 function bukaKembalikan(){
 
 resetMenu();
 
-document.getElementById("kembali1")
-.classList.remove("hidden");
+document.getElementById("searchNamaKembali").value = "";
+document.getElementById("kelasKembali").value = "";
+document.getElementById("bukuKembali").innerHTML =
+'<option value="">-- Pilih Buku --</option>';
 
-}
+document.getElementById("jumlahKembali").value = "";
 
-function cekJumlahKembali(){
-
-let buku =
-document.getElementById("bukuKembali").value;
-
-let jumlah =
-document.getElementById("jumlahKembali").value;
-
-if(!buku || !jumlah){
-
-alert("Isi data buku terlebih dahulu!");
-
-return;
-
-}
-
-nextKembali(2);
-
-}
-
-function nextKembali(step){
+namaKembaliDipilih = "";
 
 document.getElementById("kembali1")
-.classList.add("hidden");
-
-document.getElementById("kembali2")
-.classList.add("hidden");
-
-document.getElementById("kembali3")
-.classList.add("hidden");
-
-document.getElementById("kembali"+step)
 .classList.remove("hidden");
-
-}
-
-function tampilCoverKembali(){
-
-let buku =
-document.getElementById("bukuKembali").value;
-
-document.getElementById("coverKembali").src =
-"https://via.placeholder.com/120x170/28a745/ffffff?text="
-+ encodeURIComponent(buku);
 
 }
 
@@ -1426,43 +1343,110 @@ item.innerText.toLowerCase().includes(input)
 
 }
 
-function prosesKembali(){
+function cekDataPengembalian(){
 
 let kelas =
 document.getElementById("kelasKembali").value;
 
-let buku =
-document.getElementById("bukuKembali").value;
+let ditemukan =
+dataRiwayat.filter(function(item){
 
-let jumlah =
-document.getElementById("jumlahKembali").value;
-
-let ditemukan = false;
-
-dataRiwayat.forEach(function(item){
-
-if(
-item.nama === namaKembaliDipilih &&
-item.kelas === kelas &&
-item.buku === buku &&
-item.jumlah === jumlah &&
-item.status === "Dipinjam"
-){
-
-item.status = "Dikembalikan";
-ditemukan = true;
-
-}
+return item.nama === namaKembaliDipilih
+&& item.kelas === kelas
+&& item.status === "Dipinjam";
 
 });
 
-if(!ditemukan){
+if(ditemukan.length === 0){
 
-alert("Data peminjaman tidak ditemukan atau jumlah buku tidak sesuai!");
+alert("Data peminjaman tidak ditemukan!");
 
 return;
 
 }
+
+let select =
+document.getElementById("bukuKembali");
+
+select.innerHTML =
+'<option value="">-- Pilih Buku --</option>';
+
+ditemukan.forEach(function(item){
+
+select.innerHTML += `
+<option value="${item.buku}">
+${item.buku}
+</option>
+`;
+
+});
+
+document.getElementById("kembali1")
+.classList.add("hidden");
+
+document.getElementById("kembali2")
+.classList.remove("hidden");
+
+}
+
+function isiJumlahOtomatis(){
+
+let buku =
+document.getElementById("bukuKembali").value;
+
+let kelas =
+document.getElementById("kelasKembali").value;
+
+let data =
+dataRiwayat.find(function(item){
+
+return item.nama === namaKembaliDipilih
+&& item.kelas === kelas
+&& item.buku === buku
+&& item.status === "Dipinjam";
+
+});
+
+if(data){
+
+document.getElementById("jumlahKembali").value =
+data.jumlah;
+
+document.getElementById("coverKembali").src =
+"https://via.placeholder.com/120x170/28a745/ffffff?text="
++ encodeURIComponent(buku);
+
+}
+
+}
+
+function prosesKembali(){
+
+let buku =
+document.getElementById("bukuKembali").value;
+
+let kelas =
+document.getElementById("kelasKembali").value;
+
+let data =
+dataRiwayat.find(function(item){
+
+return item.nama === namaKembaliDipilih
+&& item.kelas === kelas
+&& item.buku === buku
+&& item.status === "Dipinjam";
+
+});
+
+if(!data){
+
+alert("Data tidak ditemukan!");
+
+return;
+
+}
+
+data.status = "Dikembalikan";
 
 localStorage.setItem(
 "riwayatPerpus",
@@ -1474,17 +1458,23 @@ document.getElementById("detailKembali").innerHTML = `
 <b>Nama:</b> ${namaKembaliDipilih}<br>
 <b>Kelas:</b> ${kelas}<br>
 <b>Buku:</b> ${buku}<br>
-<b>Jumlah:</b> ${jumlah}<br>
 <b>Status:</b> Dikembalikan
 
 `;
 
 tampilkanRiwayat();
+
 updateDashboard();
 
-nextKembali(3);
+document.getElementById("kembali2")
+.classList.add("hidden");
+
+document.getElementById("kembali3")
+.classList.remove("hidden");
 
 }
+
+/* RIWAYAT */
 
 function tampilkanRiwayat(filter = "Semua"){
 
@@ -1524,15 +1514,14 @@ return;
 
 data.forEach(function(item,index){
 
-let style = "";
-
-if(item.status === "Dikembalikan"){
-style = "text-decoration:line-through;color:#888;";
-}
+let selesai =
+item.status === "Dikembalikan"
+? "selesai"
+: "";
 
 table.innerHTML += `
 
-<tr style="${style}">
+<tr class="${selesai}">
 
 <td class="nomor">${index+1}</td>
 <td>${item.nama}</td>
@@ -1556,6 +1545,8 @@ function filterRiwayat(status){
 tampilkanRiwayat(status);
 
 }
+
+/* DASHBOARD */
 
 function updateDashboard(){
 
@@ -1584,6 +1575,8 @@ dataRiwayat.length;
 
 }
 
+/* RESET */
+
 function resetMenu(){
 
 document.getElementById("step1").classList.add("hidden");
@@ -1597,12 +1590,11 @@ document.getElementById("kembali3").classList.add("hidden");
 
 }
 
+/* HAPUS */
+
 function hapusSemua(){
 
-let konfirmasi =
-confirm("Hapus semua riwayat?");
-
-if(konfirmasi){
+if(confirm("Hapus semua riwayat?")){
 
 dataRiwayat = [];
 
@@ -1616,10 +1608,20 @@ updateDashboard();
 
 }
 
+/* DOWNLOAD EXCEL */
+
 function downloadExcel(){
 
+if(dataRiwayat.length === 0){
+
+alert("Belum ada data!");
+
+return;
+
+}
+
 let csv =
-"NO,NAMA,KELAS,BUKU,JUMLAH,TANGGAL,JAM,STATUS\n";
+"No,Nama,Kelas,Buku,Jumlah,Tanggal,Jam,Status\n";
 
 dataRiwayat.forEach(function(item,index){
 
@@ -1637,21 +1639,19 @@ item.status+"\n";
 
 let blob =
 new Blob([csv],{
-type:"text/csv"
+type:"application/vnd.ms-excel"
 });
 
-let url =
-window.URL.createObjectURL(blob);
-
-let a =
+let link =
 document.createElement("a");
 
-a.href = url;
+link.href =
+URL.createObjectURL(blob);
 
-a.download =
-"Riwayat_Peminjaman.csv";
+link.download =
+"Riwayat_Peminjaman.xls";
 
-a.click();
+link.click();
 
 }
 
